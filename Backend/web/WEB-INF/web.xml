@@ -5,6 +5,17 @@
          version="4.0">
 
 
+    <!-- params -->
+    <context-param>
+        <param-name>dbUrl</param-name>
+        <param-value>localhost:3306</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbDriver</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+
+    <!-- servlet & mapping-->
     <servlet>
         <servlet-name>PeakPlatform</servlet-name>
         <servlet-class>PeakPlatform</servlet-class>
