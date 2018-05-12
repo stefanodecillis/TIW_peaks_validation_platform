@@ -6,9 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32789468-53b9-482e-94fa-884a6e5062e9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="32789468-53b9-482e-94fa-884a6e5062e9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,8 +80,8 @@
       <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+            <state relative-caret-position="180">
+              <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -514,12 +512,12 @@
       <workItem from="1525966610347" duration="74000" />
       <workItem from="1526073219256" duration="6522000" />
       <workItem from="1526080108341" duration="239000" />
-      <workItem from="1526134384142" duration="15259000" />
+      <workItem from="1526134384142" duration="15339000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22094000" />
+    <option name="totallyTimeSpent" value="22174000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1920" height="1004" extended-state="0" />
@@ -535,12 +533,12 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29677418" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29677418" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Database Console" weight="0.32903227" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4969419" visible="true" weight="0.275" />
-      <window_info id="Web" order="2" sideWeight="0.5030581" side_tool="true" visible="true" weight="0.275" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49784946" visible="true" weight="0.275" />
+      <window_info id="Web" order="2" sideWeight="0.50215054" side_tool="true" visible="true" weight="0.275" />
       <window_info anchor="right" id="Database" order="3" weight="0.3296875" />
       <window_info id="JavaEE:App" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -746,8 +744,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+        <state relative-caret-position="180">
+          <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
         </state>
       </provider>
     </entry>
