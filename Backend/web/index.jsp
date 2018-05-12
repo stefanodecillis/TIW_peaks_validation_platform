@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Util.Constants" %><%--
   Created by IntelliJ IDEA.
   User: Paolo De Santis
   Date: 10/05/2018
@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <% response.sendRedirect(Constants.PATH + "/peakplatform"); %>
   </body>
 </html>
