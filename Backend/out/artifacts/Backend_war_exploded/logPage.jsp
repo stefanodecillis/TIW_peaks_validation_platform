@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Util.Constants" %><%--
   Created by IntelliJ IDEA.
   User: step
   Date: 12/05/2018
@@ -25,7 +25,13 @@
         <input name="psw" class="form-control" id="pwd" type="password"> <br><br>
         <button type="submit" class="btn btn-primary">Accedi</button> <br>
     </form>
-    <a href="localhost:8080/register" target="_blank"><button class="btn btn-warning">Registrati</button></a>
+    <script language="javascript" type="text/javascript">
+        function doRegister() {
+            location.href = "/register";
+        }
+    </script>
+    <button class="btn btn-warning" onclick="doRegister()">Registrati</button>
+
 </div>
 
 </body>

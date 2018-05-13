@@ -45,6 +45,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Register</servlet-name>
+        <jsp-file>/registerPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterService</servlet-name>
+        <servlet-class>controllers.RegisterService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterService</servlet-name>
+        <url-pattern>/registerService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorLogPage</servlet-name>
         <jsp-file>/errorLogPage.jsp</jsp-file>
     </servlet>
