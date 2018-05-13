@@ -14,7 +14,12 @@
 <div align="center">
     <h3>Autorizzazione fallita</h3>
     <br>
-    <button method="GET" action="<%=Constants.PATH%>/logPage.jsp">RITORNA</button>
+    <script language="javascript" type="text/javascript">
+        function doLogin() {
+            location.href = "/login";
+        }
+    </script>
+    <button class="btn btn-primary" onclick="doLogin()">Ritorna</button>
 </div>
 </body>
 </html>

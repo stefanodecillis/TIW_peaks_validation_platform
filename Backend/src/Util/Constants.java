@@ -7,7 +7,7 @@ public class Constants {
 
     /* db credential */
     public final static String DBUSER = "root";
-    public final static String DBURL = "jdbc:mysql://localhost:3306/geo_data";
+    public final static String DBURL = "jdbc:mysql://localhost:3306/geo_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //mysql needs time date
     public final static String DBDRIVE = "com.mysql.cj.jdbc.Driver";
 
 

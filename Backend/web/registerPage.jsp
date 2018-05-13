@@ -35,7 +35,8 @@
         <button type="submit" class="btn btn-warning">Registrati</button> <br>
     </form>
     <br>
-    o
+    <label>oppure</label>
+    <br>
     <br>
     <script language="javascript" type="text/javascript">
         function doLogin() {

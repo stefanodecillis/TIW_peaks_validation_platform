@@ -39,7 +39,7 @@ public class RegisterService extends HttpServlet {
         String psw = request.getParameter("psw");
         int job_id = getJobId(request.getParameter("job"));
         if(job_id == 0){
-            //redirect to error page  //TODO do error page
+            this.redirectToError(response);
             return;
         }
         String pswBase64 = Base64.getEncoder().encodeToString(psw.getBytes());
@@ -49,7 +49,7 @@ public class RegisterService extends HttpServlet {
             while (rs.next()){
                 if(rs.getString("email").equalsIgnoreCase(mail) || rs.getString("username").equalsIgnoreCase(username)){
                     //similar user found
-                    response.sendRedirect(Constants.PATH + "/errorLog"); //TODO fix the redirect
+                    this.redirectToError(response);
                     return;
                 }
             }
@@ -83,6 +83,10 @@ public class RegisterService extends HttpServlet {
             return 2;
         }
         return 0;
+    }
+
+    private void redirectToError(HttpServletResponse response) throws IOException{
+        response.sendRedirect(Constants.PATH+"/errorReg");
     }
 
     @Override

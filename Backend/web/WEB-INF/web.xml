@@ -71,4 +71,13 @@
         <url-pattern>/errorLog</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ErrorRegisterPage</servlet-name>
+        <jsp-file>/errorRegisterPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorRegisterPage</servlet-name>
+        <url-pattern>/errorReg</url-pattern>
+    </servlet-mapping>
+
 </web-app>
