@@ -73,7 +73,7 @@
 
     <servlet>
         <servlet-name>ErrorRegisterPage</servlet-name>
-        <jsp-file>/errorRegisterPage.jsp</jsp-file>
+        <jsp-file>/errorRegister.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorRegisterPage</servlet-name>
