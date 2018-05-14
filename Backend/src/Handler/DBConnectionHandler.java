@@ -7,32 +7,31 @@ import java.sql.SQLException;
 
 public class DBConnectionHandler {
 
-    private Connection connection = null;
+    private static DBConnectionHandler instance = null;
 
-    public DBConnectionHandler(){
+    private DBConnectionHandler(){
 
+    }
+
+    public  static DBConnectionHandler getInstance(){
+        if(instance == null){
+            instance = new DBConnectionHandler();
+        }
+
+        return instance;
     }
 
     public Connection getConnection(){
-        if(connection == null){
-            try{
-                Class.forName(Constants.DBDRIVE);
-                connection = DriverManager.getConnection(Constants.DBURL, Constants.DBUSER, "stefano");
-            } catch (ClassNotFoundException e){
-                e.printStackTrace();
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-        return this.connection;
-    }
-
-    public void closeConnection(){
-        try {
-            this.connection.close();
-        } catch (SQLException e) {
+        Connection connection = null;
+        try{
+            Class.forName(Constants.DBDRIVER);
+            connection = DriverManager.getConnection(Constants.DBURL, Constants.DBUSER, "stefano");
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e){
             e.printStackTrace();
         }
+        return connection;
     }
 
 

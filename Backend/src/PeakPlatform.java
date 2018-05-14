@@ -22,8 +22,7 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
     @Override
     public void init() throws ServletException {
         context = getServletContext();
-        DBConnectionHandler connectionHandler = new DBConnectionHandler();
-        connection = connectionHandler.getConnection();
+        connection = DBConnectionHandler.getInstance().getConnection();
         super.init();
     }
 
