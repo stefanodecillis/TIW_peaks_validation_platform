@@ -16,3 +16,8 @@ div.form-beauty{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#registerBtn,#loginBtn {
+    display: inline-block;
+    width: 100px;
+}

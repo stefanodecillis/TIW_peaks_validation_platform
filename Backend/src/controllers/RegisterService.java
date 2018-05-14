@@ -29,13 +29,18 @@ public class RegisterService extends HttpServlet {
         super.init();
     }
 
-    //TODO check mail structure and check box emptiness
+    //TODO check mail structure
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PreparedStatement statement = null;
         ResultSet rs = null;
         String username = request.getParameter("username");
         String mail = request.getParameter("mail");
         String psw = request.getParameter("psw");
+        String psw_check = request.getParameter("psw-check");
+        if(!checkParam(username,mail,psw,psw_check)){
+            this.redirectToError(response);
+            return;
+        }
         int job_id = getJobId(request.getParameter("job"));
         if(job_id == 0){
             this.redirectToError(response);
@@ -86,6 +91,16 @@ public class RegisterService extends HttpServlet {
 
     private void redirectToError(HttpServletResponse response) throws IOException{
         response.sendRedirect(Constants.PATH+"/errorReg");
+    }
+
+    private boolean checkParam(String username, String email, String psw, String psw_check){
+        if(username == null || email == null || psw == null || psw_check == null){
+            return false;
+        }
+        if(!psw.equals(psw_check)){
+            return false;
+        }
+        return true;
     }
 
     @Override

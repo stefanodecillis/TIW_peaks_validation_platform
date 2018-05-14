@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/Script/authScript.js"></script>
     <title>Log in</title>
 </head>
 <body background="blue">
@@ -23,15 +24,9 @@
         <input name="mail" class="form-control" id="email" type="email"> <br><br>
         <label>Password:</label> <br>
         <input name="psw" class="form-control" id="pwd" type="password"> <br><br>
-        <button type="submit" class="btn btn-primary">Accedi</button> <br>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Accedi</button>
     </form>
-    <script language="javascript" type="text/javascript">
-        function doRegister() {
-            location.href = "/register";
-        }
-    </script>
-    <button class="btn btn-warning" onclick="doRegister()">Registrati</button>
-
+    <button class="btn btn-warning" onclick="doRegister()" id="registerBtn">Registrati</button>
 </div>
 
 </body>
