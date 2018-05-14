@@ -80,4 +80,31 @@
         <url-pattern>/errorReg</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>homeManager</servlet-name>
+        <jsp-file>/homeManager.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homeManager</servlet-name>
+        <url-pattern>/homeManager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>homeWorker</servlet-name>
+        <jsp-file>/homeWorker.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homeWorker</servlet-name>
+        <url-pattern>/homeWorker</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userDetails</servlet-name>
+        <jsp-file>/userDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userDetails</servlet-name>
+        <url-pattern>/userDetails</url-pattern>
+    </servlet-mapping>
+
 </web-app>

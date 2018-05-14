@@ -23,5 +23,9 @@ public class Constants {
             "ua.username AS username " +
             "FROM user_app ua ";
     public final static String INSERT_USER = "INSERT INTO user_app(username,psswd,mail,user_type_id) VALUES(?,?,?,?)";
+    public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM CAMPAIGN WHERE owner_id=?";
+
+    //test
+    public final static int TEST_USER_ID = 3;
 
 }
