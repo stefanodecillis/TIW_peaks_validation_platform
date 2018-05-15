@@ -21,7 +21,7 @@
 <h1>List of your Campaign</h1>
 <%
     try {
-        String query = "SELECT * FROM CAMPAIGN WHERE owner_id=?";
+        String query = Constants.CHECK_CAMPAIGN_BY_OWNER_ID;
         statement = connection.prepareStatement(query);
         statement.setInt(1, Constants.TEST_USER_ID);
         resultSet = statement.executeQuery();
@@ -49,8 +49,8 @@
 
 </table>
 
-
 <a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click for User Details</p></a>
+
 <%
         statement.close();
         resultSet.close();

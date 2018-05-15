@@ -68,7 +68,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorLogPage</servlet-name>
-        <url-pattern>/errorLog</url-pattern>
+        <url-pattern>/errorLogPage</url-pattern>
     </servlet-mapping>
 
     <servlet>

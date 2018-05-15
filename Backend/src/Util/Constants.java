@@ -24,8 +24,8 @@ public class Constants {
             "FROM user_app ua ";
     public final static String INSERT_USER = "INSERT INTO user_app(username,psswd,mail,user_type_id) VALUES(?,?,?,?)";
     public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM CAMPAIGN WHERE owner_id=?";
-
-    //test
+    public final static String CAMPAIGN_STARTED_JOINED = "SELECT * FROM CAMPAIGN AS C JOIN SUBSCRIBE AS S ON C.campaign_id=S.campaign_id WHERE S.worker_id=? AND C.campaign_status_id=2";
+    public final static String CAMPAIGN_NOT_JOINED = "select * FROM CAMPAIGN AS C where C.campaign_id not in (select S.campaign_id from subscribe as S where S.worker_id=?)";    //test
     public final static int TEST_USER_ID = 3;
-
+    public final static int WORKER_TEST_USER_ID = 4;
 }
