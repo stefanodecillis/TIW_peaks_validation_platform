@@ -13,12 +13,13 @@
 <html>
 <head>
     <title>Manager HomePage</title>
-    <%! Connection connection = DBConnectionHandler.getInstance().getConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null; %>
+
 </head>
 <body>
 <h1>List of your Campaign</h1>
+<% Connection connection = DBConnectionHandler.getInstance().getConnection();
+    PreparedStatement statement = null;
+    ResultSet resultSet = null; %>
 <%
     try {
         String query = Constants.CHECK_CAMPAIGN_BY_OWNER_ID;

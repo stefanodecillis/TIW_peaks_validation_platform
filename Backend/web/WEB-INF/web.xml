@@ -107,4 +107,15 @@
         <url-pattern>/userDetails</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserDetailsService</servlet-name>
+        <servlet-class>controllers.UserDetailsService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDetailsService</servlet-name>
+        <url-pattern>/userDetailsService</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>
