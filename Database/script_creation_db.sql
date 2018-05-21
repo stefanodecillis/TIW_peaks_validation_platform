@@ -17,7 +17,9 @@ CREATE table campaign (
             ts_date    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             ts_begin   TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
             ts_end     TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (campaign_status_id) REFERENCES campaign_status(campaign_status_id)
+            owner_id  int unsigned,
+            FOREIGN KEY (campaign_status_id) REFERENCES campaign_status(campaign_status_id),
+            foreign key (owner_id) references user_app(user_id)
 )
 
 
@@ -26,7 +28,7 @@ create table user_info (
 			user_type_name varchar(15) not null
 )
 
-insert into user_info (user_type_id, user_type_name) VALUES (1, "lavoratore")
+insert into user_info (user_type_id, user_type_name) VALUES (1, "worker")
 
 insert into user_info (user_type_id, user_type_name) VALUES (2, "manager")
 
@@ -63,7 +65,7 @@ insert into validation_status VALUES(1,"respinta")
 
 insert into validation_status VALUES(2, "valida")
 
-CREATE OR REPLACE table annotation (
+CREATE table annotation (
 			annotation_id int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 			elevation DOUBLE UNSIGNED not null,
 			validation  INT(11) not null,
@@ -72,7 +74,6 @@ CREATE OR REPLACE table annotation (
 			timeslot_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			validation_status_id int UNSIGNED,
 			FOREIGN KEY (validation_status_id) REFERENCES validation_status(validation_status_id)
-			FOREIGN KEY (validation) REFERENCES annotation_validation_status(annotation_validation_id)
 )
 
 create table peak (
@@ -87,5 +88,14 @@ create table peak (
 			FOREIGN KEY (annotation_id) REFERENCES annotation(annotation_id)
 )
 
+create table subscribe (
+			subscribe_id int UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+			worker_id int unsigned not null,
+			ts_date timestamp default current_timestamp,
+			campaign_id int unsigned not null,
+			FOREIGN KEY (worker_id) REFERENCES user_app(user_id),
+			FOREIGN KEY (campaign_id) REFERENCES campaign(campaign_id)
+)
 
 
+drop table subscribe
