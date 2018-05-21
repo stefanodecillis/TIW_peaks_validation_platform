@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1> Modify User Details</h1>
-<div class="form-beauty" align="left">
+<div class="form-beauty" align="center">
     <form method="POST" action="/userDetailsService">
         <label>New User Name:</label> <br>
         <input name="username" class="form-control" id="username" type="text"> <br><br>
@@ -18,7 +18,9 @@
     </form>
 </div>
 
-<div class="form-beauty" align="right">
+<br>
+
+<div class="form-beauty" align="center">
     <form method="POST" action="/userDetailsPasswordService">
         <label>Old Password:</label> <br>
         <input name="oldPsw" class="form-control" id="psw1" type="password"> <br><br>
@@ -28,7 +30,14 @@
         <input name="newPswConfirm" class="form-control" id="psw3" type="password"> <br><br>
         <button type="submit" class="btn btn-primary" id="modifyPasswordBtn">Modify Password</button>
     </form>
-</div>
+
+    <script language="javascript" type="text/javascript">
+        function returnUserDetails() {
+            location.href = "/userDetails";
+        }
+    </script>
+    <br>
+    <button class="btn btn-primary" onclick="returnUserDetails()">Return</button></div>
 
 
 

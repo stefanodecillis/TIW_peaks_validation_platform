@@ -18,8 +18,8 @@ public class UserDetailsService extends HttpServlet {
 
     private Connection connection = null;
     private ServletContext context = null;
-    private PreparedStatement statement=null;
-    private ResultSet rs=null;
+    private PreparedStatement statement = null;
+    private ResultSet rs = null;
 
 
     @Override
@@ -28,6 +28,7 @@ public class UserDetailsService extends HttpServlet {
         connection = DBConnectionHandler.getInstance().getConnection();
         super.init();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
@@ -35,20 +36,20 @@ public class UserDetailsService extends HttpServlet {
             statement = connection.prepareStatement(query);
             statement.setInt(1, Constants.WORKER_TEST_USER_ID);
             rs = statement.executeQuery();
-            String insertPsw =request.getParameter("psw");
-            String userPsw=null;
-            if(rs.next()){
+            String insertPsw = request.getParameter("psw");
+            String userPsw = null;
+            if (rs.next()) {
                 userPsw = rs.getString("psswd");
             }
             String insertPswBase96 = Base64.getEncoder().encodeToString(insertPsw.getBytes());
-            if(!userPsw.equals(insertPswBase96)){
+            if (!userPsw.equals(insertPswBase96)) {
                 //alert psw sbagliata
                 response.sendRedirect(Constants.PATH + "/errorPsw");
-            } else{
+            } else {
                 String username = request.getParameter("username");
                 String mail = request.getParameter("mail");
 
-                if (!username.isEmpty() && !mail.isEmpty()){
+                if (!username.isEmpty() && !mail.isEmpty()) {
                     //update both
                     query = Constants.UPDATE_USER_DETAILS;
                     statement = connection.prepareStatement(query);
@@ -57,7 +58,7 @@ public class UserDetailsService extends HttpServlet {
                     statement.setInt(3, Constants.WORKER_TEST_USER_ID);
                     statement.executeUpdate();
                     response.sendRedirect(Constants.PATH + "/userDetails");
-                }else if(!username.isEmpty() && mail.isEmpty()){
+                } else if (!username.isEmpty() && mail.isEmpty()) {
                     //update username
                     query = Constants.UPDATE_USER_USERNAME;
                     statement = connection.prepareStatement(query);
@@ -65,7 +66,7 @@ public class UserDetailsService extends HttpServlet {
                     statement.setInt(2, Constants.WORKER_TEST_USER_ID);
                     statement.executeUpdate();
                     response.sendRedirect(Constants.PATH + "/userDetails");
-                }else if(username.isEmpty() && !mail.isEmpty()){
+                } else if (username.isEmpty() && !mail.isEmpty()) {
                     //update mail
                     query = Constants.UPDATE_USER_EMAIL;
                     statement = connection.prepareStatement(query);
@@ -73,24 +74,24 @@ public class UserDetailsService extends HttpServlet {
                     statement.setInt(2, Constants.WORKER_TEST_USER_ID);
                     statement.executeUpdate();
                     response.sendRedirect(Constants.PATH + "/userDetails");
-                }else{
+                } else {
                     //alert form empty
                     response.sendRedirect(Constants.PATH + "/errorEmptyForm");
                 }
 
             }
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
-            if(rs != null){
+        } finally {
+            if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            if(statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -98,8 +99,6 @@ public class UserDetailsService extends HttpServlet {
                 }
             }
         }
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -108,7 +107,7 @@ public class UserDetailsService extends HttpServlet {
 
     @Override
     public void destroy() {
-        if(connection != null){
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {
