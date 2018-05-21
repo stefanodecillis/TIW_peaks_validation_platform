@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Base64;
 
-@WebServlet(name = "UserDetailsService")
-public class UserDetailsService extends HttpServlet {
+@WebServlet(name = "UserDetailsPasswordService")
+public class UserDetailsPasswordService extends HttpServlet {
 
     private Connection connection = null;
     private ServletContext context = null;
@@ -35,44 +35,31 @@ public class UserDetailsService extends HttpServlet {
             statement = connection.prepareStatement(query);
             statement.setInt(1, Constants.WORKER_TEST_USER_ID);
             rs = statement.executeQuery();
-            String insertPsw =request.getParameter("psw");
+            String oldPsw =request.getParameter("oldPsw");
             String userPsw=null;
             if(rs.next()){
                 userPsw = rs.getString("psswd");
             }
-            String insertPswBase96 = Base64.getEncoder().encodeToString(insertPsw.getBytes());
+            String insertPswBase96 = Base64.getEncoder().encodeToString(oldPsw.getBytes());
             if(!userPsw.equals(insertPswBase96)){
                 //alert psw sbagliata
                 response.sendRedirect(Constants.PATH + "/errorPsw");
             } else{
-                String username = request.getParameter("username");
-                String mail = request.getParameter("mail");
+                String newPsw = request.getParameter("newPsw");
+                String newPswConfirm = request.getParameter("newPswConfirm");
 
-                if (!username.isEmpty() && !mail.isEmpty()){
-                    //update both
-                    query = Constants.UPDATE_USER_DETAILS;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, username);
-                    statement.setString(2, mail);
-                    statement.setInt(3, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
-                    response.sendRedirect(Constants.PATH + "/userDetails");
-                }else if(!username.isEmpty() && mail.isEmpty()){
-                    //update username
-                    query = Constants.UPDATE_USER_USERNAME;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, username);
-                    statement.setInt(2, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
-                    response.sendRedirect(Constants.PATH + "/userDetails");
-                }else if(username.isEmpty() && !mail.isEmpty()){
-                    //update mail
-                    query = Constants.UPDATE_USER_EMAIL;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, mail);
-                    statement.setInt(2, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
-                    response.sendRedirect(Constants.PATH + "/userDetails");
+                if (!newPsw.isEmpty() && !newPswConfirm.isEmpty()){
+                    if(newPsw.equals(newPswConfirm)){
+                        query = Constants.UPDATE_USER_PASSWORD;
+                        statement = connection.prepareStatement(query);
+                        String newPswBase96 = Base64.getEncoder().encodeToString(newPsw.getBytes());
+                        statement.setString(1,  newPswBase96);
+                        statement.setInt(2, Constants.WORKER_TEST_USER_ID);
+                        statement.executeUpdate();
+                        response.sendRedirect(Constants.PATH + "/userDetails");
+                    } else {
+                        response.sendRedirect(Constants.PATH + "/errorPswConfirm");
+                    }
                 }else{
                     //alert form empty
                     response.sendRedirect(Constants.PATH + "/errorEmptyForm");

@@ -30,7 +30,7 @@
     try{
         String query = Constants.USER_DETAILS;
         statement=connection.prepareStatement(query);
-        statement.setInt(1, Constants.TEST_USER_ID);
+        statement.setInt(1, Constants.WORKER_TEST_USER_ID);
         user_appResultSet=statement.executeQuery();
 %>
 <div class="table-responsive">
@@ -44,15 +44,14 @@
 
     <tr><td>
         <td>Username: <%=user_appResultSet.getString("username")%></td>
-        <td>Email: <%=user_appResultSet.getString("mail")%></td>
-        <td>Password: <%=user_appResultSet.getString("psswd")%></td></tr>
+        <td>Email: <%=user_appResultSet.getString("mail")%></td></tr>
     <%
         }
     %>
 
 </table>
 </div>
-<a href="<%= Constants.PATH + "/Structures/modifyUserDetails.html?user_id=" + Constants.TEST_USER_ID%>"><p>  Click for Modify User Details</p></a>
+<a href="<%= Constants.PATH + "/modifyUserDetails.html?user_id=" + Constants.WORKER_TEST_USER_ID%>"><p>  Click for Modify User Details</p></a>
 
 <%
         statement.close();

@@ -79,11 +79,11 @@ public class LogService extends HttpServlet {
     }
 
     private void redirectToManager(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeManager");  //need homepage
+        response.sendRedirect(Constants.PATH +"/homeManager");
     }
 
     private void redirectToWorker(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeWorker");  //need homepage
+        response.sendRedirect(Constants.PATH +"/homeWorker");
     }
 
     private void redirectToErrorPage(HttpServletResponse response) throws IOException {

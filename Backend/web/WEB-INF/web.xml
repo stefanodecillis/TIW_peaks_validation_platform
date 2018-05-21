@@ -116,6 +116,51 @@
         <url-pattern>/userDetailsService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserDetailsPasswordService</servlet-name>
+        <servlet-class>controllers.UserDetailsPasswordService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDetailsPasswordService</servlet-name>
+        <url-pattern>/userDetailsPasswordService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>errorEmptyForm</servlet-name>
+        <jsp-file>/errorEmptyForm.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorEmptyForm</servlet-name>
+        <url-pattern>/errorEmptyForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>errorPsw</servlet-name>
+        <jsp-file>/errorPsw.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorPsw</servlet-name>
+        <url-pattern>/errorPsw</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>modifyUserDetails</servlet-name>
+        <jsp-file>/modifyUserDetails.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>modifyUserDetails</servlet-name>
+        <url-pattern>/modifyUserDetails</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>errorPswConfirm</servlet-name>
+        <jsp-file>/errorPswConfirm.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorPswConfirm</servlet-name>
+        <url-pattern>/errorPswConfirm</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

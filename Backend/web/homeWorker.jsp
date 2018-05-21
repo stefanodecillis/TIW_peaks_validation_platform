@@ -81,7 +81,7 @@
 
 </table>
 
-<a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click for User Details</p></a>
+<a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.WORKER_TEST_USER_ID%>"><p>  Click for User Details</p></a>
 
 <%
     statement.close();
