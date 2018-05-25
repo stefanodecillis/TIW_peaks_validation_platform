@@ -25,7 +25,7 @@ public class DBConnectionHandler {
         Connection connection = null;
         try{
             Class.forName(Constants.DBDRIVER);
-            connection = DriverManager.getConnection(Constants.DBURL, Constants.DBUSER, "paolodesantiscomo");
+            connection = DriverManager.getConnection(Constants.DBURL, Constants.DBUSER, Constants.DBPSW);
         } catch (ClassNotFoundException e){
             e.printStackTrace();
         } catch (SQLException e){
