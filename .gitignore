@@ -3,3 +3,5 @@
 *.iws
 .DS_Store
 workspace.xml
+Backend/out/*
+Backend/.idea/*
