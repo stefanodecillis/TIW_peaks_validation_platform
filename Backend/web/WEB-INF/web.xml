@@ -20,7 +20,7 @@
         <servlet-name>PeakPlatform</servlet-name>
         <servlet-class>PeakPlatform</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>PeakPlatform</servlet-name>
         <url-pattern>/peakplatform</url-pattern>
@@ -161,6 +161,15 @@
         <url-pattern>/errorPswConfirm</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>campaignCreationService</servlet-name>
+        <servlet-class>controllers.CampaignCreationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>campaignCreationService</servlet-name>
+        <url-pattern>/campaignCreationService</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

@@ -31,6 +31,7 @@ public class Constants {
     public final static String UPDATE_USER_USERNAME = "UPDATE user_app set username = ?  where user_id=?";
     public final static String UPDATE_USER_EMAIL = "UPDATE user_app set mail=? where user_id=?";
     public final static String UPDATE_USER_PASSWORD = "UPDATE user_app set psswd=? where user_id=?";
+    public final static String INSERT_CAMPAIGN = "INSERT INTO campaign(campaign_name,campaign_status_id,ts_date,ts_begin,ts_end,owner_id) values(?,?,?,?,?,?)";
 
     public final static int TEST_USER_ID = 3;
     public final static int WORKER_TEST_USER_ID = 4;

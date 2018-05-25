@@ -51,7 +51,8 @@
 </table>
 
 <a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click for User Details</p></a>
-
+<br>
+<a href="<%= Constants.PATH + "/campaignCreation.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click to Create a Campaign</p></a>
 <%
         statement.close();
         resultSet.close();
