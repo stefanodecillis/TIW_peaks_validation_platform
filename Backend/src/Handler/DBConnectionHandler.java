@@ -16,8 +16,8 @@ public class DBConnectionHandler {
     public  static DBConnectionHandler getInstance(){
         if(instance == null){
             instance = new DBConnectionHandler();
+            System.out.println("---> got db! <---");
         }
-
         return instance;
     }
 
