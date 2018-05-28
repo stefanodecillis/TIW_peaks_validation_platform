@@ -44,6 +44,7 @@
         <td><%=campaignJoined.getDate("ts_date")%></td>
         <td><%=campaignJoined.getDate("ts_begin")%></td>
         <td><%=campaignJoined.getDate("ts_end")%></td></tr>
+        <td><button formmethod="post" formaction="/registerCampaign" value="Sign Up"></button> </td>
     <%
         }
     %>

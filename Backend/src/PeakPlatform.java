@@ -40,39 +40,51 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
             return;
         } else {
             //we logged yet and depending on which cookies do we have, we redirect to manager or worker home
+            System.out.println("...checking cookies...["+ cookies.length +"]");
             for(Cookie cookie : cookies){
-                if (cookie.getName() == "cookie-job"){
+                if (cookie.getName().equalsIgnoreCase(Constants.COOKIE_USER)){
                     cookieFound = true;
+                    System.out.println("-->cookie found <--");
                     byte[] baseValue = Base64.getDecoder().decode(cookie.getValue()); //decode data from cookie
                     String ret = new String(baseValue);
                     if(ret == null){
                         //redirect to login jsp
+                        System.out.println("cookie value is null \n --> log page");
                         this.redirectLogPage(response);
                         return;
                     } else {
-                        Gson gson = GsonSingleton.getInstance().getGson();
+                        System.out.println("...checking integrity...");
+                        Gson gson = new Gson();
                         AuthCookie data = gson.fromJson(ret, AuthCookie.class);
-                        String query = Constants.CHECK_COOKIE;
+                        String query = Constants.CHECK_COOKIE;    //TODO we can do better with this query --> don't retrieve all data from db
                         ResultSet rs = null;
                         PreparedStatement statement = null;
                         try {
-                            statement = connection.prepareCall(query); //connection.prepareStatement(query);
+                            statement = connection.prepareStatement(query);
                             statement.setInt(1, data.getUser_id());
+                            System.out.println("user_id: " + data.getUser_id() +" trying to log in..");
                             rs = statement.executeQuery();
-                            String user = rs.getString("username");
-                            String psw = rs.getString("psw");
+                            String user = null;
+                            String psw = null;
+                            String job_des = null;
+                            while(rs.next()){
+                                user = rs.getString("username");
+                                psw = rs.getString("psw");
+                                job_des = rs.getString("job");
+                            }
                             if(!user.equalsIgnoreCase(data.getUsername()) || !psw.equalsIgnoreCase(data.getPassword())){
                                 System.out.println("wrong auth!");
                                 this.redirectLogPage(response);
                                 return;  //redirect to login
                             }
                             //authenticated
-                            String job_des = rs.getString("job");
+                            System.out.println("<Authenticated>");
                             if(job_des.equalsIgnoreCase("worker")){
-                                //redirect to worker homepage with credential in request
+                                this.redirectToWorker(response);
                                 return;
                             } else if (job_des.equalsIgnoreCase("manager")){
                                 //redirect to manager homepage with credential in request
+                                this.redirectToManager(response);
                                 return;
                             } else {
                                 //redirect to login jsp
@@ -81,6 +93,7 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
+                            System.out.println("caught error \n --> log page");
                             this.redirectLogPage(response);
                         } finally {
                             if(rs != null){
@@ -120,19 +133,20 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
         super.destroy();
     }
 
-    private void connectDb() throws ClassNotFoundException, SQLException, UnavailableException {
-        String dbUrl = context.getInitParameter("dbUrl");
-        try {
-            Class.forName(context.getInitParameter("dbDrive"));
-            connection = DriverManager.getConnection(dbUrl,"root","stefano");
-            System.out.println("successful connection!");
-        } catch (SQLException e){
-            throw new UnavailableException("Couldn't get db connection");
-        }
-    }
 
     private void redirectLogPage(HttpServletResponse response) throws  IOException {
         response.sendRedirect( Constants.PATH + "/login");
+        System.out.println("--> log page");
         return;
+    }
+
+    private void redirectToManager(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH +"/homeManager");
+        System.out.println("--> manager page");
+    }
+
+    private void redirectToWorker(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH +"/homeWorker");
+        System.out.println("--> worker page");
     }
 }

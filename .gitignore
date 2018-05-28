@@ -3,3 +3,7 @@
 *.iws
 .DS_Store
 workspace.xml
+Backend/out/
+Backend/.idea/
+Backend/Backend.iml
+*.pbxuser, *.xcuserstate,Backend/.idea/workspace.xml,*.iml,modules.xml,vcs.xml,application.xml,

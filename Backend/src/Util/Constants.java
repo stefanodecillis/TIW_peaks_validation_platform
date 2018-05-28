@@ -5,10 +5,14 @@ public class Constants {
 
     public final static String PATH = "http://localhost:8080";
 
+    /* constants string*/
+    public final static String COOKIE_USER = "cookie-user";
+
     /* db credential */
     public final static String DBUSER = "root";
-    public final static String DBURL = "jdbc:mysql://localhost:3306/geo_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //mysql needs time date
+    public final static String DBURL = "jdbc:mysql://stefanodecillis.no-ip.org:9000/geo_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //mysql needs time date
     public final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
+    public final static String DBPSW = "stefano";
 
 
     /*static queries and constants*/
@@ -16,7 +20,7 @@ public class Constants {
     public static final String CHECK_COOKIE = "SELECT ui.user_type_id AS job_id, ua.username AS username, ua.psswd AS psw, " +
             "ui.user_type_name AS job FROM user_app ua INNER JOIN user_info ui on ua.user_type_id = ui.user_type_id WHERE ua.user_id = ?";
     public final static String CHECK_LOG = "SELECT ua.user_type_id AS job_id, " +
-            "ua.mail AS mail, ua.psswd AS psw, ui.user_type_name AS job FROM user_app AS ua INNER JOIN user_info AS ui ON ua.user_type_id = ui.user_type_id WHERE ua.mail = ? and ua.psswd = ?";
+            "ua.mail AS mail, ua.psswd AS psw, ui.user_type_name AS job, ua.user_id as user_id, ua.username as username FROM user_app AS ua INNER JOIN user_info AS ui ON ua.user_type_id = ui.user_type_id WHERE ua.mail = ? and ua.psswd = ?";
     public final static String CHECK_USERS = "SELECT ua.user_type_id AS job_id, " +
             "ua.mail AS email, " +
             "ua.psswd AS psw, " +

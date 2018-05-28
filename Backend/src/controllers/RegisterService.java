@@ -1,11 +1,14 @@
 package controllers;
 
+import Entities.AuthCookie;
 import Handler.DBConnectionHandler;
 import Util.Constants;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +49,7 @@ public class RegisterService extends HttpServlet {
             this.redirectToError(response);
             return;
         }
+        System.out.println("...saving...");
         String pswBase64 = Base64.getEncoder().encodeToString(psw.getBytes());
         try{
             statement = connection.prepareStatement(Constants.CHECK_USERS);
@@ -53,6 +57,7 @@ public class RegisterService extends HttpServlet {
             while (rs.next()){
                 if(rs.getString("email").equalsIgnoreCase(mail) || rs.getString("username").equalsIgnoreCase(username)){
                     //similar user found
+                    System.out.println("similar user found! \n --> error page");
                     this.redirectToError(response);
                     return;
                 }
@@ -70,6 +75,13 @@ public class RegisterService extends HttpServlet {
                                 "   mail: " + mail +
                                 "   job_id: " + job_id);
 
+            //if alg is fine, do this:
+            if(!this.completeLogin(response, job_id,mail, pswBase64)){
+                System.out.println("! complete login caught an error !");
+                this.redirectToError(response);
+            }
+
+            return;
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -77,6 +89,36 @@ public class RegisterService extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(Constants.PATH+"/register");
+    }
+
+
+    private boolean completeLogin(HttpServletResponse response, Integer job_id, String mail, String psw) throws IOException, SQLException {
+
+        PreparedStatement statement = this.connection.prepareStatement(Constants.CHECK_LOG);
+        statement.setString(1, mail);
+        statement.setString(2, psw);
+        ResultSet rs = statement.executeQuery();
+        Integer user_id = null;
+        String username = null;
+
+        while (rs.next()) {
+            user_id = rs.getInt("user_id");
+            username = rs.getString("username");
+        }
+
+        if(user_id == null || username == null) {
+            return false;
+        }
+
+        this.attachCookie(response, user_id,username,psw);
+
+        if(job_id == 1){
+            this.redirectToWorker(response);
+        } else if (job_id == 2){
+            this.redirectToManager(response);
+        }
+
+        return true;
     }
 
 
@@ -103,6 +145,25 @@ public class RegisterService extends HttpServlet {
         return true;
     }
 
+    //TODO recheck this code --> use unique service to gen cookies
+    private void attachCookie(HttpServletResponse response,Integer user_id, String user, String psw){
+
+        System.out.println("...generating cookie...");
+        AuthCookie authCookie = new AuthCookie(user_id, user,psw);
+
+        //json data
+        Gson gson = new Gson();
+        String ret = gson.toJson(authCookie,AuthCookie.class);
+
+        //encode cookie value
+        String cryptRet = Base64.getEncoder().encodeToString(ret.getBytes());
+
+        Cookie ck = new Cookie(Constants.COOKIE_USER,cryptRet);//creating cookie object
+        ck.setMaxAge(60*60*24); //one day --> age should be expressed in seconds
+        response.addCookie(ck);//adding cookie in the response
+        System.out.println("cookie attached to response");
+    }
+
     @Override
     public void destroy() {
         if(connection != null){
@@ -114,4 +175,15 @@ public class RegisterService extends HttpServlet {
         }
         super.destroy();
     }
+
+    private void redirectToManager(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH +"/homeManager");
+        System.out.println("--> manager page");
+    }
+
+    private void redirectToWorker(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH +"/homeWorker");
+        System.out.println("--> worker page");
+    }
 }
+

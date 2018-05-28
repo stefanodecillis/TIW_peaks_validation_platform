@@ -13,6 +13,14 @@ public class AuthCookie {
     @SerializedName("password")
     private String password; //base94
 
+
+
+    public AuthCookie (Integer user_id, String username, String password){
+        this.password = password;
+        this.user_id = user_id;
+        this.username = username;
+    }
+
     public Integer getUser_id() {
         return user_id;
     }
