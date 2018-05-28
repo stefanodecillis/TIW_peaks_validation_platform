@@ -171,5 +171,14 @@
         <url-pattern>/campaignCreationService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>campaignDetails</servlet-name>
+        <jsp-file>/campaignDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>campaignDetails</servlet-name>
+        <url-pattern>/campaignDetails</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 
 @WebServlet(name = "campaignCreationService")
 public class CampaignCreationService extends HttpServlet {
-    
+
     private Connection connection = null;
     private ServletContext context = null;
     private PreparedStatement statement = null;
@@ -50,7 +50,7 @@ public class CampaignCreationService extends HttpServlet {
                 statement.setInt(6, owner_id);
                 statement.executeUpdate();
 
-                response.sendRedirect(Constants.PATH + "/homeManager");
+                response.sendRedirect(Constants.PATH + "/campaignDetails?name=" + request.getParameter("name")); //redirect campaignDetails
 
             }
 
