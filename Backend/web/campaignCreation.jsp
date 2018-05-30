@@ -19,7 +19,7 @@
         <label>Campaign Name:</label> <br>
         <br>
         <input name="name" class="form-control" placeholder="insert campaign name" id="name" type="text" required> <br>
-        <input name="owner_id" type="hidden" value="<%= Constants.TEST_USER_ID%>"> <br>
+        <input name="owner_id" type="hidden" value="<%= Integer.parseInt(request.getParameter("user"))%>"> <br>
         <button type="submit" class="btn btn-primary"  id="createCampBtn">Create</button>
         <br>
     </form>

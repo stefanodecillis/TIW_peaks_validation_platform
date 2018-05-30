@@ -2,7 +2,9 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="Util.Constants" %><%--
+<%@ page import="Util.Constants" %>
+<%@ page import="Entities.AuthCookie" %>
+<%@ page import="Handler.CookieHandler" %><%--
   Created by IntelliJ IDEA.
   User: Paolo De Santis
   Date: 14/05/2018
@@ -18,13 +20,14 @@
 <body>
 <h1>List of your Campaign</h1>
 <% Connection connection = DBConnectionHandler.getInstance().getConnection();
+    AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
     PreparedStatement statement = null;
     ResultSet resultSet = null; %>
 <%
     try {
         String query = Constants.CHECK_CAMPAIGN_BY_OWNER_ID;
         statement = connection.prepareStatement(query);
-        statement.setInt(1, Constants.TEST_USER_ID);
+        statement.setInt(1, data.getUser_id());
         resultSet = statement.executeQuery();
 %>
 <table border>
@@ -37,7 +40,7 @@
 
     <tr><td>
 
-        <a href="campaign.jsp?campaign_id=<%=resultSet.getInt("campaign_id")%>">
+        <a href="campaigndetails?campaign=<%=resultSet.getInt("campaign_id")%>&user=<%=data.getUser_id()%>">
             <%=resultSet.getString("campaign_name")%> </a></td>
 
         <td><%=resultSet.getInt("campaign_status_id")%></td>
@@ -49,19 +52,23 @@
     %>
 
 </table>
-
-<a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click for User Details</p></a>
+<% //TODO what is it this? %>
+<a href="<%= Constants.PATH + "/userDetails.jsp?user=" + data.getUser_id()%>"><p>  Click for User Details</p></a>
 <br>
-<a href="<%= Constants.PATH + "/campaignCreation.jsp?user_id=" + Constants.TEST_USER_ID%>"><p>  Click to Create a Campaign</p></a>
 <%
         statement.close();
         resultSet.close();
         connection.close();
     } catch (Exception ex) {
 
+    } finally {
+
     }
 %>
-
+<form action = "<%=Constants.PATH+"/campaigncreation"%>" method = "post">
+    <input type="hidden" name="user" value="<%=data.getUser_id()%>">
+    <input type="submit" value="Create Campaign" />
+</form>
 <form action = "<%=Constants.PATH+"/logout"%>" method = "post">
     <input type="submit" value="Logout" />
 </form>

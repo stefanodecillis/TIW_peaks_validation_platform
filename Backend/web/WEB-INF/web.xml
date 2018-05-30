@@ -190,4 +190,22 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>CampaignCreationJSP</servlet-name>
+        <jsp-file>/campaignCreation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignCreationJSP</servlet-name>
+        <url-pattern>/campaigncreation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CampaignDetailsJSP</servlet-name>
+        <jsp-file>/campaignDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignDetailsJSP</servlet-name>
+        <url-pattern>/campaigndetails</url-pattern>
+    </servlet-mapping>
 </web-app>

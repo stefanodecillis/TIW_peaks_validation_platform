@@ -27,7 +27,7 @@ public class Constants {
             "ua.username AS username " +
             "FROM user_app ua ";
     public final static String INSERT_USER = "INSERT INTO user_app(username,psswd,mail,user_type_id) VALUES(?,?,?,?)";
-    public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM CAMPAIGN WHERE owner_id=?";
+    public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM campaign WHERE owner_id=?";
     public final static String CAMPAIGN_STARTED_JOINED = "select * from campaign as c join subscribe as s on c.campaign_id = s.campaign_id where s.worker_id = ? and c.campaign_status_id = 2";
     public final static String CAMPAIGN_NOT_JOINED = "select * FROM campaign AS C where C.campaign_id not in (select S.campaign_id from subscribe as S where S.worker_id=?)";    //test
     public final static String USER_DETAILS = "SELECT * FROM USER_APP WHERE user_id=?";
@@ -35,9 +35,10 @@ public class Constants {
     public final static String UPDATE_USER_USERNAME = "UPDATE user_app set username = ?  where user_id=?";
     public final static String UPDATE_USER_EMAIL = "UPDATE user_app set mail=? where user_id=?";
     public final static String UPDATE_USER_PASSWORD = "UPDATE user_app set psswd=? where user_id=?";
-    public final static String INSERT_CAMPAIGN = "INSERT INTO campaign(campaign_name,campaign_status_id,ts_date,ts_begin,ts_end,owner_id) values(?,?,?,?,?,?)";
+    public final static String INSERT_CAMPAIGN =  "INSERT INTO campaign(campaign_name, campaign_status_id,owner_id) VALUES(?,?,?)";
     public final static String CHECK_SUBSCRIPTION = "SELECT * FROM subscribe where worker_id = ? and campaign_id = ?";
     public final static String INSERT_SUBSCRIBE = "INSERT INTO subscribe(worker_id, campaign_id) VALUES(?,?)";
+    public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ?";
 
     public final static int TEST_USER_ID = 3;
     public final static int WORKER_TEST_USER_ID = 4;
