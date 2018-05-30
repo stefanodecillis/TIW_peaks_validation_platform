@@ -12,6 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
     <title>Worker HomePage</title>
     <%! Connection connection = DBConnectionHandler.getInstance().getConnection();
         PreparedStatement statement = null;
