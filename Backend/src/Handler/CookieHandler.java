@@ -3,9 +3,9 @@ package Handler;
 import Entities.AuthCookie;
 import Util.Constants;
 import com.google.gson.Gson;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
 public class CookieHandler {
@@ -43,6 +43,7 @@ public class CookieHandler {
                         System.out.println("...checking integrity...");
                         Gson gson = new Gson();
                         AuthCookie data = gson.fromJson(ret, AuthCookie.class);
+                        System.out.println("data passed with success");
                         return data;
                     }
                 }
@@ -51,7 +52,7 @@ public class CookieHandler {
         return null;
     }
 
-    public boolean closeUserCookie(HttpServletRequest request){
+    public boolean closeUserCookie(HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookies = request.getCookies(); //check for cookies
         boolean cookieFound = false;
         if (cookies == null) {
@@ -62,12 +63,32 @@ public class CookieHandler {
                     System.out.println("->Cookie Found<-");
                     cookie.setMaxAge(0);
                     cookie.setValue("");
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                    System.out.println("->Cookie Deleted<-");
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    //TODO checkThis
+
+    public boolean createCookie(HttpServletResponse response, String cookieName,String cookieValue){
+        try{
+            String encodedValue = Base64.getEncoder().encodeToString(cookieValue.getBytes());
+            Cookie cookie = new Cookie(cookieName, encodedValue);
+            cookie.setMaxAge(60*60*24*2); //two days
+            System.out.println("..cookie created...");
+            response.addCookie(cookie);
+            System.out.println("<cookie attached>");
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

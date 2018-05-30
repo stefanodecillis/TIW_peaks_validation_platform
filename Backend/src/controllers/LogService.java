@@ -101,7 +101,7 @@ public class LogService extends HttpServlet {
     private void redirectToErrorPage(HttpServletResponse response) throws IOException {
         response.sendRedirect(Constants.PATH +"/errorLogPage");
     }
-
+    //TODO Redo the code here  --> cookieHandler
     private void attachCookie(HttpServletResponse response,Integer user_id, String user, String psw){
 
         System.out.println("...generating cookie...");
