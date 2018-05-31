@@ -36,20 +36,16 @@ public class CampaignCreationService extends HttpServlet {
             if (request.getParameter("name").isEmpty()) {
                 response.sendRedirect(Constants.PATH + "/errorEmptyForm");
             } else {
-
+                System.out.println("...creating campaign \"" + request.getParameter("name") + "\" from user: " + request.getParameter("owner_id"));
                 int owner_id = Integer.parseInt(request.getParameter("owner_id"));
 
                 String query = Constants.INSERT_CAMPAIGN;
                 statement = connection.prepareStatement(query);
                 statement.setString(1, request.getParameter("name"));
-                statement.setInt(2, 1);
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                statement.setTimestamp(3, timestamp);
-                statement.setTimestamp(4, null); // sistemare database
-                statement.setTimestamp(5, null); //  sistemare database
-                statement.setInt(6, owner_id);
+                statement.setInt(2,1); //set create campaign status
+                statement.setInt(3, owner_id);
                 statement.executeUpdate();
-
+                System.out.println("--> campaign created <--");
                 response.sendRedirect(Constants.PATH + "/homeManager");
 
             }

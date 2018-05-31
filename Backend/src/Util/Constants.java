@@ -39,6 +39,9 @@ public class Constants {
     public final static String CHECK_SUBSCRIPTION = "SELECT * FROM subscribe where worker_id = ? and campaign_id = ?";
     public final static String INSERT_SUBSCRIBE = "INSERT INTO subscribe(worker_id, campaign_id) VALUES(?,?)";
     public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ?";
+    public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak where campaign_id = ?";
+    public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ? where campaign_id = ?";
+    public final static String CHECK_STATUS_CAMPAIGN = "select campaign_status_id from campaign where campaign_id = ?";
 
     public final static int TEST_USER_ID = 3;
     public final static int WORKER_TEST_USER_ID = 4;

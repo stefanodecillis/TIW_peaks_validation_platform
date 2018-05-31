@@ -62,6 +62,32 @@
     </tr>
 </table>
 <%
+    if(status == 1){
+       %>
+            <form action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
+                <input type="hidden" name="campaign" value="<%=campaign_id%>">
+                <input type="hidden" name="status" value="2">
+                <input type="submit" value="Avvia" />
+            </form>
+        <%
+    } else if(status == 2){
+        %>
+            <form action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
+                 <input type="hidden" name="campaign" value="<%=campaign_id%>">
+                 <input type="hidden" name="status" value="2">
+                 <input type="submit" value="Chiudi" />
+            </form>
+        <%
+    } else if (status == 3){
+        %>
+            <form action = "<%=Constants.PATH+"/something"%>" method = "post">
+                <input type="hidden" name="campaign" value="<%=campaign_id%>">
+                <input type="submit" value="Visualizza Dettagli" />
+            </form>
+        <%
+    }
+        %>
+<%
     }
 %>
 </body>

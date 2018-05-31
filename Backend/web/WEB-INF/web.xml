@@ -208,4 +208,13 @@
         <servlet-name>CampaignDetailsJSP</servlet-name>
         <url-pattern>/campaigndetails</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CampaignStatusController</servlet-name>
+        <servlet-class>controllers.CampaignStatusController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignStatusController</servlet-name>
+        <url-pattern>/campaignstatuscontroller</url-pattern>
+    </servlet-mapping>
 </web-app>
