@@ -190,4 +190,40 @@
         <url-pattern>/registerCampaign</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controllers.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>CampaignCreationJSP</servlet-name>
+        <jsp-file>/campaignCreation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignCreationJSP</servlet-name>
+        <url-pattern>/campaigncreation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CampaignDetailsJSP</servlet-name>
+        <jsp-file>/campaignDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignDetailsJSP</servlet-name>
+        <url-pattern>/campaigndetails</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CampaignStatusController</servlet-name>
+        <servlet-class>controllers.CampaignStatusController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampaignStatusController</servlet-name>
+        <url-pattern>/campaignstatuscontroller</url-pattern>
+    </servlet-mapping>
 </web-app>

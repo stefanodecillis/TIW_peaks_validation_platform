@@ -85,7 +85,9 @@ create table peak (
 			peak_name VARCHAR(250) not null,
 			localized_names VARCHAR(200), 
 			annotation_id int UNSIGNED,
-			FOREIGN KEY (annotation_id) REFERENCES annotation(annotation_id)
+			campaign_id int UNSIGNED not null,
+			FOREIGN KEY (annotation_id) REFERENCES annotation(annotation_id),
+			FOREIGN KEY (campaign_id) REFERENCES campaign(campaign_id)
 )
 
 create table subscribe (
