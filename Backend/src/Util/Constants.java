@@ -13,9 +13,11 @@ public class Constants {
     public final static String DBURL = "jdbc:mysql://stefanodecillis.no-ip.org:9000/geo_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //mysql needs time date
     public final static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
     public final static String DBPSW = "stefano";
+    //public final static String DBURL = "jdbc:mysql://localhost:3306/geo_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //mysql needs time date
 
 
-    /*static queries and constants*/
+
+    /*static queries*/
 
     public static final String CHECK_COOKIE = "SELECT ui.user_type_id AS job_id, ua.username AS username, ua.psswd AS psw, " +
             "ui.user_type_name AS job FROM user_app ua INNER JOIN user_info ui on ua.user_type_id = ui.user_type_id WHERE ua.user_id = ?";
@@ -42,7 +44,12 @@ public class Constants {
     public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak where campaign_id = ?";
     public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ? where campaign_id = ?";
     public final static String CHECK_STATUS_CAMPAIGN = "select campaign_status_id from campaign where campaign_id = ?";
+    public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id) values(?,?,?,?,?,?,?)";
 
+    /* test */
     public final static int TEST_USER_ID = 3;
     public final static int WORKER_TEST_USER_ID = 4;
+
+    /* constants */
+    public final static String OBJECT_PEAKLIST = "peak_list_data";
 }

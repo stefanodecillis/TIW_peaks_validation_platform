@@ -217,4 +217,40 @@
         <servlet-name>CampaignStatusController</servlet-name>
         <url-pattern>/campaignstatuscontroller</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InputFileController</servlet-name>
+        <servlet-class>controllers.InputFileController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InputFileController</servlet-name>
+        <url-pattern>/loading</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DragInputFile</servlet-name>
+        <jsp-file>/inputdataform.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DragInputFile</servlet-name>
+        <url-pattern>/inputdataform</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ETL</servlet-name>
+        <servlet-class>controllers.ETLController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ETL</servlet-name>
+        <url-pattern>/etlprocess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MapTest</servlet-name>
+        <jsp-file>/mapTest.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MapTest</servlet-name>
+        <url-pattern>/maptest</url-pattern>
+    </servlet-mapping>
 </web-app>
