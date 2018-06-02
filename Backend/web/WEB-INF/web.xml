@@ -246,11 +246,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>MapTest</servlet-name>
-        <jsp-file>/mapTest.jsp</jsp-file>
-    </servlet>
+    <servlet-name>MapTest</servlet-name>
+    <jsp-file>/mapTest.jsp</jsp-file>
+</servlet>
     <servlet-mapping>
         <servlet-name>MapTest</servlet-name>
         <url-pattern>/maptest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Map3DTest</servlet-name>
+        <jsp-file>/map3dtest.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map3DTest</servlet-name>
+        <url-pattern>/maptest3</url-pattern>
     </servlet-mapping>
 </web-app>
