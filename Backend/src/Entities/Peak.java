@@ -39,4 +39,28 @@ public class Peak {
     public String[][] getLocalized_name() {
         return localized_name;
     }
+
+    public void setProvenance(String provenance) {
+        this.provenance = provenance;
+    }
+
+    public void setElevation(Double elevation) {
+        this.elevation = elevation;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocalized_name(String[][] localized_name) {
+        this.localized_name = localized_name;
+    }
 }

@@ -7,4 +7,16 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1Ijoic3RlZmFubzk2IiwiYSI6ImNqaHhrd2M5dzBic3czcm55eXU3ODBmMGIifQ.5QLpFduGJVrWHk032DinKg'
 }).addTo(mymap);
 
-var marker = L.marker([41.277733, 16.4101]).addTo(mymap);
+//var marker = L.marker([41.277733, 16.4101]).addTo(mymap);
+
+$.ajax({
+    type: 'GET',
+    url: 'campaign/getpeaks?campaign=5',
+    data: { get_param: 'value' },
+    dataType: 'json',
+    success: function (data) {
+        $.each(data, function(index, element) {
+            var marker = L.marker([element.longitude, element.latitude]).addTo(mymap);
+        });
+    }
+});

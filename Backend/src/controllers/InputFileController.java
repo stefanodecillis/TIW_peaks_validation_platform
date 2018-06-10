@@ -1,7 +1,6 @@
 package controllers;
 
 import Entities.Peak;
-import Entities.PeakList;
 import Handler.DBConnectionHandler;
 import Util.Constants;
 import Util.Tools;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 
