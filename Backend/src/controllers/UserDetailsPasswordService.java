@@ -1,11 +1,15 @@
 package controllers;
 
+import Entities.AuthCookie;
+import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,41 +34,42 @@ public class UserDetailsPasswordService extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
+        if(!checkParams(request)){
+            RedirectManager.getInstance().redirectToErrorLog(response);  //todo redirect to the right page
+            return;
+        }
+        //todo need to review all the code
         try {
+            System.out.println("...changing password...");
             String query = Constants.USER_DETAILS;
             statement = connection.prepareStatement(query);
-            statement.setInt(1, Constants.WORKER_TEST_USER_ID);
+            statement.setInt(1, data.getUser_id());
             rs = statement.executeQuery();
             String oldPsw = request.getParameter("oldPsw");
             String userPsw = null;
-            if (rs.next()) {
+            while (rs.next()) {
                 userPsw = rs.getString("psswd");
             }
-            String insertPswBase96 = Base64.getEncoder().encodeToString(oldPsw.getBytes());
-            if (!userPsw.equals(insertPswBase96)) {
+            if(userPsw == null){
+                RedirectManager.getInstance().redirectToErrorLog(response);  //todo redirect to the right page
+                return;
+            }
+            String insertPswBase64 = Base64.getEncoder().encodeToString(oldPsw.getBytes());
+            if (!userPsw.equalsIgnoreCase(insertPswBase64)) {
                 //alert psw sbagliata
                 response.sendRedirect(Constants.PATH + "/errorPsw");
             } else {
                 String newPsw = request.getParameter("newPsw");
-                String newPswConfirm = request.getParameter("newPswConfirm");
 
-                if (!newPsw.isEmpty() && !newPswConfirm.isEmpty()) {
-                    if (newPsw.equals(newPswConfirm)) {
-                        query = Constants.UPDATE_USER_PASSWORD;
-                        statement = connection.prepareStatement(query);
-                        String newPswBase96 = Base64.getEncoder().encodeToString(newPsw.getBytes());
-                        statement.setString(1, newPswBase96);
-                        statement.setInt(2, Constants.WORKER_TEST_USER_ID);
-                        statement.executeUpdate();
-                        response.sendRedirect(Constants.PATH + "/userDetails");
-                    } else {
-                        response.sendRedirect(Constants.PATH + "/errorPswConfirm");
-                    }
-                } else {
-                    //alert form empty
-                    response.sendRedirect(Constants.PATH + "/errorEmptyForm");
-                }
+                query = Constants.UPDATE_USER_PASSWORD;
+                statement = connection.prepareStatement(query);
+                String newPswBase64 = Base64.getEncoder().encodeToString(newPsw.getBytes());
+                statement.setString(1, newPswBase64);
+                statement.setInt(2, data.getUser_id());
+                statement.executeUpdate();
+                System.out.println("<password changed>");
+                response.sendRedirect(Constants.PATH + "/userDetails");
             }
 
         } catch (Exception ex) {
@@ -89,6 +94,17 @@ public class UserDetailsPasswordService extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    private boolean checkParams(HttpServletRequest request){
+        if(request.getParameter("oldPsw") == null || request.getParameter("oldPsw").equalsIgnoreCase("")
+                || request.getParameter("newPsw") == null || request.getParameter("newPsw").equalsIgnoreCase("")
+                ||request.getParameter("newPswConfirm") == null || request.getParameter("newPswConfirm").equalsIgnoreCase("")
+                ||!(request.getParameter("newPsw").equalsIgnoreCase(request.getParameter("newPswConfirm")))){
+            return false;
+        }
+
+        return true;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package controllers;
 
+import Entities.AuthCookie;
+import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 
 import javax.servlet.ServletContext;
@@ -30,50 +33,54 @@ public class UserDetailsService extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
+        if(!checkParams(request)){
+            RedirectManager.getInstance().redirectToErrorLog(response); //todo change to the right page --> use redirect manager
+            return;
+        }
         try {
             String query = Constants.USER_DETAILS;
             statement = connection.prepareStatement(query);
-            statement.setInt(1, Constants.WORKER_TEST_USER_ID);
+            statement.setInt(1, data.getUser_id());
             rs = statement.executeQuery();
             String insertPsw = request.getParameter("psw");
             String userPsw = null;
-            if (rs.next()) {
+            while (rs.next()) {
                 userPsw = rs.getString("psswd");
             }
+            if(userPsw == null){
+                RedirectManager.getInstance().redirectToErrorLog(response); //todo change to the right page --> use redirect manager
+                return;
+            }
             String insertPswBase96 = Base64.getEncoder().encodeToString(insertPsw.getBytes());
-            if (!userPsw.equals(insertPswBase96)) {
+            if (!userPsw.equalsIgnoreCase(insertPswBase96)) {
                 //alert psw sbagliata
                 response.sendRedirect(Constants.PATH + "/errorPsw");
             } else {
                 String username = request.getParameter("username");
                 String mail = request.getParameter("mail");
 
-                if (!username.isEmpty() && !mail.isEmpty()) {
-                    //update both
-                    query = Constants.UPDATE_USER_DETAILS;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, username);
-                    statement.setString(2, mail);
-                    statement.setInt(3, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
-                    response.sendRedirect(Constants.PATH + "/userDetails");
-                } else if (!username.isEmpty() && mail.isEmpty()) {
+                if (!(request.getParameter("username").equalsIgnoreCase("")|| request.getParameter("username") == null)) {
                     //update username
                     query = Constants.UPDATE_USER_USERNAME;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, username);
-                    statement.setInt(2, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
+                    PreparedStatement updateStatement = connection.prepareStatement(query);
+                    updateStatement.setString(1, username);
+                    updateStatement.setInt(2, data.getUser_id());
+                    updateStatement.executeUpdate();
                     response.sendRedirect(Constants.PATH + "/userDetails");
-                } else if (username.isEmpty() && !mail.isEmpty()) {
+                    System.out.println("<username updated>");
+                    updateStatement.close();
+                }
+                if (!(request.getParameter("mail").equalsIgnoreCase("")|| request.getParameter("mail") == null)) {
                     //update mail
                     query = Constants.UPDATE_USER_EMAIL;
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, mail);
-                    statement.setInt(2, Constants.WORKER_TEST_USER_ID);
-                    statement.executeUpdate();
+                    PreparedStatement updateStatement = connection.prepareStatement(query);
+                    updateStatement.setString(1, mail);
+                    updateStatement.setInt(2, data.getUser_id());
+                    updateStatement.executeUpdate();
                     response.sendRedirect(Constants.PATH + "/userDetails");
+                    System.out.println("<mail updated>");
+                    updateStatement.close();
                 } else {
                     //alert form empty
                     response.sendRedirect(Constants.PATH + "/errorEmptyForm");
@@ -103,6 +110,16 @@ public class UserDetailsService extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    private boolean checkParams(HttpServletRequest request){
+        if(((request.getParameter("username").equalsIgnoreCase("")|| request.getParameter("username") == null)
+                && (request.getParameter("mail").equalsIgnoreCase("")|| request.getParameter("mail") == null)) ||
+                request.getParameter("psw") == null || request.getParameter("psw").equalsIgnoreCase("")){
+            return false;
+        }
+
+        return true;
     }
 
     @Override

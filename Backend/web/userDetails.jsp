@@ -67,5 +67,13 @@
 
 %>
 
+<script language="javascript" type="text/javascript">
+    function returnHome() {
+        location.href = "/peakplatform";
+    }
+</script>
+<br>
+<button class="btn btn-primary" onclick="returnHome()">Return</button></div>
+
 </body>
 </html>
