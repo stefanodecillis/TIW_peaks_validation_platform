@@ -1,18 +1,13 @@
 import Entities.AuthCookie;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
-import Handler.GsonSingleton;
 import Util.Constants;
-import com.google.gson.Gson;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.UnavailableException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Base64;
 
 
 public class PeakPlatform extends javax.servlet.http.HttpServlet {

@@ -32,7 +32,7 @@ public class Constants {
     public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM campaign WHERE owner_id=?";
     public final static String CAMPAIGN_STARTED_JOINED = "select * from campaign as c join subscribe as s on c.campaign_id = s.campaign_id where s.worker_id = ? and c.campaign_status_id = 2";
     public final static String CAMPAIGN_NOT_JOINED = "select * FROM campaign AS C where C.campaign_id not in (select S.campaign_id from subscribe as S where S.worker_id=?)";    //test
-    public final static String USER_DETAILS = "SELECT * FROM USER_APP WHERE user_id=?";
+    public final static String USER_DETAILS = "SELECT * FROM user_app WHERE user_id=?";
     public final static String UPDATE_USER_DETAILS = "UPDATE user_app set username = ? , mail=? where user_id=?";
     public final static String UPDATE_USER_USERNAME = "UPDATE user_app set username = ?  where user_id=?";
     public final static String UPDATE_USER_EMAIL = "UPDATE user_app set mail=? where user_id=?";

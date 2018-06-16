@@ -12,7 +12,6 @@ import java.sql.*;
 import java.util.Base64;
 import Entities.AuthCookie;
 import Handler.DBConnectionHandler;
-import Handler.GsonSingleton;
 import Util.Constants;
 import com.google.gson.Gson;
 

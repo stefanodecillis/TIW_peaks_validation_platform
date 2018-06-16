@@ -2,7 +2,9 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="Util.Constants" %><%--
+<%@ page import="Util.Constants" %>
+<%@ page import="Entities.AuthCookie" %>
+<%@ page import="Handler.CookieHandler" %><%--
   Created by IntelliJ IDEA.
   User: Paolo De Santis
   Date: 14/05/2018
@@ -24,13 +26,14 @@
 <body>
 
 <%  Connection connection = DBConnectionHandler.getInstance().getConnection();
+    AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
     PreparedStatement statement = null;
     ResultSet user_appResultSet = null; %>
 <%
     try{
         String query = Constants.USER_DETAILS;
         statement=connection.prepareStatement(query);
-        statement.setInt(1, Constants.WORKER_TEST_USER_ID);
+        statement.setInt(1, data.getUser_id());
         user_appResultSet=statement.executeQuery();
 %>
 <div class="table-responsive">
@@ -40,6 +43,7 @@
 
     <%
         while (user_appResultSet.next()) {
+            System.out.println("...retrieving data...");
     %>
 
     <tr><td>
@@ -51,14 +55,14 @@
 
 </table>
 </div>
-<a href="<%= Constants.PATH + "/modifyUserDetails.html?user_id=" + Constants.WORKER_TEST_USER_ID%>"><p>  Click for Modify User Details</p></a>
+<a href="<%= Constants.PATH + "/modifyUserDetails.html?user_id=" + data.getUser_id()%>"><p>  Click for Modify User Details</p></a>
 
 <%
         statement.close();
         user_appResultSet.close();
         connection.close();
     }catch (Exception ex){
-
+        ex.printStackTrace();
     }
 
 %>
