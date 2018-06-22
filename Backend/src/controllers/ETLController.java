@@ -43,6 +43,8 @@ public class ETLController extends HttpServlet {
             RedirectManager.getInstance().redirectToErrorLog(response); //TODO Redirect to the right page
             return;
         }
+        int campaign = (int) request.getAttribute(Constants.CAMPAIGN_REQUEST); //TODO check this vars
+        int statusPeak = (int) request.getAttribute(Constants.STATUS_FILE);
         System.out.println("...parsing peaks data...");
         try {
             int index = 1;
@@ -61,13 +63,14 @@ public class ETLController extends HttpServlet {
                     statement.setDouble(3,peak.getLongitude());
                     statement.setDouble(4,peak.getLatitude());
                     statement.setString(5,peak.getName());
-                    if(peak.getLocalized_name() == null) {
+                    if(peak.getLocalized_name() != null) {
                         String localizedNames = Tools.getGson().toJson(peak.getLocalized_name(),String[][].class);
                         statement.setString(6, localizedNames);
                     } else {
                         statement.setNull(6, Types.VARCHAR);
                     }
-                    statement.setInt(7, 5); //Integer.parseInt(request.getParameter("campaign"))
+                    statement.setInt(7, campaign);
+                    statement.setInt(8,statusPeak);
                     statement.executeUpdate();
                     System.out.println("Inserted");
                 } else {

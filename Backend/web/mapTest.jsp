@@ -55,10 +55,24 @@
         mymap.addLayer(markers);
         $.each(data, function(index, element) {
             //var marker = L.marker([element.longitude, element.latitude]).addTo(mymap);
-            markers.addLayer(L.marker([element.longitude, element.latitude]));
+            markers.addLayer(L.marker([element.latitude, element.longitude]).bindPopup(
+                '<form id="peakForm"> ' +
+                '<label>Nome:'+ element.name + '</label><br>'+
+                '<label>Sorgente:'+ element.provenance + '</label><br>'+
+                '<label>Elevazione:'+ element.elevation + '</label><br>'+
+                '<label>Longitudine:'+ element.longitude + '</label><br>'+
+                '<label>Latitudine:'+ element.latitude + '</label><br>'+
+                '<label>Localized Names:'+ element.localized_name + '</label><br>'+
+                '<input type="hidden" name="peak_id" value="'+element.peak_id+'">' +
+                '</form>' +
+                '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>'+
+                '<button type="submit" form="peakForm" name="validation" value="2">Invalida</button>'));
         });
         mymap.addLayer(markers);
     }
 });</script>
 </body>
 </html>
+
+
+

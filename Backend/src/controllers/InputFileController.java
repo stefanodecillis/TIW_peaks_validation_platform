@@ -35,7 +35,11 @@ public class InputFileController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("<loader file called>");
-        if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")){
+        System.out.println(request.getParameter("campaign"));
+        System.out.println(request.getParameter("fileStatus"));
+        if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")
+                || request.getParameter("fileStatus") == null
+                ||request.getParameter("fileStatus").equalsIgnoreCase("") ){
             //TODO REDIRECT  error page
         }
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
@@ -49,8 +53,12 @@ public class InputFileController extends HttpServlet {
         String data = gson.toJson(peakList[1]); //print an example
         System.out.println(data);
 
+        int statusFile = Integer.parseInt(request.getParameter("fileStatus"));
+        int campaign_id = Integer.parseInt(request.getParameter("campaign"));
 
         request.setAttribute(Constants.OBJECT_PEAKLIST, peakList);
+        request.setAttribute(Constants.STATUS_FILE, statusFile);
+        request.setAttribute(Constants.CAMPAIGN_REQUEST, campaign_id);
 
         //forward the request to Servlet2
         RequestDispatcher reqDispatcher = request.getRequestDispatcher("etlprocess");

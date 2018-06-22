@@ -19,8 +19,9 @@
 <body>
     <h1>Your Home</h1>
 
-<% try {
+<%
     AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
+    try {
     String query = Constants.CAMPAIGN_STARTED_JOINED;
     statement = connection.prepareStatement(query);
     statement.setInt(1, data.getUser_id());
@@ -83,7 +84,7 @@
 
 </table>
 
-<a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + Constants.WORKER_TEST_USER_ID%>"><p>  Click for User Details</p></a>
+<a href="<%= Constants.PATH + "/userDetails.jsp?user_id=" + data.getUser_id()%>"><p>  Click for User Details</p></a>
 
 <%
     statement.close();

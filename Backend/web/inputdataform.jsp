@@ -19,9 +19,13 @@
 <h3>Drag here your file</h3>
 <label for="input-folder-1">Upload File From Folder</label>
 <div class="file-loading">
-    <form action="/loading" method="post" enctype="multipart/form-data">
+    <form action="/loading" method="post" id="dataForm" enctype="multipart/form-data">
         <input name="campaign" type="hidden" value="<%=request.getParameter("campaign")%>">
         <input id="input-folder-1" name="file" type="file" webkitdirectory>
+        <select name="fileStatus" form="dataForm">
+            <option value="1" name="fileStatus">Da annotare</option>
+            <option value="2" name="fileStatus">Da non annotare</option>
+        </select><br><br><br>
         <input type="submit" value="Upload file">
     </form>
 </div>

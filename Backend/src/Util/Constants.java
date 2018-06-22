@@ -44,7 +44,7 @@ public class Constants {
     public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak where campaign_id = ?";
     public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ? where campaign_id = ?";
     public final static String CHECK_STATUS_CAMPAIGN = "select campaign_status_id from campaign where campaign_id = ?";
-    public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id) values(?,?,?,?,?,?,?)";
+    public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id,validation_status_id) values(?,?,?,?,?,?,?,?)";
 
     /* test */
     public final static int TEST_USER_ID = 3;
@@ -52,4 +52,6 @@ public class Constants {
 
     /* constants */
     public final static String OBJECT_PEAKLIST = "peak_list_data";
+    public final static String STATUS_FILE = "status_file";
+    public final static String CAMPAIGN_REQUEST = "campaign_request";
 }

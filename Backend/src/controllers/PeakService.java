@@ -59,6 +59,7 @@ public class PeakService extends HttpServlet {
             List<Peak> peaks = new ArrayList<>();
             while (rs.next()){
                 Peak peak = new Peak();
+                peak.setPeak_id(rs.getInt("peak_id"));
                 peak.setName(rs.getString("peak_name"));
                 peak.setElevation(rs.getDouble("elevation"));
                 peak.setLongitude(rs.getDouble("longitude"));

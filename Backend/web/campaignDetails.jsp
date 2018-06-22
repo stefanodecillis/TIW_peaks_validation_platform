@@ -69,6 +69,10 @@
                 <input type="hidden" name="status" value="2">
                 <input type="submit" value="Avvia" />
             </form>
+            <form action = "<%=Constants.PATH+"/inputdataform"%>" method = "post">
+                <input type="hidden" name="campaign" value="<%=campaign_id%>">
+                <input type="submit" value="Carica picchi" />
+            </form>
         <%
     } else if(status == 2){
         %>
@@ -80,7 +84,7 @@
         <%
     } else if (status == 3){
         %>
-            <form action = "<%=Constants.PATH+"/something"%>" method = "post">
+            <form action = "<%=Constants.PATH+"/something"%>" method = "post"> <!-- TODO need to finish here -->
                 <input type="hidden" name="campaign" value="<%=campaign_id%>">
                 <input type="submit" value="Visualizza Dettagli" />
             </form>
