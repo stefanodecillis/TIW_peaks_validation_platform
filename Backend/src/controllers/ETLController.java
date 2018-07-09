@@ -50,12 +50,13 @@ public class ETLController extends HttpServlet {
             int index = 1;
             System.out.println("#peaks to process: " + peaks.length);
             PreparedStatement statement = null;
+            statement = connection.prepareStatement(Constants.INSERT_PEAK);
             for (Peak peak : peaks){
-                if(Tools.IsDivisble(index,5000)){
-                    connection.close();
-                    connection = DBConnectionHandler.getInstance().getConnection();
+                if(Tools.IsDivisble(index,10000)){
+                    statement.clearParameters();
+                    statement.executeBatch();
+                    System.out.println(" ----------------- 10000 peaks added  -------------");
                 }
-                 statement = connection.prepareStatement(Constants.INSERT_PEAK);
                 if(Tools.checkPeakData(peak)){
                     System.out.println("<Peak n°"+index+ " succeed>");
                     statement.setString(1,peak.getProvenance());
@@ -71,14 +72,16 @@ public class ETLController extends HttpServlet {
                     }
                     statement.setInt(7, campaign);
                     statement.setInt(8,statusPeak);
-                    statement.executeUpdate();
-                    System.out.println("Inserted");
+                    statement.addBatch();
                 } else {
                     System.out.println("<Peak n°"+index+ " aborted>");
                 }
-                statement.close();
+                statement.clearParameters();
                 index++;
             }
+            statement.executeBatch();
+            RedirectManager.getInstance().redirectToManager(response);   //todo fix redirect
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

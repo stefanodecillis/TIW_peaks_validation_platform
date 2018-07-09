@@ -1,0 +1,8 @@
+.formBtnClass {
+    text-align: center;
+}
+
+#startBtn,#infoBtn {
+    display: inline-block;
+}
+
