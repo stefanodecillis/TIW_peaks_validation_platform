@@ -52,7 +52,7 @@ public class ETLController extends HttpServlet {
             PreparedStatement statement = null;
             statement = connection.prepareStatement(Constants.INSERT_PEAK);
             for (Peak peak : peaks){
-                if(Tools.IsDivisble(index,10000)){
+                if(Tools.IsDivisble(index,15000)){
                     statement.clearParameters();
                     statement.executeBatch();
                     System.out.println(" ----------------- 10000 peaks added  -------------");
@@ -60,10 +60,19 @@ public class ETLController extends HttpServlet {
                 if(Tools.checkPeakData(peak)){
                     System.out.println("<Peak n°"+index+ " succeed>");
                     statement.setString(1,peak.getProvenance());
-                    statement.setDouble(2,peak.getElevation());
+                    if(peak.getElevation() != null){
+                        statement.setDouble(2,peak.getElevation());
+                    } else {
+                        statement.setNull(2,Types.DOUBLE);
+                    }
+
                     statement.setDouble(3,peak.getLongitude());
                     statement.setDouble(4,peak.getLatitude());
-                    statement.setString(5,peak.getName());
+                    if(peak.getName() != null){
+                        statement.setString(5,peak.getName());
+                    } else {
+                        statement.setNull(5,Types.VARCHAR);
+                    }
                     if(peak.getLocalized_name() != null) {
                         String localizedNames = Tools.getGson().toJson(peak.getLocalized_name(),String[][].class);
                         statement.setString(6, localizedNames);

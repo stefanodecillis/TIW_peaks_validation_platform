@@ -1,10 +1,12 @@
 package controllers;
 
+import Enum.*;
 import Entities.AuthCookie;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
 import Handler.RedirectManager;
 import Util.Constants;
+import Util.Tools;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -38,9 +40,9 @@ public class AnnotationController extends HttpServlet {
         }
         int status = Integer.parseInt(request.getParameter("validation"));
         AuthCookie userData = CookieHandler.getInstance().checkCookieUser(request);
-        if(status == 0){ //peakInvalid
+        if(status == AnnotationStatus.INVALID.getId()){ //peakInvalid
             System.out.println("--------------invalid---------");
-            if(invalidPeak(Integer.parseInt(request.getParameter("peakId")),
+            if(Tools.validPeak(AnnotationStatus.INVALID.getId(),Integer.parseInt(request.getParameter("peakId")),
                     userData.getUser_id(),
                     Integer.parseInt(request.getParameter("campaign")),
                     request.getParameter("peakName"),
@@ -53,9 +55,9 @@ public class AnnotationController extends HttpServlet {
             } else {
                 System.out.println(" %%% error during insertion %%%");
             }
-            RedirectManager.getInstance().redirectToMap2d(response,Integer.parseInt(request.getParameter("campaign")), 1);
+            RedirectManager.getInstance().redirectToMap2d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
             return;
-        } else if (status == 1){
+        } else if (status == AnnotationStatus.VALID.getId()){
             System.out.println("--------------validation---------");
             //redirect to validation page
             request.getRequestDispatcher( "annotation").forward(request,response);
@@ -66,57 +68,6 @@ public class AnnotationController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //nothing to do here
-    }
-
-    private boolean invalidPeak(int peakId, int userId, int campaignId,String peakName, Double latitude,Double longitude, Double elevation, String localizedNames) {
-            checkData(peakId,userId,campaignId);
-        try {
-            PreparedStatement statement = connection.prepareStatement(Constants.INSERT_ANNOTATION);
-            statement.setInt(1, 0);
-            statement.setInt(2,peakId);
-            statement.setInt(5,campaignId);
-            if(peakName == null){
-                statement.setNull(3, Types.VARCHAR);
-            } else {
-                statement.setString(3,peakName);
-            }
-            statement.setInt(4,userId);
-            if(latitude == null){
-                statement.setNull(6, Types.DOUBLE);
-            } else {
-                statement.setDouble(6,latitude);
-            }
-            if(longitude == null){
-                statement.setNull(7, Types.DOUBLE);
-            } else {
-                statement.setDouble(7,longitude);
-            }
-            if(elevation == null){
-                statement.setNull(8, Types.DOUBLE);
-            } else {
-                statement.setDouble(8,elevation);
-            }
-            if(localizedNames == null){
-                statement.setNull(9, Types.VARCHAR);
-            } else {
-                statement.setString(9,localizedNames);
-            }
-
-            statement.execute();
-            statement.close();
-
-            return true;
-        } catch (SQLException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private boolean checkData(Integer peakId, Integer userId, Integer campaignId){
-        if (peakId == null || userId == null || campaignId == null){
-            return false;
-        }
-        return true;
     }
 
     @Override

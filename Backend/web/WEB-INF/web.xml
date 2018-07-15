@@ -311,4 +311,13 @@
         <url-pattern>/annotation</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ValidationController</servlet-name>
+        <servlet-class>controllers.ValidationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidationController</servlet-name>
+        <url-pattern>/validator</url-pattern>
+    </servlet-mapping>
+
 </web-app>

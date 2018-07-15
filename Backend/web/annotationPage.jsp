@@ -18,10 +18,10 @@
         AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
     %>
 
-    <form action="/something" method="post">
+    <form action="/validator" method="post">
         <input type="text" name="peakName" value="<%=request.getParameter("peakName")%>">
-        <input type="number" name="latitude" value="<%=request.getParameter("latitude")%>">
-        <input type="number" name="longitude" value="<%=request.getParameter("longitude")%>">
+        <input type="hidden" name="latitude" value="<%=request.getParameter("latitude")%>">
+        <input type="hidden" name="longitude" value="<%=request.getParameter("longitude")%>">
         <input type="number" name="elevation" value="<%=request.getParameter("elevation")%>">
         <input type="text" name="localizedNames" value="<%=request.getParameter("localizedNames")%>">
         <input type="hidden" name="campaign" value="<%=request.getParameter("campaign")%>">
