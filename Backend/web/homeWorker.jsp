@@ -79,12 +79,16 @@
                             while (campaignJoined.next()) {
                         %>
                         <tr><td>
-                            <a href="campaign.jsp?campaign_id=<%=campaignJoined.getInt("campaign_id")%>" >
+                            <a href="map2d.jsp?campaign=<%=campaignJoined.getInt("campaign_id")%>&job=1" >
                                 <%=campaignJoined.getString("campaign_name")%> </a></td>
                             <td><%=campaignJoined.getInt("campaign_status_id")%></td>
                             <td><%=campaignJoined.getDate("ts_begin")%></td>
                             <td><%=campaignJoined.getDate("ts_date")%></td>
-                            <td><button formmethod="post" class="btn btn-primary" formaction="/something">Enter</button> </td></tr>
+                            <td><form id="enterForm" action="<%=Constants.PATH+"/map2d"%>" method="post">
+                                <input type="hidden" name="campaign" value="<%=campaignJoined.getInt("campaign_id")%>">
+                                <input type="hidden" name="job" value="1">
+                            </form>
+                                <button type="submit" class="btn btn-primary" form="enterForm">Enter</button> </td></tr>
                         <%    }
                         %>
                     </table> <br>

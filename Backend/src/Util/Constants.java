@@ -45,6 +45,7 @@ public class Constants {
     public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ? where campaign_id = ?";
     public final static String CHECK_STATUS_CAMPAIGN = "select campaign_status_id from campaign where campaign_id = ?";
     public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id,validation_status_id) values(?,?,?,?,?,?,?,?)";
+    public final static String INSERT_ANNOTATION = "insert into annotation(validation, peak_id, peak_name,user_id, campaign_id,latitude,longitude,elevation,localized_names) values(?,?,?,?,?,?,?,?,?)";
 
     /* test */
     public final static int TEST_USER_ID = 3;

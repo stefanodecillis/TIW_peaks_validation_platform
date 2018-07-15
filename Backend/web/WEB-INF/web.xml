@@ -292,4 +292,23 @@
         <servlet-name>PeakService</servlet-name>
         <url-pattern>/campaign/getpeaks</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationController</servlet-name>
+        <servlet-class>controllers.AnnotationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationController</servlet-name>
+        <url-pattern>/annotationcontroller</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationPage</servlet-name>
+        <jsp-file>/annotationPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationPage</servlet-name>
+        <url-pattern>/annotation</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -1,5 +1,6 @@
 <%@ page import="Entities.AuthCookie" %>
 <%@ page import="Handler.CookieHandler" %>
+<%@ page import="Util.Constants" %>
 <%--Created by IntelliJ IDEA.
   User: step
   Date: 13/07/2018
@@ -75,22 +76,29 @@
             mymap.addLayer(markers);
             $.each(data, function(index, element) {
                 //var marker = L.marker([element.longitude, element.latitude]).addTo(mymap);
-
+                var campaign = <%=campaign%>;
+                var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
                 console.log(user);
                 <% //worker
                 if (job == 1){%>
                     markers.addLayer(L.marker([element.latitude, element.longitude]).bindPopup(
-                    '<form id="peakForm"> ' +
+                    '<form id="peakForm" action="'+servletUrl+'" method="post" > ' +
                     '<label>Nome:'+ element.name + '</label><br>'+
                     '<label>Sorgente:'+ element.provenance + '</label><br>'+
                     '<label>Elevazione:'+ element.elevation + '</label><br>'+
                     '<label>Longitudine:'+ element.longitude + '</label><br>'+
                     '<label>Latitudine:'+ element.latitude + '</label><br>'+
                     '<label>Localized Names:'+ element.localized_name + '</label><br>'+
-                    '<input type="hidden" name="peak_id" value="'+element.peak_id+'">' +
+                    '<input type="hidden" name="peakId" value="'+element.peak_id+'">' +
+                    '<input type="hidden" name="campaign" value="'+campaign+'">' +
+                    '<input type="hidden" name="peakName" value="'+ element.name +'"> '+
+                    '<input type="hidden" name="localizedNames" value="'+ element.localized_name +'" > '+
+                    '<input type="hidden" name="latitude" value="'+ element.latitude +'"> '+
+                    '<input type="hidden" name="longitude" value="'+ element.longitude +'"> '+
+                    '<input type="hidden" name="elevation" value="'+ element.elevation +'"> '+
                     '</form>' +
                     '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>'+
-                    '<button type="submit" form="peakForm" name="validation" value="2">Invalida</button>'));
+                    '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>'));
                 <%}
                 //manager
                 else if (job == 2) {%>

@@ -2,6 +2,7 @@ package Handler;
 
 import Util.Constants;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -45,8 +46,14 @@ public class RedirectManager {
         System.out.println("--> error log page !!");
     }
 
-    private void redirectToErrorReg(HttpServletResponse response) throws IOException{
+    public void redirectToErrorReg(HttpServletResponse response) throws IOException{
         response.sendRedirect(Constants.PATH+"/errorReg");
         System.out.println("--> error reg page !!");
     }
+
+    public void redirectToMap2d(HttpServletResponse response, int campaign, int job)throws IOException{
+        response.sendRedirect(Constants.PATH+"/map2d?campaign=" + campaign+"&job="+job);
+        System.out.println("---> map2d page");
+    }
+
 }
