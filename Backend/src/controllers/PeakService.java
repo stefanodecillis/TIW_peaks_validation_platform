@@ -65,6 +65,7 @@ public class PeakService extends HttpServlet {
                 peak.setLongitude(rs.getDouble("longitude"));
                 peak.setLatitude(rs.getDouble("latitude"));
                 peak.setProvenance(rs.getString("provenance"));
+                peak.setValidation_status_id(rs.getInt("validation_status_id"));
                 //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
                 peaks.add(peak);
             }

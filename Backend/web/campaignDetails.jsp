@@ -103,24 +103,31 @@
                     %>
                     <div class="formBtnClass">
 
-                    <form id="startForm" action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
+                    <form id="firstForm" action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
                         <input type="hidden" name="status" value="2">
                     </form>
-                    <form action = "<%=Constants.PATH+"/inputdataform"%>" id="picker" method = "post">
+                    <form action = "<%=Constants.PATH+"/inputdataform"%>" id="secondForm" method = "post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
                     </form>
-                        <button type="submit" class="btn btn-primary" id="startBtn" form="startForm">Avvia</button>
-                        <button type="submit" class="btn btn-info" id="infoBtn" form="picker">Carica Picchi</button>
+                        <button type="submit" class="btn btn-primary" id="firstBtn" form="firstForm">Avvia</button>
+                        <button type="submit" class="btn btn-info" id="secondBtn" form="secondForm">Carica Picchi</button>
                     </div>
                     <%
                     } else if(status == 2){
                     %>
-                    <form action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
+                    <div class="formBtnClass">
+                    <form id="mapForm" action = "<%=Constants.PATH + "/map2d"%>" method = "post">
+                        <input type="hidden" name="campaign" value="<%=campaign_id%>">
+                        <input type="hidden" name="job" value="2">
+                    </form>
+                    <form id="closeForm" action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
                         <input type="hidden" name="status" value="2">
-                        <input type="submit" class="btn btn-danger" value="Chiudi" />
                     </form>
+                        <button type="submit" class="btn btn-info" id="firstBtn2" form="mapForm">Mostra Mappa</button>
+                        <button type="submit" class="btn btn-danger" id="secondBtn2" form="closeForm">Chiudi</button>
+                    </div>
                     <%
                     } else if (status == 3){
                     %>

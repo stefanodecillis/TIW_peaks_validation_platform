@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-#startBtn,#infoBtn {
+#firstBtn,#secondBtn,#firstBtn2,#secondBtn2 {
     display: inline-block;
 }
 

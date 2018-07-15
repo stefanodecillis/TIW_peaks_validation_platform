@@ -245,6 +245,15 @@
         <url-pattern>/etlprocess</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Map2D</servlet-name>
+        <jsp-file>/map2d.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map2D</servlet-name>
+        <url-pattern>/map2d</url-pattern>
+    </servlet-mapping>
+
     <!--  start here the test -->
 
     <servlet>
