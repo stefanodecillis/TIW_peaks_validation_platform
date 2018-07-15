@@ -1,6 +1,7 @@
 <%@ page import="Entities.AuthCookie" %>
 <%@ page import="Handler.CookieHandler" %>
 <%@ page import="Util.Constants" %>
+<%@ page import="Enum.Job" %>
 <%--Created by IntelliJ IDEA.
   User: step
   Date: 13/07/2018
@@ -61,7 +62,7 @@
     //create icon
     var greenIcon = new LeafIcon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'
-    })
+    });
 
     $.ajax({
         type: 'GET',
@@ -80,7 +81,7 @@
                 var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
                 console.log(user);
                 <% //worker
-                if (job == 1){%>
+                if (job == Job.WORKER.getId()){%>
                     markers.addLayer(L.marker([element.latitude, element.longitude]).bindPopup(
                     '<form id="peakForm" action="'+servletUrl+'" method="post" > ' +
                     '<label>Nome:'+ element.name + '</label><br>'+
@@ -101,7 +102,7 @@
                     '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>'));
                 <%}
                 //manager
-                else if (job == 2) {%>
+                else if (job == Job.MANAGER.getId()) {%>
                     if(element.validation_status_id == 2){
                         var marker = L.marker([element.latitude,element.longitude], {icon: greenIcon});
                     } else {
@@ -121,6 +122,10 @@
             mymap.addLayer(markers);
         }
     });</script>
+<br>
+<form name="to3dForm" align="right" method="POST" action="<%=Constants.PATH%>/map3d.jsp?campaign=<%=request.getParameter("campaign")%>&job=<%=request.getParameter("job")%>">
+<input type="submit"  value="3D map" name="to3dMap">
+</form>
 </body>
 </html>
 

@@ -275,6 +275,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Map3D</servlet-name>
+        <jsp-file>/map3d.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map3D</servlet-name>
+        <url-pattern>/map3d</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>TestJs</servlet-name>
         <jsp-file>/testJs.jsp</jsp-file>
     </servlet>
