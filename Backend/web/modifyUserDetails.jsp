@@ -1,20 +1,15 @@
-<%@ page import="Handler.DBConnectionHandler" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="Util.Constants" %>
 <%@ page import="Entities.AuthCookie" %>
 <%@ page import="Handler.CookieHandler" %><%--
   Created by IntelliJ IDEA.
   User: Paolo De Santis
-  Date: 14/05/2018
-  Time: 14:58
+  Date: 19/07/2018
+  Time: 16:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User Details</title>
+    <title>Modify User Details</title>
     <script src="jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -30,17 +25,8 @@
     <script src="/Script/navjs.js"></script>
 </head>
 <body>
-
-<% Connection connection = DBConnectionHandler.getInstance().getConnection();
-    AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
-    PreparedStatement statement = null;
-    ResultSet user_appResultSet = null; %>
 <%
-    try {
-        String query = Constants.USER_DETAILS;
-        statement = connection.prepareStatement(query);
-        statement.setInt(1, data.getUser_id());
-        user_appResultSet = statement.executeQuery();
+    AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
 %>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
@@ -67,6 +53,19 @@
                             Home <span class="sr-only">(current)</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="userDetailRedirect(<%=data.getUser_id()%>)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-users">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Return
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -82,50 +81,46 @@
                     <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                 </div>
             </div>
-
             <div>
-                <h1>User Details</h1>
+                <h1> Modify User Details</h1>
+                <h2>Modify Username/Email</h2>
+                <div class="form-beauty" align="center">
+                    <form method="POST" action="/userDetailsService">
+                        <label>New User Name:</label> <br>
+                        <input name="username" class="form-control" id="username" type="text"> <br><br>
+                        <label>New Email:</label> <br>
+                        <input name="mail" class="form-control" id="email" type="email"> <br><br>
+                        <label>Password to confirm:</label> <br>
+                        <input name="psw" class="form-control" id="psw" type="password"> <br><br>
+                        <button type="submit" class="btn btn-primary" id="modifyDetailsBtn">Modify</button>
+                    </form>
+                </div>
+
                 <br>
-                <table class="table" border>
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                    </thead>
-                    <%
-                        while (user_appResultSet.next()) {
-                            System.out.println("...retrieving data...");
-                    %>
 
-                    <tr>
-                        <td><%=user_appResultSet.getString("username")%>
-                        </td>
-                        <td><%=user_appResultSet.getString("mail")%>
-                        </td>
-                    </tr>
-                    <%
+                <h2>Modify Password</h2>
+                <div class="form-beauty" align="center">
+                    <form method="POST" action="/userDetailsPasswordService">
+                        <label>Old Password:</label> <br>
+                        <input name="oldPsw" class="form-control" id="psw1" type="password"> <br><br>
+                        <label>New Password:</label> <br>
+                        <input name="newPsw" class="form-control" id="psw2" type="password"> <br><br>
+                        <label>Confirm Password:</label> <br>
+                        <input name="newPswConfirm" class="form-control" id="psw3" type="password"> <br><br>
+                        <button type="submit" class="btn btn-primary" id="modifyPasswordBtn">Modify</button>
+                    </form>
+
+                    <%--<script language="javascript" type="text/javascript">
+                        function returnUserDetails() {
+                            location.href = "/userDetails";
                         }
-                    %>
-
-                </table>
+                    </script>
+                    <br>
+                    <button class="btn btn-primary" onclick="returnUserDetails()">Return</button>--%>
                 </div>
-
-                <form action="<%= Constants.PATH + "/modifyUserDetails.jsp?user_id=" + data.getUser_id()%>" method="post">
-                    <input type="submit" class="btn btn-primary" value="Modify User Details"/>
-                </form>
-
-                <%
-                statement.close();
-                user_appResultSet.close();
-                connection.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                %>
-                </div>
-            </main>
-        </div>
-    </body>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
 </html>

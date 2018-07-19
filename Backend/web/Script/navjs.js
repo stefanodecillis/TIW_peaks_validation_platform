@@ -1,3 +1,4 @@
+
 function returnHome (){
     window.location = "/";
 };
@@ -12,3 +13,5 @@ function doLogout(id){
     request.send();
     returnHome()
 };
+
+
