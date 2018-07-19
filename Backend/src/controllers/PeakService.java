@@ -52,11 +52,14 @@ public class PeakService extends HttpServlet {
         String res = null;
         try {
             System.out.println("...retrieving peaks data...");
+
             String query = Constants.CHECK_PEAKS_BY_CAMPAIGN;
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1,campaign_id);
             ResultSet rs = statement.executeQuery();
+
             List<Peak> peaks = new ArrayList<>();
+
             while (rs.next()){
                 Peak peak = new Peak();
                 peak.setPeak_id(rs.getInt("peak_id"));
@@ -66,6 +69,9 @@ public class PeakService extends HttpServlet {
                 peak.setLatitude(rs.getDouble("latitude"));
                 peak.setProvenance(rs.getString("provenance"));
                 peak.setValidation_status_id(rs.getInt("validation_status_id"));
+                peak.setNum_negative_annotations(rs.getInt("neg_annotations"));
+                peak.setNum_positive_annotations(rs.getInt("pos_annotations"));
+
                 //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
                 peaks.add(peak);
             }

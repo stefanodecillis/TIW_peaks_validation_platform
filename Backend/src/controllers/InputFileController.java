@@ -51,6 +51,7 @@ public class InputFileController extends HttpServlet {
         Gson gson = Tools.getGson();
         Peak[] peakList = gson.fromJson(reader, Peak[].class);
         String data = gson.toJson(peakList[1]); //print an example
+        System.out.println("example");
         System.out.println(data);
 
         int statusFile = Integer.parseInt(request.getParameter("fileStatus"));

@@ -63,6 +63,15 @@
     var greenIcon = new LeafIcon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'
     });
+    var redIcon = new LeafIcon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'
+    });
+    var yellowIcon = new LeafIcon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png'
+    });
+    var orangeIcon = new LeafIcon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png'
+    });
 
     $.ajax({
         type: 'GET',
@@ -82,6 +91,7 @@
                 console.log(user);
                 <% //worker
                 if (job == Job.WORKER.getId()){%>
+
                     markers.addLayer(L.marker([element.latitude, element.longitude]).bindPopup(
                     '<form id="peakForm" action="'+servletUrl+'" method="post" > ' +
                     '<label>Nome:'+ element.name + '</label><br>'+
@@ -105,8 +115,12 @@
                 else if (job == Job.MANAGER.getId()) {%>
                     if(element.validation_status_id == 2){
                         var marker = L.marker([element.latitude,element.longitude], {icon: greenIcon});
+                    } else if(element.num_negative_annotations>0){
+                        var marker = L.marker([element.latitude,element.longitude], {icon: redIcon});
+                    } else if (element.num_positive_annotations>0){
+                        var marker = L.marker([element.latitude,element.longitude], {icon: orangeIcon});
                     } else {
-                        var marker = L.marker([element.latitude, element.longitude]);
+                        var marker = L.marker([element.latitude,element.longitude], {icon: yellowIcon});
                     }
                     marker.bindPopup(
                     '<label>Nome:'+ element.name + '</label><br>'+

@@ -55,7 +55,7 @@ public class ETLController extends HttpServlet {
                 if(Tools.IsDivisble(index,15000)){
                     statement.clearParameters();
                     statement.executeBatch();
-                    System.out.println(" ----------------- 10000 peaks added  -------------");
+                    System.out.println(" ----------------- 15000 peaks added  -------------");
                 }
                 if(Tools.checkPeakData(peak)){
                     System.out.println("<Peak n°"+index+ " succeed>");

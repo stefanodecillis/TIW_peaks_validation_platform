@@ -83,6 +83,7 @@
 
                 var campaign = <%=campaign%>;
                 var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
+                var name = element.name;
 
                 console.log("ciao");
 
@@ -90,10 +91,10 @@
                 if (job == Job.WORKER.getId()){ %>
 
                 var bluePin = viewer.entities.add({
-                    name: element.name,
                     position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                     description:
                     '<form id="peakForm" action="'+servletUrl+'" method="post"> ' +
+                    '<label>Name:' + name + '</label><br>' +
                     '<label>Sorgente:' + element.provenance + '</label><br>' +
                     '<label>Elevazione:' + element.elevation + '</label><br>' +
                     '<label>Longitudine:' + element.longitude + '</label><br>' +
@@ -122,10 +123,11 @@
                 else if (job == Job.MANAGER.getId()) {%>
                 if (element.validation_status_id == 2) {
                     var greenPin = viewer.entities.add({
-                        name: element.name,
+
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                         description:
-                        '<form id="peakForm" action="'+servletUrl+'" method="post"> ' +
+                        '<form id="peakForm"> ' +
+                        '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
                         '<label>Elevazione:' + element.elevation + '</label><br>' +
                         '<label>Longitudine:' + element.longitude + '</label><br>' +
@@ -134,26 +136,65 @@
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.CHARTREUSE, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                            translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
+                            //translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                         }
                     });
-                } else {
-                    var Pin = viewer.entities.add({
-                        name: element.name,
+                } else if (element.num_negative_annotations>0){
+                    var redPin = viewer.entities.add({
+
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                         description:
                         '<form id="peakForm"> ' +
+                        '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
                         '<label>Elevazione:' + element.elevation + '</label><br>' +
                         '<label>Longitudine:' + element.longitude + '</label><br>' +
                         '<label>Latitudine:' + element.latitude + '</label><br>' +
                         '<label>Localized Names:' + element.localized_name + '</label><br>',
                         billboard: {
-                            image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
+                            image: pinBuilder.fromColor(Cesium.Color.RED, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                            translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
+                            //translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
+                        }
+                    });
+                } else if(element.num_positive_annotations>0){
+                    var orangePin = viewer.entities.add({
+
+                        position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
+                        description:
+                        '<form id="peakForm"> ' +
+                        '<label>Name:' + name + '</label><br>' +
+                        '<label>Sorgente:' + element.provenance + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude + '</label><br>' +
+                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        billboard: {
+                            image: pinBuilder.fromColor(Cesium.Color.ORANGE, 48).toDataURL(),
+                            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                            //translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
+                            scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
+                        }
+                    });
+                } else {
+                    var yellowPin = viewer.entities.add({
+
+                        position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
+                        description:
+                        '<form id="peakForm"> ' +
+                        '<label>Name:' + name + '</label><br>' +
+                        '<label>Sorgente:' + element.provenance + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude + '</label><br>' +
+                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        billboard: {
+                            image: pinBuilder.fromColor(Cesium.Color.YELLOW, 48).toDataURL(),
+                            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                            translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.00001),
+                            scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.00001)
                         }
                     });
                 }

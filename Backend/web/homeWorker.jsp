@@ -84,11 +84,12 @@
                             <td><%=campaignJoined.getInt("campaign_status_id")%></td>
                             <td><%=campaignJoined.getDate("ts_begin")%></td>
                             <td><%=campaignJoined.getDate("ts_date")%></td>
+                            <%-- redirect bottone enter sbagliato
                             <td><form id="enterForm" action="<%=Constants.PATH+"/map2d"%>" method="post">
                                 <input type="hidden" name="campaign" value="<%=campaignJoined.getInt("campaign_id")%>">
                                 <input type="hidden" name="job" value="1">
                             </form>
-                                <button type="submit" class="btn btn-primary" form="enterForm">Enter</button> </td></tr>
+                                <button type="submit" class="btn btn-primary" form="enterForm">Enter</button> </td>--%></tr>
                         <%    }
                         %>
                     </table> <br>

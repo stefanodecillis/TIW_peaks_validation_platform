@@ -20,6 +20,18 @@ public class Peak {
     private String[][] localized_name = null;
     @SerializedName("validation_status_id")
     private Integer validation_status_id = null;
+    @SerializedName("num_positive_annotations")
+    private Integer num_positive_annotations = null;
+    @SerializedName("num_negative_annotations")
+    private Integer num_negative_annotations = null;
+
+    public Integer getNum_positive_annotations(){return num_positive_annotations;}
+
+    public Integer getNum_negative_annotations(){return num_negative_annotations;}
+
+    public void setNum_positive_annotations(Integer num){this.num_positive_annotations=num;}
+
+    public void setNum_negative_annotations(Integer num){this.num_negative_annotations=num;}
 
     public String getProvenance() {
         return provenance;
