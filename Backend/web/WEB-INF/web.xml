@@ -145,12 +145,13 @@
 
     <servlet>
         <servlet-name>modifyUserDetails</servlet-name>
-        <jsp-file>/modifyUserDetails.html</jsp-file>
+        <jsp-file>/modifyUserDetails.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>modifyUserDetails</servlet-name>
         <url-pattern>/modifyUserDetails</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>errorPswConfirm</servlet-name>

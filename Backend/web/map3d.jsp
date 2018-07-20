@@ -18,7 +18,7 @@
     <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <title>Hello World!</title>
+    <title>Map 3D</title>
     <script src="/Script/cesium-workshop-master/ThirdParty/Cesium/Cesium.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
