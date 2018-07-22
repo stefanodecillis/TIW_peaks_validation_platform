@@ -4,6 +4,7 @@ import Util.Constants;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 
 public class RedirectManager {
@@ -54,6 +55,11 @@ public class RedirectManager {
     public void redirectToMap2d(HttpServletResponse response, int campaign, int job)throws IOException{
         response.sendRedirect(Constants.PATH+"/map2d?campaign=" + campaign+"&job="+job);
         System.out.println("---> map2d page");
+    }
+
+    public void redirectHome(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH);
+        System.out.println("-----> Home");
     }
 
 }

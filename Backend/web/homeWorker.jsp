@@ -29,6 +29,9 @@
 <body>
 <%
     AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
+    if(!CookieHandler.getInstance().isSafe(request,response)){
+        return;
+    }
     try {
         String query = Constants.CAMPAIGN_STARTED_JOINED;
         statement = connection.prepareStatement(query);

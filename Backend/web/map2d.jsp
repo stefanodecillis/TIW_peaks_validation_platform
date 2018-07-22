@@ -44,6 +44,9 @@
 
 <!-- init data -->
 <%
+    if(!CookieHandler.getInstance().isSafe(request,response)){
+        return;
+    }
     int campaign = Integer.parseInt(request.getParameter("campaign"));
     int job = Integer.parseInt(request.getParameter("job"));
 %>

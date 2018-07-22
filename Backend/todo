@@ -1,18 +1,17 @@
 Tiw project
 
-1. Cookie di controllo per api (3)                                      - step
-2. Mappa 3D marker (1)                                                  - in corso - paolo RISOLTO
-3. Avviso utilizzo cookie(4)                                            - step
-4. Canvas annotazioni (1)                                               - in corso (per mappa 2d) - step
-5. localized_name (1) RISOLTO                                           - step
-6. Integrazioni utilizzo mappe nel progetto (1)                         - in corso - step
-7. Statistiche varie (2)
+
+
+
+
+7. Statistiche varie (2)                                                - in corso - step
 8. Grafica (4)
-9. ETL communicatins link failure after 17099 peaks over 51021 peaks to process (1)  RISOLTO     - step
-10. colorare picchi sulle mappe in base alle statistiche (3)             RISOLTO
+
+10. colorare picchi sulle mappe in base alle statistiche (3)            - in corso - paolo
 11. Aggiustare tutti i redirect (3)
-12. Incapsulamento codice (3)
+12. Incapsulamento codice (3)                                           - step
 13. Revisione del codice in cerca di problemi (4)
+14. Chiudere una campagna (1)                                           - step
 
 
 id. attività, priorità;

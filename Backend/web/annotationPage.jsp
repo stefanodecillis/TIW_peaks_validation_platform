@@ -15,6 +15,9 @@
 </head>
 <body>
     <%
+        if(!CookieHandler.getInstance().isSafe(request,response)){
+            return;
+        }
         AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
     %>
 

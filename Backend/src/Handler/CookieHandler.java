@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Base64;
 
 public class CookieHandler {
@@ -88,6 +89,24 @@ public class CookieHandler {
         } catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+
+    /**
+     * scattered around --> Denied unauthorized clients
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public boolean isSafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(checkCookieUser(request) == null){
+            RedirectManager.getInstance().redirectHome(response);
+            return false;
+        } else {
+            return true;
         }
     }
 

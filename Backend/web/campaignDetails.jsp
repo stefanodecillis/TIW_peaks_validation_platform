@@ -3,7 +3,8 @@
 <%@ page import="Util.Constants" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="Handler.CookieHandler" %><%--
   Created by IntelliJ IDEA.
   User: step
   Date: 30/05/2018
@@ -21,6 +22,9 @@
     <script src="/Script/navjs.js"></script>
     <%
         Connection connection = DBConnectionHandler.getInstance().getConnection();
+        if(!CookieHandler.getInstance().isSafe(request,response)){
+            return;
+        }
         if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")){
             response.sendRedirect(Constants.PATH+"/peakplatform");
             return;

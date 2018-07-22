@@ -31,6 +31,9 @@
 </head>
 <body>
 <% Connection connection = DBConnectionHandler.getInstance().getConnection();
+    if(!CookieHandler.getInstance().isSafe(request,response)){
+        return;
+    }
     AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
     PreparedStatement statement = null;
     ResultSet resultSet = null; %>

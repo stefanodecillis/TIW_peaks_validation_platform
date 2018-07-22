@@ -1,0 +1,22 @@
+.internal {
+    display: inline-block;
+    width: 300px;
+}
+
+.external {
+    text-align: center;
+}
+
+.result {
+    font-size: 40px;
+}
+
+#boxResult {
+    border: 4px solid royalblue;
+}
+
+td,tr {
+    width: 150%;
+    height: 120%;
+}
+

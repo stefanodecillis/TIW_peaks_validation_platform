@@ -330,4 +330,22 @@
         <url-pattern>/validator</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Stats</servlet-name>
+        <jsp-file>/statsCampaign.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Stats</servlet-name>
+        <url-pattern>/stats</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StatService</servlet-name>
+        <servlet-class>Service.StatService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatService</servlet-name>
+        <url-pattern>/stats-api</url-pattern>
+    </servlet-mapping>
+
 </web-app>
