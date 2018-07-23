@@ -75,7 +75,6 @@ public class RegisterCampaignController extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
         super.destroy();
     }
 

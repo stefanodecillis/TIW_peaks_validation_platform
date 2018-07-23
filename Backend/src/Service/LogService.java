@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Base64;
 import Entities.AuthCookie;
+import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 import com.google.gson.Gson;
 
@@ -48,23 +50,23 @@ public class LogService extends HttpServlet {
                 Integer user_id = rs.getInt("user_id");
                 String username = rs.getString("username");
                 if(job.equalsIgnoreCase("worker")){
-                    this.attachCookie(response,user_id,username,pswBase96);
-                    this.redirectToWorker(response);
+                    CookieHandler.getInstance().attachCookieUser(response,user_id,username,pswBase96);
+                    RedirectManager.getInstance().redirectToWorker(response);
                     System.out.println("--> worker page");
                     return;
                 } else if (job.equalsIgnoreCase("manager")){
-                    this.attachCookie(response,user_id,username,pswBase96);
-                    this.redirectToManager(response);
+                    CookieHandler.getInstance().attachCookieUser(response,user_id,username,pswBase96);
+                    RedirectManager.getInstance().redirectToManager(response);
                     System.out.println("--> manager page");
                     return;
                 } else {
-                    this.redirectToErrorPage(response);
+                    RedirectManager.getInstance().redirectToErrorLog(response);
                     return;
                 }
             }
             System.out.println("No result \n --> error page");
             //nothing found
-            this.redirectToErrorPage(response);
+            RedirectManager.getInstance().redirectToErrorLog(response);
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
@@ -87,36 +89,6 @@ public class LogService extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //nothing to do here -> we don't accept get request
-    }
-
-    private void redirectToManager(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeManager");
-    }
-
-    private void redirectToWorker(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeWorker");
-    }
-
-    private void redirectToErrorPage(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/errorLogPage");
-    }
-    //TODO Redo the code here  --> cookieHandler
-    private void attachCookie(HttpServletResponse response,Integer user_id, String user, String psw){
-
-        System.out.println("...generating cookie...");
-        AuthCookie authCookie = new AuthCookie(user_id, user,psw);
-
-        //json data
-        Gson gson = new Gson();
-        String ret = gson.toJson(authCookie,AuthCookie.class);
-
-        //encode cookie value
-        String cryptRet = Base64.getEncoder().encodeToString(ret.getBytes());
-
-        Cookie ck = new Cookie(Constants.COOKIE_USER,cryptRet);//creating cookie object
-        ck.setMaxAge(60*60*24); //one day --> age should be expressed in seconds
-        response.addCookie(ck);//adding cookie in the response
-        System.out.println("cookie attached to response");
     }
 
     @Override

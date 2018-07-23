@@ -60,13 +60,6 @@ public class InputFileController extends HttpServlet {
         int statusFile = Integer.parseInt(request.getParameter("fileStatus"));
         int campaign_id = Integer.parseInt(request.getParameter("campaign"));
 
-        request.setAttribute(Constants.OBJECT_PEAKLIST, peakList);
-        request.setAttribute(Constants.STATUS_FILE, statusFile);
-        request.setAttribute(Constants.CAMPAIGN_REQUEST, campaign_id);
-
-        /*RequestDispatcher reqDispatcher = request.getRequestDispatcher("etlprocess");
-        reqDispatcher.forward(request,response);*/
-
         Executors.newSingleThreadExecutor().execute(etlData(peakList,campaign_id,statusFile));
 
 

@@ -92,6 +92,23 @@ public class CookieHandler {
         }
     }
 
+    public void attachCookieUser(HttpServletResponse response,Integer user_id, String user, String psw){
+        System.out.println("...generating cookie...");
+        AuthCookie authCookie = new AuthCookie(user_id, user,psw);
+
+        //json data
+        Gson gson = new Gson();
+        String ret = gson.toJson(authCookie,AuthCookie.class);
+
+        //encode cookie value
+        String cryptRet = Base64.getEncoder().encodeToString(ret.getBytes());
+
+        Cookie ck = new Cookie(Constants.COOKIE_USER,cryptRet);//creating cookie object
+        ck.setMaxAge(60*60*24); //one day --> age should be expressed in seconds
+        response.addCookie(ck);//adding cookie in the response
+        System.out.println("cookie attached to response");
+    }
+
 
     /**
      * scattered around --> Denied unauthorized clients

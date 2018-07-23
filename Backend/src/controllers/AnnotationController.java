@@ -57,10 +57,33 @@ public class AnnotationController extends HttpServlet {
             }
             RedirectManager.getInstance().redirectToMap2d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
             return;
-        } else if (status == AnnotationStatus.VALID.getId()){
+        } else if (status == AnnotationStatus.VALID.getId()){ //valid
             System.out.println("--------------validation---------");
-            //redirect to validation page
-            request.getRequestDispatcher( "annotation").forward(request,response);
+
+            int campaign = Integer.parseInt(request.getParameter("campaign"));
+            int user = CookieHandler.getInstance().checkCookieUser(request).getUser_id();
+            int peakId = Integer.parseInt(request.getParameter("peakId"));
+            Double elevation = Double.parseDouble(request.getParameter("elevation"));
+            Double latitude = Double.parseDouble(request.getParameter("latitude"));
+            Double longitude = Double.parseDouble(request.getParameter("longitude"));
+
+            System.out.println("new validation");
+
+            if(Tools.validPeak(AnnotationStatus.VALID.getId(),
+                    peakId,
+                    user,
+                    campaign,
+                    request.getParameter("peakName"),
+                    latitude,
+                    longitude,
+                    elevation,
+                    request.getParameter("localizedNames"))){
+                System.out.println("completed validation");
+            } else {
+                System.out.println("%%% error somewhere %%%");
+            }
+
+            RedirectManager.getInstance().redirectToMap2d(response,campaign, Job.WORKER.getId());
             return;
         }
 
@@ -79,4 +102,5 @@ public class AnnotationController extends HttpServlet {
         }
         super.destroy();
     }
+
 }

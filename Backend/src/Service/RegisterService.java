@@ -1,6 +1,7 @@
 package Service;
 
 import Entities.AuthCookie;
+import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
 import Util.Constants;
 import com.google.gson.Gson;
@@ -110,7 +111,7 @@ public class RegisterService extends HttpServlet {
             return false;
         }
 
-        this.attachCookie(response, user_id,username,psw);
+        CookieHandler.getInstance().attachCookieUser(response,user_id,username,psw);
 
         if(job_id == 1){
             this.redirectToWorker(response);
@@ -143,25 +144,6 @@ public class RegisterService extends HttpServlet {
             return false;
         }
         return true;
-    }
-
-    //TODO recheck this code --> use unique service to gen cookies
-    private void attachCookie(HttpServletResponse response,Integer user_id, String user, String psw){
-
-        System.out.println("...generating cookie...");
-        AuthCookie authCookie = new AuthCookie(user_id, user,psw);
-
-        //json data
-        Gson gson = new Gson();
-        String ret = gson.toJson(authCookie,AuthCookie.class);
-
-        //encode cookie value
-        String cryptRet = Base64.getEncoder().encodeToString(ret.getBytes());
-
-        Cookie ck = new Cookie(Constants.COOKIE_USER,cryptRet);//creating cookie object
-        ck.setMaxAge(60*60*24); //one day --> age should be expressed in seconds
-        response.addCookie(ck);//adding cookie in the response
-        System.out.println("cookie attached to response");
     }
 
     @Override
