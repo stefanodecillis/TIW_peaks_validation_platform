@@ -29,7 +29,7 @@ public class Constants {
             "ua.username AS username " +
             "FROM user_app ua ";
     public final static String INSERT_USER = "INSERT INTO user_app(username,psswd,mail,user_type_id) VALUES(?,?,?,?)";
-    public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM campaign WHERE owner_id=?";
+    public final static String CHECK_CAMPAIGN_BY_OWNER_ID = "SELECT * FROM campaign WHERE owner_id=? order by campaign_status_id";
     public final static String CAMPAIGN_STARTED_JOINED = "select * from campaign as c join subscribe as s on c.campaign_id = s.campaign_id where s.worker_id = ? and c.campaign_status_id = 2";
     public final static String CAMPAIGN_NOT_JOINED = "select * FROM campaign AS C where C.campaign_id not in (select S.campaign_id from subscribe as S where S.worker_id=?)";    //test
     public final static String USER_DETAILS = "SELECT * FROM user_app WHERE user_id=?";
@@ -40,7 +40,7 @@ public class Constants {
     public final static String INSERT_CAMPAIGN =  "INSERT INTO campaign(campaign_name, campaign_status_id,owner_id) VALUES(?,?,?)";
     public final static String CHECK_SUBSCRIPTION = "SELECT * FROM subscribe where worker_id = ? and campaign_id = ?";
     public final static String INSERT_SUBSCRIBE = "INSERT INTO subscribe(worker_id, campaign_id) VALUES(?,?)";
-    public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ?";
+    public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ? ";
 
     public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak p left join (select  peak_id, count(*) as pos_annotations from annotation a where a.validation=1 group by peak_id )  as t on p.peak_id = t.peak_id\n" +
             "left join (select peak_id, count(*) as neg_annotations from annotation a where a.validation = 0 group by peak_id) as s on s.peak_id = p.peak_id where campaign_id=?";

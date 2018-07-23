@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>LogService</servlet-name>
-        <servlet-class>controllers.LogService</servlet-class>
+        <servlet-class>Service.LogService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogService</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>RegisterService</servlet-name>
-        <servlet-class>controllers.RegisterService</servlet-class>
+        <servlet-class>Service.RegisterService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterService</servlet-name>
@@ -109,7 +109,7 @@
 
     <servlet>
         <servlet-name>UserDetailsService</servlet-name>
-        <servlet-class>controllers.UserDetailsService</servlet-class>
+        <servlet-class>Service.UserDetailsService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserDetailsService</servlet-name>
@@ -118,7 +118,7 @@
 
     <servlet>
         <servlet-name>UserDetailsPasswordService</servlet-name>
-        <servlet-class>controllers.UserDetailsPasswordService</servlet-class>
+        <servlet-class>Service.UserDetailsPasswordService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserDetailsPasswordService</servlet-name>
@@ -165,7 +165,7 @@
 
     <servlet>
         <servlet-name>campaignCreationService</servlet-name>
-        <servlet-class>controllers.CampaignCreationService</servlet-class>
+        <servlet-class>Service.CampaignCreationService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>campaignCreationService</servlet-name>
@@ -222,6 +222,7 @@
     <servlet>
         <servlet-name>InputFileController</servlet-name>
         <servlet-class>controllers.InputFileController</servlet-class>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>InputFileController</servlet-name>
@@ -231,19 +232,11 @@
     <servlet>
         <servlet-name>DragInputFile</servlet-name>
         <jsp-file>/inputdataform.jsp</jsp-file>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>DragInputFile</servlet-name>
         <url-pattern>/inputdataform</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ETL</servlet-name>
-        <servlet-class>controllers.ETLController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ETL</servlet-name>
-        <url-pattern>/etlprocess</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -296,7 +289,7 @@
     <!--  finish here the test -->
     <servlet>
         <servlet-name>PeakService</servlet-name>
-        <servlet-class>controllers.PeakService</servlet-class>
+        <servlet-class>Service.PeakService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PeakService</servlet-name>
@@ -347,5 +340,6 @@
         <servlet-name>StatService</servlet-name>
         <url-pattern>/stats-api</url-pattern>
     </servlet-mapping>
+
 
 </web-app>

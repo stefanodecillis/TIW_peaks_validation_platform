@@ -127,7 +127,7 @@
                     </form>
                     <form id="closeForm" action = "<%=Constants.PATH+"/campaignstatuscontroller"%>" method = "post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
-                        <input type="hidden" name="status" value="2">
+                        <input type="hidden" name="status" value="3">
                     </form>
                         <button type="submit" class="btn btn-info" id="firstBtn2" form="mapForm">Mostra Mappa</button>
                         <button type="submit" class="btn btn-danger" id="secondBtn2" form="closeForm">Chiudi</button>
@@ -135,7 +135,7 @@
                     <%
                     } else if (status == 3){
                     %>
-                    <form action = "<%=Constants.PATH+"/something"%>" method = "post"> <!-- TODO need to finish here -->
+                    <form action = "<%=Constants.PATH+"/stats"%>" method = "post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
                         <input type="submit" class="btn btn-success" value="Visualizza Dettagli" />
                     </form>

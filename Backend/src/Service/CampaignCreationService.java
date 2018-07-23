@@ -1,4 +1,4 @@
-package controllers;
+package Service;
 
 import Handler.DBConnectionHandler;
 import Util.Constants;
@@ -32,7 +32,6 @@ public class CampaignCreationService extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-
             if (request.getParameter("name").isEmpty()) {
                 response.sendRedirect(Constants.PATH + "/errorEmptyForm");
             } else {
@@ -47,7 +46,6 @@ public class CampaignCreationService extends HttpServlet {
                 statement.executeUpdate();
                 System.out.println("--> campaign created <--");
                 response.sendRedirect(Constants.PATH + "/homeManager");
-
             }
 
         } catch (Exception ex) {

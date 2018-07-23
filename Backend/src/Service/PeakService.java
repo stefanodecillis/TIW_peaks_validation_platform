@@ -1,4 +1,4 @@
-package controllers;
+package Service;
 
 import Entities.Peak;
 import Handler.DBConnectionHandler;

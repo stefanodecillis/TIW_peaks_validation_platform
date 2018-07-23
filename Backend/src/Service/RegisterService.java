@@ -1,4 +1,4 @@
-package controllers;
+package Service;
 
 import Entities.AuthCookie;
 import Handler.DBConnectionHandler;

@@ -1,4 +1,5 @@
-<%@ page import="Handler.CookieHandler" %><%--
+<%@ page import="Handler.CookieHandler" %>
+<%@ page import="Util.Constants" %><%--
   Created by IntelliJ IDEA.
   User: step
   Date: 31/05/2018
@@ -39,6 +40,7 @@
             browseLabel: 'Select Folder...'
         });
     });
+
 </script>
 
 </body>

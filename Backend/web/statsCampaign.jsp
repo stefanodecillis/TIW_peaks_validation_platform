@@ -22,6 +22,7 @@
     int campaign = Integer.parseInt(request.getParameter("campaign"));
 %>
 
+
 <div>
     <div class="external">
         <div class="internal">
@@ -159,6 +160,7 @@
 
                     var fieldCell = document.createElement('td');
                     var field = document.createTextNode((index+1) +")");
+                    fieldCell.style.width="10px";
                     fieldCell.appendChild(field);
                     tr.appendChild(fieldCell);
 
@@ -201,6 +203,7 @@
         }
         var list = document.createElement('table');
         list.classList.add('table');
+        list.style.justifyContent = "flex-start";
 
         //choose api
 
@@ -211,6 +214,7 @@
             urlData = 'stats-api?campaign=<%=campaign%>&stat=6&depth=2&peak='+peakId;
         }
         var tbody = document.createElement('tbody');
+        tbody.style.justifyContent = "flex-start";
         $.ajax({
             type: 'GET',
             url: urlData,
@@ -218,10 +222,10 @@
             success: function (data) {
                 $.each(data,function(index,element){
                     if(element.validation == 1){
-                        createRowForTable(tbody,element.username,"Valida", element.elevation, element.latitude.toFixed(2), element.longitude.toFixed(2),index+1);
+                        createRowForTable(tbody,element.username,"Valida", element.elevation, element.latitude.toFixed(2), element.longitude.toFixed(2),element.localized_names,element.peak_name,index+1);
                         createRowForTable(tbody,null);
                     } else {
-                        createRowForTable(tbody,element.username,"Invalida", element.elevation, element.latitude.toFixed(2), element.longitude.toFixed(2),index+1);
+                        createRowForTable(tbody,element.username,"Invalida", element.elevation, element.latitude.toFixed(2), element.longitude.toFixed(2),element.localized_names,element.peak_name,index+1);
                         createRowForTable(tbody,null);
                     }
                 });
@@ -233,7 +237,7 @@
         box2.appendChild(list);
     };
 
-    function createRowForTable(table, username, validation, elevation, latitude,longitude,index){
+    function createRowForTable(table, username, validation, elevation, latitude,longitude,localizedNames, peakName,index){
         if(username == null){
             var tr = document.createElement('tr');
             var td = document.createElement('td');
@@ -252,18 +256,24 @@
             var elevation = document.createTextNode(elevation);
             var latitude = document.createTextNode(latitude);
             var longitude = document.createTextNode(longitude);
+            var peakName = document.createTextNode(peakName);
+            var localizedNames = document.createTextNode(localizedNames);
 
             var usernameTd = document.createElement('td');
             var validationTd = document.createElement('td');
             var elevationTd = document.createElement('td');
             var latitudeTd = document.createElement('td');
             var longitudeTd = document.createElement('td');
+            var peakNameTd = document.createElement('td');
+            var localizedNamesTd = document.createElement('td');
 
             usernameTd.appendChild(username);
             validationTd.appendChild(validation);
             elevationTd.appendChild(elevation);
             latitudeTd.appendChild(latitude);
             longitudeTd.appendChild(longitude);
+            peakNameTd.appendChild(peakName);
+            localizedNamesTd.appendChild(localizedNames);
 
             //username
             var fieldCell = document.createElement('td');
@@ -281,6 +291,24 @@
             tr.appendChild(fieldCell);
 
             tr.appendChild(validationTd);
+
+            //peakName
+
+            fieldCell = document.createElement('td');
+            field = document.createTextNode('peak name: ');
+            fieldCell.appendChild(field);
+            tr.appendChild(fieldCell);
+
+            tr.appendChild(peakNameTd);
+
+            //localizedNames
+
+            fieldCell = document.createElement('td');
+            field = document.createTextNode('localizedNames: ');
+            fieldCell.appendChild(field);
+            tr.appendChild(fieldCell);
+
+            tr.appendChild(localizedNamesTd);
 
             //elevation
 
@@ -308,6 +336,8 @@
             tr.appendChild(fieldCell);
 
             tr.appendChild(longitudeTd);
+
+            tr.style.height= "4px";
 
             table.appendChild(tr);
         }

@@ -125,8 +125,16 @@
                                     <%=resultSet.getString("campaign_name")%>
                                 </a></td>
 
-                            <td><%=resultSet.getInt("campaign_status_id")%>
-                            </td>
+                            <%
+                                if (resultSet.getInt("campaign_status_id") == 1){
+                                    %> <td> <span style="background-color:#e362f7">Creata</span></td> <%
+                                } else if ( resultSet.getInt("campaign_status_id") == 2){
+                                    %> <td> <span style="background-color:#42b3f4">Avviata</span> </td> <%
+                                } else if (resultSet.getInt("campaign_status_id") == 3){
+                                    %> <td> <span style="background-color:#96f28c">Conclusa</span> </td> <%
+                                }
+                            %>
+
                             <td><%=resultSet.getDate("ts_begin")%>
                             </td>
                             <td><%=resultSet.getDate("ts_date")%>

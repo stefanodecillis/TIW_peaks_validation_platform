@@ -2,11 +2,10 @@ package controllers;
 
 import Entities.Peak;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 import Util.Tools;
 import com.google.gson.Gson;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.concurrent.Executors;
 
 @MultipartConfig
-@WebServlet(name = "InputFileController")
+@WebServlet(asyncSupported = true, name = "InputFileController")
 public class InputFileController extends HttpServlet {
 
     private ServletContext context = null;
@@ -41,6 +43,7 @@ public class InputFileController extends HttpServlet {
                 || request.getParameter("fileStatus") == null
                 ||request.getParameter("fileStatus").equalsIgnoreCase("") ){
             //TODO REDIRECT  error page
+            System.out.println(">>>>>>ERROR");
         }
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = getSubmittedFileName(filePart);
@@ -61,9 +64,15 @@ public class InputFileController extends HttpServlet {
         request.setAttribute(Constants.STATUS_FILE, statusFile);
         request.setAttribute(Constants.CAMPAIGN_REQUEST, campaign_id);
 
-        //forward the request to Servlet2
-        RequestDispatcher reqDispatcher = request.getRequestDispatcher("etlprocess");
-        reqDispatcher.forward(request, response);
+        /*RequestDispatcher reqDispatcher = request.getRequestDispatcher("etlprocess");
+        reqDispatcher.forward(request,response);*/
+
+        Executors.newSingleThreadExecutor().execute(etlData(peakList,campaign_id,statusFile));
+
+
+        RedirectManager.getInstance().redirectHome(response);
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,6 +89,65 @@ public class InputFileController extends HttpServlet {
         }
         return null;
     }
+
+
+    private Runnable etlData (Peak[] peaks, int campaign, int statusValidation){
+
+        Runnable task = () -> {
+            System.out.println("...parsing peaks data...");
+            try {
+                int index = 1;
+                System.out.println("#peaks to process: " + peaks.length);
+                PreparedStatement statement = null;
+                statement = connection.prepareStatement(Constants.INSERT_PEAK);
+                for (Peak peak : peaks){
+                    if(Tools.IsDivisble(index,15000)){
+                        statement.clearParameters();
+                        statement.executeBatch();
+                        System.out.println(" ----------------- 15000 peaks added  -------------");
+                    }
+                    if(Tools.checkPeakData(peak)){
+                        System.out.println("<Peak n°"+index+ " succeed>");
+                        statement.setString(1,peak.getProvenance());
+                        if(peak.getElevation() != null){
+                            statement.setDouble(2,peak.getElevation());
+                        } else {
+                            statement.setNull(2,Types.DOUBLE);
+                        }
+
+                        statement.setDouble(3,peak.getLongitude());
+                        statement.setDouble(4,peak.getLatitude());
+                        if(peak.getName() != null){
+                            statement.setString(5,peak.getName());
+                        } else {
+                            statement.setNull(5,Types.VARCHAR);
+                        }
+                        if(peak.getLocalized_name() != null) {
+                            String localizedNames = Tools.getGson().toJson(peak.getLocalized_name(),String[][].class);
+                            statement.setString(6, localizedNames);
+                        } else {
+                            statement.setNull(6, Types.VARCHAR);
+                        }
+                        statement.setInt(7, campaign);
+                        statement.setInt(8,statusValidation);
+                        statement.addBatch();
+                    } else {
+                        System.out.println("<Peak n°"+index+ " aborted>");
+                    }
+                    statement.clearParameters();
+                    index++;
+                }
+                statement.executeBatch();
+                System.out.println("Import is ended");
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        };
+
+        return task;
+    }
+
 
     @Override
     public void destroy() {
