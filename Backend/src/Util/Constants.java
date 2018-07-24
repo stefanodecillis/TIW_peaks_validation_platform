@@ -51,7 +51,7 @@ public class Constants {
     public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id,validation_status_id) values(?,?,?,?,?,?,?,?)";
     public final static String INSERT_ANNOTATION = "insert into annotation(validation, peak_id, peak_name,user_id, campaign_id,latitude,longitude,elevation,localized_names) values(?,?,?,?,?,?,?,?,?)";
     public final static String COUNT_PEAK_ANNOTATIONS = "select count(*) as num from annotation where campaign_id=? and validation=? and peak_id=?";
-
+    public final static String WORKER_PEAK_STILL_VALIDABLE = "select * from peak where campaign_id =? and peak_id NOT IN(select DISTINCT p.peak_id from peak p inner join annotation a on p.peak_id = a.peak_id where a.user_id =? and a.campaign_id =?)";
 
     /*statistic queries*/
     public final static String TOBEANNOTATEDCOUNT = "select count(*) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is null";

@@ -1,13 +1,21 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="Backend:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/Backend_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true" />
+    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="backend" />
+          <element id="module-output" name="Backend" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/lib/gson-2.8.4.jar" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="backend/web/Web" />
+      <element id="javaee-facet-resources" facet="Backend/web/Web" />
+      <element id="javaee-facet-resources" facet="Backend/web/Web2" />
+      <element id="javaee-facet-resources" facet="Backend/javaeeApplication/javaEEApplication" />
     </root>
   </artifact>
 </component>

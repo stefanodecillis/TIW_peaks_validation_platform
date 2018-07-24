@@ -55,9 +55,9 @@ public class AnnotationController extends HttpServlet {
             } else {
                 System.out.println(" %%% error during insertion %%%");
             }
-            RedirectManager.getInstance().redirectToMap2d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
-            return;
-        } else if (status == AnnotationStatus.VALID.getId()){ //valid
+
+        } else if (status == AnnotationStatus.VALID.getId()){
+
             System.out.println("--------------validation---------");
 
             int campaign = Integer.parseInt(request.getParameter("campaign"));
@@ -83,7 +83,16 @@ public class AnnotationController extends HttpServlet {
                 System.out.println("%%% error somewhere %%%");
             }
 
-            RedirectManager.getInstance().redirectToMap2d(response,campaign, Job.WORKER.getId());
+        }
+
+        if(Integer.parseInt(request.getParameter("map"))==2 ){
+            RedirectManager.getInstance().redirectToMap2d(response, Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
+            return;
+        } else if(Integer.parseInt(request.getParameter("map"))==3 ) {
+            RedirectManager.getInstance().redirectToMap3d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
+            return;
+        } else {
+            RedirectManager.getInstance().redirectToErrorLog(response);
             return;
         }
 

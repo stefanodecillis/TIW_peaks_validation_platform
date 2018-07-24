@@ -44,6 +44,7 @@
 <div id="cesiumContainer"></div>
 <script>
     var viewer = new Cesium.Viewer('cesiumContainer');
+    viewer._infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
     viewer.terrainProvider = Cesium.createWorldTerrain();
     var terrainProvider = Cesium.createWorldTerrain({
         requestVertexNormals: true
@@ -60,40 +61,27 @@
     viewer.camera.setView({
         destination: extent
     });
-    /*var bluePin = viewer.entities.add({
-        name: 'peak',
-        position: Cesium.Cartesian3.fromDegrees(0,0),
-        billboard: {
-            image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
-            verticalOrigin: Cesium.VerticalOrigin.BOTTOM
-        }
-    });
-    viewer.flyTo(bluePin).then(function(){
-        viewer.trackedEntity = bluePin;
-    });*/
 
+    var campaign = <%=campaign%>;
+    var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
+    var annJspUrl = "<%=Constants.PATH +"/annotationsdetails"%>";
+    var name = null;
+
+    <% //worker
+                   if (job == Job.WORKER.getId()){%>
     $.ajax({
         type: 'GET',
-        url: 'campaign/getpeaks?campaign=<%=campaign%>',
+        url: 'campaign/getpeaks?campaign=<%=campaign%>&job=<%=job%>',
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-
             $.each(data, function (index, element) {
-
-                var campaign = <%=campaign%>;
-                var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
-                var name = element.name;
-
-                console.log("ciao");
-
-                <% //worker
-                if (job == Job.WORKER.getId()){ %>
-
+                console.log("peaks");
+                name=element.name;
                 var bluePin = viewer.entities.add({
                     position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                     description:
-                    '<form id="peakForm" action="'+servletUrl+'" method="post"> ' +
+                    '<form id="peakForm" action="' + servletUrl + '" method="post"> ' +
                     '<label>Name:' + name + '</label><br>' +
                     '<label>Sorgente:' + element.provenance + '</label><br>' +
                     '<label>Elevazione:' + element.elevation + '</label><br>' +
@@ -108,6 +96,7 @@
                     '<input type="hidden" name="latitude" value="' + element.latitude + '"> ' +
                     '<input type="hidden" name="longitude" value="' + element.longitude + '"> ' +
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
+                    '<input type="hidden" name="map" value="3"> ' +
                     '</form>' +
                     '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>' +
                     '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>',
@@ -118,9 +107,23 @@
                         scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                     }
                 });
-                <%}
+
+            });
+        }
+    });
+
+    <%}
                 //manager
                 else if (job == Job.MANAGER.getId()) {%>
+    $.ajax({
+        type: 'GET',
+        url: 'campaign/getpeaks?campaign=<%=campaign%>&job=<%=job%>',
+        data: {get_param: 'value'},
+        dataType: 'json',
+        success: function (data) {
+            $.each(data, function (index, element) {
+                console.log("peaks");
+                name=element.name;
                 if (element.validation_status_id == 2) {
                     var greenPin = viewer.entities.add({
 
@@ -133,6 +136,7 @@
                         '<label>Longitudine:' + element.longitude + '</label><br>' +
                         '<label>Latitudine:' + element.latitude + '</label><br>' +
                         '<label>Localized Names:' + element.localized_name + '</label><br>',
+
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.CHARTREUSE, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -140,18 +144,25 @@
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                         }
                     });
-                } else if (element.num_negative_annotations>0){
+                } else if (element.num_negative_annotations > 0) {
                     var redPin = viewer.entities.add({
 
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                         description:
-                        '<form id="peakForm"> ' +
+                        '<form  method="POST" id="managerPopupForm" action= "' + annJspUrl + '"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
                         '<label>Elevazione:' + element.elevation + '</label><br>' +
                         '<label>Longitudine:' + element.longitude + '</label><br>' +
                         '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
+                        '<input type="hidden" name="campaign" value="' + campaign + '">' +
+                        '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
+                        '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                        '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
+                        '</form>' +
+                        '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.RED, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -159,18 +170,25 @@
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                         }
                     });
-                } else if(element.num_positive_annotations>0){
+                } else if (element.num_positive_annotations > 0) {
                     var orangePin = viewer.entities.add({
 
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
                         description:
-                        '<form id="peakForm"> ' +
+                        '<form  method="POST" id="managerPopupForm" action= "' + annJspUrl + '"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
                         '<label>Elevazione:' + element.elevation + '</label><br>' +
                         '<label>Longitudine:' + element.longitude + '</label><br>' +
                         '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
+                        '<input type="hidden" name="campaign" value="' + campaign + '">' +
+                        '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
+                        '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                        '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
+                        '</form>' +
+                        '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.ORANGE, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -198,10 +216,14 @@
                         }
                     });
                 }
-                <% } %>
+
             });
+
         }
     });
+    <%}
+                %>
+
 
 </script>
 </body>

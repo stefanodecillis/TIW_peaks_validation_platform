@@ -21,16 +21,8 @@
             crossorigin="anonymous"></script>
     <script src="/Script/navjs.js"></script>
     <script src="/Script/authScript.js"></script>
-    <script src="/Script/cookie-message.js"></script>
-
-    <style>
-        .js_enabled #cookie-message {
-            display: none;
-        }
-    </style>
     <title>Register</title>
 </head>
-<<<<<<< Updated upstream
 <body>
 <div>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -38,35 +30,6 @@
         <ul class="navbar-nav px-3">
         </ul>
     </nav>
-=======
-<body background="blue">
-
-<script>
-    // Detect JS support
-    document.body.className = document.body.className + " js_enabled";
-</script>
-
-<div class="form-reg-beauty" align="center">
-    <form method="POST" id="registerForm" action="/registerService">
-        <label>Email:</label> <br>
-        <input name="mail" class="form-control" placeholder="insert your mail" id="email" type="email" required> <br>
-        <label>Username:</label> <br>
-        <input name="username" class="form-control" placeholder="choose your username" id="username" type="text" required> <br>
-        <label>Password:</label> <br>
-        <input name="psw" class="form-control" id="pwd" placeholder="insert password" type="password" onkeyup="check()" required> <br>
-        <label>Conferm Password:</label> <br>
-        <input name="psw-check" class="form-control" placeholder="Conferm password" id="pwd-check" type="password" onchange="check()" onkeyup="check()" required>
-        <span id="message"></span>
-        <label>Choose Job:</label>
-        <select name="job" class="form-control" form="registerForm">
-            <option value="worker" name="job">Worker</option>
-            <option value="manager" name="job">Manager</option>
-        </select>
-        <br>
-    </form>
-    <button type="submit" form="registerForm" onclick="sendReg()" class="btn btn-warning" id="registerBtn">Registrati</button>
-    <button class="btn btn-primary" onclick="doLogin()" id="loginBtn">Log In</button> <br>
->>>>>>> Stashed changes
 </div>
 <br><br>
 <div class="container-fluid">
@@ -82,14 +45,13 @@
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
                             </svg>
-                            Home <span class="sr-only">(current)</span>
+                            Log In <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-<<<<<<< Updated upstream
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="chartjs-size-monitor"
                  style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -134,14 +96,6 @@
         </main>
     </div>
 </div>
-=======
-<div id="cookie-message">
-    <p>
-        We're using cookie. If you continue to use this service, you're accepting our policy
-    </p>
-</div>
-
-
->>>>>>> Stashed changes
 </body>
 </html>
+
