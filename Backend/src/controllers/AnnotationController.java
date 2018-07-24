@@ -50,13 +50,12 @@ public class AnnotationController extends HttpServlet {
                     Double.parseDouble(request.getParameter("longitude")),
                     Double.parseDouble(request.getParameter("elevation")),
                     request.getParameter("localizaedNames")
-                    )){
+            )){
                 System.out.println("---- inserted annotation ----");
             } else {
                 System.out.println(" %%% error during insertion %%%");
             }
-            RedirectManager.getInstance().redirectToMap2d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
-            return;
+
         } else if (status == AnnotationStatus.VALID.getId()){ //valid
             System.out.println("--------------validation---------");
 
@@ -82,8 +81,15 @@ public class AnnotationController extends HttpServlet {
             } else {
                 System.out.println("%%% error somewhere %%%");
             }
-
-            RedirectManager.getInstance().redirectToMap2d(response,campaign, Job.WORKER.getId());
+        }
+        if(Integer.parseInt(request.getParameter("map"))==2 ){
+            RedirectManager.getInstance().redirectToMap2d(response, Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
+            return;
+        } else if(Integer.parseInt(request.getParameter("map"))==3 ) {
+            RedirectManager.getInstance().redirectToMap3d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
+            return;
+        } else {
+            RedirectManager.getInstance().redirectToErrorLog(response);
             return;
         }
 
@@ -102,5 +108,4 @@ public class AnnotationController extends HttpServlet {
         }
         super.destroy();
     }
-
 }
