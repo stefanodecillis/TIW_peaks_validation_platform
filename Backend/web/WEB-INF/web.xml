@@ -315,27 +315,6 @@
     </servlet-mapping>
 
     <servlet>
-<<<<<<< Updated upstream
-=======
-        <servlet-name>AnnotationsDetails</servlet-name>
-        <jsp-file>/annotationsDetails.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-    <servlet-name>AnnotationsDetails</servlet-name>
-    <url-pattern>/annotationsdetails</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ValidationController</servlet-name>
-        <servlet-class>controllers.ValidationController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ValidationController</servlet-name>
-        <url-pattern>/validator</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
->>>>>>> Stashed changes
         <servlet-name>Stats</servlet-name>
         <jsp-file>/statsCampaign.jsp</jsp-file>
     </servlet>

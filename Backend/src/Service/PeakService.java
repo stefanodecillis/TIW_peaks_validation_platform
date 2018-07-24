@@ -1,9 +1,6 @@
 package Service;
 
-import Entities.AuthCookie;
 import Entities.Peak;
-import Enum.Job;
-import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
 import Handler.RedirectManager;
 import Util.Constants;
@@ -32,7 +29,6 @@ public class PeakService extends HttpServlet {
     private ServletContext context = null;
     private Connection connection = null;
 
-
     @Override
     public void init() throws ServletException {
         context = getServletContext();
@@ -45,114 +41,57 @@ public class PeakService extends HttpServlet {
     }
 
     /**
-     * @path=/campaign/getpeaks?campaign=?&job=?
+     *
+     * @path=/campaign/getpeaks?campaign=?
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
-        if (request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")) {
+        if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")){
             RedirectManager.getInstance().redirectToErrorLog(response); //TODO create the right page
         }
         int campaign_id = Integer.parseInt(request.getParameter("campaign"));
         String res = null;
-        if (Integer.parseInt(request.getParameter("job")) == Job.WORKER.getId()) {
+        try {
+            System.out.println("...retrieving peaks data...");
 
-            try {
-                System.out.println("...retrieving peaks data...");
+            String query = Constants.CHECK_PEAKS_BY_CAMPAIGN;
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,campaign_id);
+            ResultSet rs = statement.executeQuery();
 
-                String query = Constants.WORKER_PEAK_STILL_VALIDABLE;
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, campaign_id);
-                statement.setInt(2, data.getUser_id());
-                statement.setInt(3, campaign_id);
-                ResultSet rs = statement.executeQuery();
+            List<Peak> peaks = new ArrayList<>();
 
-                List<Peak> peaks = new ArrayList<>();
+            while (rs.next()){
+                Peak peak = new Peak();
+                peak.setPeak_id(rs.getInt("peak_id"));
+                peak.setName(rs.getString("peak_name"));
+                peak.setElevation(rs.getDouble("elevation"));
+                peak.setLongitude(rs.getDouble("longitude"));
+                peak.setLatitude(rs.getDouble("latitude"));
+                peak.setProvenance(rs.getString("provenance"));
+                peak.setValidation_status_id(rs.getInt("validation_status_id"));
+                peak.setNum_negative_annotations(rs.getInt("neg_annotations"));
+                peak.setNum_positive_annotations(rs.getInt("pos_annotations"));
 
-                while (rs.next()) {
-                    Peak peak = new Peak();
-                    peak.setPeak_id(rs.getInt("peak_id"));
-                    peak.setName(rs.getString("peak_name"));
-                    peak.setElevation(rs.getDouble("elevation"));
-                    peak.setLongitude(rs.getDouble("longitude"));
-                    peak.setLatitude(rs.getDouble("latitude"));
-                    peak.setProvenance(rs.getString("provenance"));
-                    peak.setValidation_status_id(rs.getInt("validation_status_id"));
-
-                    //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
-                    peaks.add(peak);
-                }
-
-                if (peaks.isEmpty()) {
-                    res = "error. No peaks";
-                } else {
-                    Gson gson = Tools.getGson();
-                    res = gson.toJson(peaks);
-                    Writer out = response.getWriter();
-                    //response.setContentType("application/json");
-                    //response.setCharacterEncoding("UTF-8");
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    System.out.println(res);
-                    out.write(res);
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else if (Integer.parseInt(request.getParameter("job")) == Job.MANAGER.getId()) {
-            try {
-                System.out.println("...retrieving peaks data...");
-
-                String query = Constants.CHECK_PEAKS_BY_CAMPAIGN;
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, campaign_id);
-                ResultSet rs = statement.executeQuery();
-
-                List<Peak> peaks = new ArrayList<>();
-
-                while (rs.next()) {
-                    Peak peak = new Peak();
-                    peak.setPeak_id(rs.getInt("peak_id"));
-                    peak.setName(rs.getString("peak_name"));
-                    peak.setElevation(rs.getDouble("elevation"));
-                    peak.setLongitude(rs.getDouble("longitude"));
-                    peak.setLatitude(rs.getDouble("latitude"));
-                    peak.setProvenance(rs.getString("provenance"));
-                    peak.setValidation_status_id(rs.getInt("validation_status_id"));
-                    peak.setNum_negative_annotations(rs.getInt("neg_annotations"));
-                    peak.setNum_positive_annotations(rs.getInt("pos_annotations"));
-
-                    //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
-                    peaks.add(peak);
-                }
-
-                if (peaks.isEmpty()) {
-                    res = "error. No peaks";
-                } else {
-                    Gson gson = Tools.getGson();
-                    res = gson.toJson(peaks);
-                    Writer out = response.getWriter();
-                    //response.setContentType("application/json");
-                    //response.setCharacterEncoding("UTF-8");
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    System.out.println(res);
-                    out.write(res);
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+                //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
+                peaks.add(peak);
             }
 
-        } else {
-            RedirectManager.getInstance().redirectToErrorLog(response); //TODO create the right page
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if(peaks.isEmpty()){
+                res = "error. No peaks";
+            } else {
+                Gson gson = Tools.getGson();
+                res = gson.toJson(peaks);
+                Writer out = response.getWriter();
+                //response.setContentType("application/json");
+                //response.setCharacterEncoding("UTF-8");
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                System.out.println(res);
+                out.write(res);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-
     }
 }
