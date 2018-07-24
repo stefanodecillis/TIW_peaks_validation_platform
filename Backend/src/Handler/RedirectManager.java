@@ -48,13 +48,17 @@ public class RedirectManager {
     }
 
     public void redirectToErrorReg(HttpServletResponse response) throws IOException{
-        response.sendRedirect(Constants.PATH+"/errorReg");
+        response.sendRedirect(Constants.PATH + "/errorReg");
         System.out.println("--> error reg page !!");
     }
 
     public void redirectToMap2d(HttpServletResponse response, int campaign, int job)throws IOException{
-        response.sendRedirect(Constants.PATH+"/map2d?campaign=" + campaign+"&job="+job);
+        response.sendRedirect(Constants.PATH+"/map2d?campaign=" + campaign + "&job=" + job);
         System.out.println("---> map2d page");
+    }
+    public void redirectToMap3d(HttpServletResponse response, int campaign, int job)throws IOException{
+        response.sendRedirect(Constants.PATH+"/map3d?campaign=" + campaign + "&job=" + job);
+        System.out.println("---> map3d page");
     }
 
     public void redirectHome(HttpServletResponse response) throws IOException {

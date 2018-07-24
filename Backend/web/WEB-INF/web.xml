@@ -251,9 +251,9 @@
     <!--  start here the test -->
 
     <servlet>
-    <servlet-name>MapTest</servlet-name>
-    <jsp-file>/mapTest.jsp</jsp-file>
-</servlet>
+        <servlet-name>MapTest</servlet-name>
+        <jsp-file>/mapTest.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MapTest</servlet-name>
         <url-pattern>/maptest</url-pattern>
@@ -312,6 +312,24 @@
     <servlet-mapping>
         <servlet-name>AnnotationPage</servlet-name>
         <url-pattern>/annotation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationsDetails</servlet-name>
+        <jsp-file>/annotationsDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationsDetails</servlet-name>
+        <url-pattern>/annotationsdetails</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ValidationController</servlet-name>
+        <servlet-class>controllers.ValidationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ValidationController</servlet-name>
+        <url-pattern>/validator</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -30,6 +30,7 @@
         <input type="hidden" name="campaign" value="<%=request.getParameter("campaign")%>">
         <input type="hidden" name="user" value="<%=data.getUser_id()%>">
         <input type="hidden" name="peakId" value="<%=request.getParameter("peakId")%>">
+        <input type="hidden" name="map" value="<%=request.getParameter("map")%>">
         <input type="submit" value="Send Annotation">
     </form>
 </body>

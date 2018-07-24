@@ -44,9 +44,6 @@
 
 <!-- init data -->
 <%
-    if(!CookieHandler.getInstance().isSafe(request,response)){
-        return;
-    }
     int campaign = Integer.parseInt(request.getParameter("campaign"));
     int job = Integer.parseInt(request.getParameter("job"));
 %>
@@ -102,24 +99,26 @@
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png'
     });
 
+
+    var myIcon = L.divIcon({className: 'my-div-icon'});
+    // you can set .my-div-icon styles in CSS
+    var markers = L.markerClusterGroup();
+    //var marker = L.marker([element.longitude, element.latitude]).addTo(mymap);
+    var campaign = <%=campaign%>;
+    var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
+    var annJspUrl = "<%=Constants.PATH +"/annotationsdetails"%>";
+
+    <% //worker
+                if (job == Job.WORKER.getId()){%>
     $.ajax({
         type: 'GET',
-        url: 'campaign/getpeaks?campaign=<%=campaign%>',
+        url: 'campaign/getpeaks?campaign=<%=campaign%>&job=<%=job%>',
         data: {get_param: 'value'},
         dataType: 'json',
         success: function (data) {
-            var myIcon = L.divIcon({className: 'my-div-icon'});
-// you can set .my-div-icon styles in CSS
-            var markers = L.markerClusterGroup();
-
             mymap.addLayer(markers);
             $.each(data, function (index, element) {
-                //var marker = L.marker([element.longitude, element.latitude]).addTo(mymap);
-                var campaign = <%=campaign%>;
-                var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
-                console.log(user);
-                <% //worker
-                if (job == Job.WORKER.getId()){%>
+                console.log("peaks");
 
                 markers.addLayer(L.marker([element.latitude, element.longitude]).bindPopup(
                     '<form id="peakForm" action="' + servletUrl + '" method="post" > ' +
@@ -136,12 +135,27 @@
                     '<input type="hidden" name="latitude" value="' + element.latitude + '"> ' +
                     '<input type="hidden" name="longitude" value="' + element.longitude + '"> ' +
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
+                    '<input type="hidden" name="map" value="2"> ' +
                     '</form>' +
                     '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>' +
                     '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>'));
-                <%}
+            });
+        }
+    });
+
+    <%}
                 //manager
                 else if (job == Job.MANAGER.getId()) {%>
+    $.ajax({
+        type: 'GET',
+        url: 'campaign/getpeaks?campaign=<%=campaign%>&job=<%=job%>',
+        data: {get_param: 'value'},
+        dataType: 'json',
+        success: function (data) {
+            mymap.addLayer(markers);
+            $.each(data, function (index, element) {
+                console.log("peaks");
+
                 if (element.validation_status_id == 2) {
                     var marker = L.marker([element.latitude, element.longitude], {icon: greenIcon});
                 } else if (element.num_negative_annotations > 0) {
@@ -151,20 +165,46 @@
                 } else {
                     var marker = L.marker([element.latitude, element.longitude], {icon: yellowIcon});
                 }
-                marker.bindPopup(
-                    '<label>Nome:' + element.name + '</label><br>' +
-                    '<label>Sorgente:' + element.provenance + '</label><br>' +
-                    '<label>Elevazione:' + element.elevation + '</label><br>' +
-                    '<label>Longitudine:' + element.longitude + '</label><br>' +
-                    '<label>Latitudine:' + element.latitude + '</label><br>' +
-                    '<label>Localized Names:' + element.localized_name + '</label><br>');
+
+                var totAnn = element.num_negative_annotations + element.num_positive_annotations;
+                if (totAnn > 0) {
+                    marker.bindPopup(
+                        '<form method="POST" id="managerPopupForm" action= "' + annJspUrl + '">' +
+                        '<label>Nome:' + element.name + '</label><br>' +
+                        '<label>Sorgente:' + element.provenance + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude + '</label><br>' +
+                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Annotations: ' + totAnn + '</label><br>' +
+                        '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
+                        '<input type="hidden" name="campaign" value="' + campaign + '">' +
+                        '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
+                        '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                        '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
+                        '</form>' +
+                        '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>');
+                } else {
+                    marker.bindPopup(
+                        '<label>Nome:' + element.name + '</label><br>' +
+                        '<label>Sorgente:' + element.provenance + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude + '</label><br>' +
+                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Annotations: ' + totAnn + '</label><br>');
+                }
+
                 markers.addLayer(marker);
-                <%}
-                %>
+
             });
-            mymap.addLayer(markers);
+
         }
-    });</script>
+    });
+    <%}
+                %>
+    mymap.addLayer(markers);
+</script>
 <form name="to3dForm" align="right" method="POST"
       action="<%=Constants.PATH%>/map3d.jsp?campaign=<%=request.getParameter("campaign")%>&job=<%=request.getParameter("job")%>">
     <input type="submit" value="3D map" name="to3dMap">
