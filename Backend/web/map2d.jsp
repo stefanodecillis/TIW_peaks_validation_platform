@@ -124,14 +124,14 @@
                     '<form id="peakForm" action="' + servletUrl + '" method="post" > ' +
                     '<label>Nome:' + element.name + '</label><br>' +
                     '<label>Sorgente:' + element.provenance + '</label><br>' +
-                    '<label>Elevazione:' + element.elevation + '</label><br>' +
-                    '<label>Longitudine:' + element.longitude + '</label><br>' +
-                    '<label>Latitudine:' + element.latitude + '</label><br>' +
-                    '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                    '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                    '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                    '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                    '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                     '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                     '<input type="hidden" name="campaign" value="' + campaign + '">' +
                     '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
-                    '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                    '<input type="hidden" name="localizedNames" value="' + element.localizedNames + '" > ' +
                     '<input type="hidden" name="latitude" value="' + element.latitude + '"> ' +
                     '<input type="hidden" name="longitude" value="' + element.longitude + '"> ' +
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
@@ -172,15 +172,15 @@
                         '<form method="POST" id="managerPopupForm" action= "' + annJspUrl + '">' +
                         '<label>Nome:' + element.name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                         '<label>Annotations: ' + totAnn + '</label><br>' +
                         '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                         '<input type="hidden" name="campaign" value="' + campaign + '">' +
                         '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
-                        '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                        '<input type="hidden" name="localizedNames" value="' + element.localizedNames + '" > ' +
                         '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                         '</form>' +
                         '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>');
@@ -188,10 +188,10 @@
                     marker.bindPopup(
                         '<label>Nome:' + element.name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                         '<label>Annotations: ' + totAnn + '</label><br>');
                 }
 

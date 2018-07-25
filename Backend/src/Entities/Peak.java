@@ -25,6 +25,8 @@ public class Peak {
     @SerializedName("num_negative_annotations")
     private Integer num_negative_annotations = null;
 
+    private String localizedNames = null;
+
     public Integer getNum_positive_annotations(){return num_positive_annotations;}
 
     public Integer getNum_negative_annotations(){return num_negative_annotations;}
@@ -95,5 +97,13 @@ public class Peak {
 
     public void setPeak_id(Integer peak_id) {
         this.peak_id = peak_id;
+    }
+
+    public String getLocalizedNames() {
+        return localizedNames;
+    }
+
+    public void setLocalizedNames(String localizedNames) {
+        this.localizedNames = localizedNames;
     }
 }

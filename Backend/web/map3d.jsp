@@ -85,15 +85,15 @@
                     '<form id="peakForm" action="' + servletUrl + '" method="post"> ' +
                     '<label>Name:' + name + '</label><br>' +
                     '<label>Sorgente:' + element.provenance + '</label><br>' +
-                    '<label>Elevazione:' + element.elevation + '</label><br>' +
-                    '<label>Longitudine:' + element.longitude + '</label><br>' +
-                    '<label>Latitudine:' + element.latitude + '</label><br>' +
-                    '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                    '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                    '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                    '<label>Latitudine:' + element.latitude .toFixed(2)+ '</label><br>' +
+                    '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                     '<input type="hidden" name="peak_id" value="' + element.peak_id + '">' +
                     '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                     '<input type="hidden" name="campaign" value="' + campaign + '">' +
                     '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
-                    '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                    '<input type="hidden" name="localizedNames" value="' + element.localizedNames + '" > ' +
                     '<input type="hidden" name="latitude" value="' + element.latitude + '"> ' +
                     '<input type="hidden" name="longitude" value="' + element.longitude + '"> ' +
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
@@ -133,10 +133,10 @@
                         '<form id="peakForm"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>',
 
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.CHARTREUSE, 48).toDataURL(),
@@ -153,10 +153,10 @@
                         '<form  method="POST" id="managerPopupForm" action= "' + annJspUrl + '"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                         '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                         '<input type="hidden" name="campaign" value="' + campaign + '">' +
                         '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
@@ -179,17 +179,17 @@
                         '<form  method="POST" id="managerPopupForm" action= "' + annJspUrl + '"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>' +
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>' +
                         '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                         '<input type="hidden" name="campaign" value="' + campaign + '">' +
                         '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
-                        '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
+                        '<input type="hidden" name="localizedNames" value="' + element.localizedNames + '" > ' +
                         '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                         '</form>' +
-                        '<button type="submit" form="managerPopupForm" onclick="parent.goDetails('+element.peak_id+','+campaign+','+element.name+','+element.localized_name+','+element.elevation+')" name="annListBtn">Annotations Details</button>',
+                        '<button type="submit" form="managerPopupForm" onclick="parent.goDetails('+element.peak_id+','+campaign+','+element.name+','+element.localizedNames+','+element.elevation+')" name="annListBtn">Annotations Details</button>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.ORANGE, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -205,10 +205,10 @@
                         '<form id="peakForm"> ' +
                         '<label>Name:' + name + '</label><br>' +
                         '<label>Sorgente:' + element.provenance + '</label><br>' +
-                        '<label>Elevazione:' + element.elevation + '</label><br>' +
-                        '<label>Longitudine:' + element.longitude + '</label><br>' +
-                        '<label>Latitudine:' + element.latitude + '</label><br>' +
-                        '<label>Localized Names:' + element.localized_name + '</label><br>',
+                        '<label>Elevazione:' + element.elevation.toFixed(2) + '</label><br>' +
+                        '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
+                        '<label>Latitudine:' + element.latitude.toFixed(2) + '</label><br>' +
+                        '<label>Localized Names:' + element.localizedNames + '</label><br>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.YELLOW, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -225,30 +225,8 @@
     <%}
                 %>
 
-
-    function goDetails2(peakId, campaign,peakName,localizedNames,elevation){
-        url = "/annotationdetails?peakId="+peakId+"%campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
-
-        newwindow=window.open(url,'AnnotationDetails','height=200,width=150');
-        if (window.focus) {newwindow.focus()}
-    };
-
     function goDetails(peakId, campaign,peakName,localizedNames,elevation){
         location.href = "/annotationsdetails?peakId="+peakId+"&campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
-        //window.parent.document.close();
-        //window.parent.location.assign("https://www.google.com");
-        //window.open('https://www.google.com');
-    };
-
-    function goDetailsx(peakId, campaign,peakName,localizedNames,elevation){
-        url = "/annotationsdetails?peakId="+peakId+"%campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
-        var box = document.getElementById('cesiumContainer');
-        console.log(document.documentElement.parentElement);
-
-        while (box.hasChildNodes()) {
-            box.removeChild(box.firstChild);
-        }
-        location.href = url;
     };
 
 

@@ -77,8 +77,7 @@ public class PeakService extends HttpServlet {
                     peak.setLatitude(rs.getDouble("latitude"));
                     peak.setProvenance(rs.getString("provenance"));
                     peak.setValidation_status_id(rs.getInt("validation_status_id"));
-
-                    //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
+                    peak.setLocalizedNames(rs.getString("localized_names"));
                     peaks.add(peak);
                 }
 
@@ -119,8 +118,7 @@ public class PeakService extends HttpServlet {
                     peak.setValidation_status_id(rs.getInt("validation_status_id"));
                     peak.setNum_negative_annotations(rs.getInt("neg_annotations"));
                     peak.setNum_positive_annotations(rs.getInt("pos_annotations"));
-
-                    //TODO need to do this prob --> peak.setLocalized_name(rs.getString("localized_names"));
+                    peak.setLocalizedNames(rs.getString("localized_names"));
                     peaks.add(peak);
                 }
 
