@@ -46,6 +46,7 @@
     var viewer = new Cesium.Viewer('cesiumContainer');
     viewer._infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
     viewer.terrainProvider = Cesium.createWorldTerrain();
+    viewer.infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
     var terrainProvider = Cesium.createWorldTerrain({
         requestVertexNormals: true
     });
@@ -162,7 +163,7 @@
                         '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
                         '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                         '</form>' +
-                        '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>',
+                        '<button type="submit" form="managerPopupForm" onclick="parent.goDetails('+element.peak_id+','+campaign+','+element.name+','+element.localized_name+','+element.elevation+')" name="annListBtn">Annotations Details</button>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.RED, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -188,7 +189,7 @@
                         '<input type="hidden" name="localizedNames" value="' + element.localized_name + '" > ' +
                         '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                         '</form>' +
-                        '<button type="submit" form="managerPopupForm" name="annListBtn">Annotations Details</button>',
+                        '<button type="submit" form="managerPopupForm" onclick="parent.goDetails('+element.peak_id+','+campaign+','+element.name+','+element.localized_name+','+element.elevation+')" name="annListBtn">Annotations Details</button>',
                         billboard: {
                             image: pinBuilder.fromColor(Cesium.Color.ORANGE, 48).toDataURL(),
                             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -223,6 +224,32 @@
     });
     <%}
                 %>
+
+
+    function goDetails2(peakId, campaign,peakName,localizedNames,elevation){
+        url = "/annotationdetails?peakId="+peakId+"%campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
+
+        newwindow=window.open(url,'AnnotationDetails','height=200,width=150');
+        if (window.focus) {newwindow.focus()}
+    };
+
+    function goDetails(peakId, campaign,peakName,localizedNames,elevation){
+        location.href = "/annotationsdetails?peakId="+peakId+"&campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
+        //window.parent.document.close();
+        //window.parent.location.assign("https://www.google.com");
+        //window.open('https://www.google.com');
+    };
+
+    function goDetailsx(peakId, campaign,peakName,localizedNames,elevation){
+        url = "/annotationsdetails?peakId="+peakId+"%campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
+        var box = document.getElementById('cesiumContainer');
+        console.log(document.documentElement.parentElement);
+
+        while (box.hasChildNodes()) {
+            box.removeChild(box.firstChild);
+        }
+        location.href = url;
+    };
 
 
 </script>

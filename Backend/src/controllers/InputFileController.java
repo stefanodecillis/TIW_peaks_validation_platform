@@ -41,7 +41,7 @@ public class InputFileController extends HttpServlet {
         System.out.println(request.getParameter("fileStatus"));
         if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")
                 || request.getParameter("fileStatus") == null
-                ||request.getParameter("fileStatus").equalsIgnoreCase("") ){
+                || request.getParameter("fileStatus").equalsIgnoreCase("")){
             //TODO REDIRECT  error page
             System.out.println(">>>>>>ERROR");
         }
