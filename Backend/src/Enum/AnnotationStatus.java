@@ -1,19 +1,18 @@
 package Enum;
 
 
-
 public enum AnnotationStatus {
 
-    VALID(1),
+    VALID(2),
     INVALID(0);
 
     private int statusId;
 
-    public int getId(){
+    public int getId() {
         return this.statusId;
     }
 
-    AnnotationStatus(int id){
+    AnnotationStatus(int id) {
         this.statusId = id;
     }
 }

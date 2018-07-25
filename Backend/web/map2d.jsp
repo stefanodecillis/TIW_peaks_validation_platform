@@ -137,8 +137,8 @@
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                     '<input type="hidden" name="map" value="2"> ' +
                     '</form>' +
-                    '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>' +
-                    '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>'));
+                    '<button type="submit" form="peakForm" name="validation" value="1" >Valid</button>' +
+                    '<button type="submit" form="peakForm" name="validation" value="0">Invalid</button>'));
             });
         }
     });

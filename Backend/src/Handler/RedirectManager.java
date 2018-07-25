@@ -11,7 +11,7 @@ public class RedirectManager {
     private static RedirectManager ourInstance = null;
 
     public static RedirectManager getInstance() {
-        if(ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new RedirectManager();
         }
         return ourInstance;
@@ -27,37 +27,43 @@ public class RedirectManager {
     /* all redirect */
 
     public void redirectLogPage(HttpServletResponse response) throws IOException {
-        response.sendRedirect( Constants.PATH + "/login");
+        response.sendRedirect(Constants.PATH + "/login");
         System.out.println("--> log page");
         return;
     }
 
     public void redirectToManager(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeManager");
+        response.sendRedirect(Constants.PATH + "/homeManager");
         System.out.println("--> manager page");
     }
 
+    public void redirectToAnnForm(HttpServletResponse response, int campaign, int peakId, int map, Double elevation, Double latitude, Double longitude) throws IOException {
+        response.sendRedirect(Constants.PATH + "/annotation?campaign=" + campaign + "&peakId=" + peakId + "&map=" + map + "&elevation=" + elevation + "&latitude=" + latitude + "&longitude=" + longitude);
+        System.out.println("--> annotation form");
+    }
+
     public void redirectToWorker(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/homeWorker");
+        response.sendRedirect(Constants.PATH + "/homeWorker");
         System.out.println("--> worker page");
     }
 
     public void redirectToErrorLog(HttpServletResponse response) throws IOException {
-        response.sendRedirect(Constants.PATH +"/errorLogPage");
+        response.sendRedirect(Constants.PATH + "/errorLogPage");
         System.out.println("--> error log page !!");
     }
 
-    public void redirectToErrorReg(HttpServletResponse response) throws IOException{
+    public void redirectToErrorReg(HttpServletResponse response) throws IOException {
         response.sendRedirect(Constants.PATH + "/errorReg");
         System.out.println("--> error reg page !!");
     }
 
-    public void redirectToMap2d(HttpServletResponse response, int campaign, int job)throws IOException{
-        response.sendRedirect(Constants.PATH+"/map2d?campaign=" + campaign + "&job=" + job);
+    public void redirectToMap2d(HttpServletResponse response, int campaign, int job) throws IOException {
+        response.sendRedirect(Constants.PATH + "/map2d?campaign=" + campaign + "&job=" + job);
         System.out.println("---> map2d page");
     }
-    public void redirectToMap3d(HttpServletResponse response, int campaign, int job)throws IOException{
-        response.sendRedirect(Constants.PATH+"/map3d?campaign=" + campaign + "&job=" + job);
+
+    public void redirectToMap3d(HttpServletResponse response, int campaign, int job) throws IOException {
+        response.sendRedirect(Constants.PATH + "/map3d?campaign=" + campaign + "&job=" + job);
         System.out.println("---> map3d page");
     }
 

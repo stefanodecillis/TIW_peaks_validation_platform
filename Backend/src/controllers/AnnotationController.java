@@ -34,15 +34,15 @@ public class AnnotationController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("validation") == null){
+        if (request.getParameter("validation") == null) {
             RedirectManager.getInstance().redirectToErrorLog(response);
             return;
         }
         int status = Integer.parseInt(request.getParameter("validation"));
         AuthCookie userData = CookieHandler.getInstance().checkCookieUser(request);
-        if(status == AnnotationStatus.INVALID.getId()){ //peakInvalid
+        if (status == AnnotationStatus.INVALID.getId()) { //peakInvalid
             System.out.println("--------------invalid---------");
-            if(Tools.validPeak(AnnotationStatus.INVALID.getId(),Integer.parseInt(request.getParameter("peakId")),
+            if (Tools.validPeak(AnnotationStatus.INVALID.getId(), Integer.parseInt(request.getParameter("peakId")),
                     userData.getUser_id(),
                     Integer.parseInt(request.getParameter("campaign")),
                     request.getParameter("peakName"),
@@ -50,13 +50,23 @@ public class AnnotationController extends HttpServlet {
                     Double.parseDouble(request.getParameter("longitude")),
                     Double.parseDouble(request.getParameter("elevation")),
                     request.getParameter("localizaedNames")
-            )){
+            )) {
                 System.out.println("---- inserted annotation ----");
             } else {
                 System.out.println(" %%% error during insertion %%%");
             }
 
-        } else if (status == AnnotationStatus.VALID.getId()){ //valid
+        } else if (status == 1) { //redirect to jsp
+            RedirectManager.getInstance().redirectToAnnForm(response,
+                    Integer.parseInt(request.getParameter("campaign")),
+                    Integer.parseInt(request.getParameter("peakId")),
+                    Integer.parseInt(request.getParameter("map")),
+                    Double.parseDouble(request.getParameter("elevation")),
+                    Double.parseDouble(request.getParameter("latitude")),
+                    Double.parseDouble(request.getParameter("longitude")));
+            return;
+
+        } else if (status == AnnotationStatus.VALID.getId()) { //request from annotation page
             System.out.println("--------------validation---------");
 
             int campaign = Integer.parseInt(request.getParameter("campaign"));
@@ -68,7 +78,7 @@ public class AnnotationController extends HttpServlet {
 
             System.out.println("new validation");
 
-            if(Tools.validPeak(AnnotationStatus.VALID.getId(),
+            if (Tools.validPeak(AnnotationStatus.VALID.getId(),
                     peakId,
                     user,
                     campaign,
@@ -76,17 +86,21 @@ public class AnnotationController extends HttpServlet {
                     latitude,
                     longitude,
                     elevation,
-                    request.getParameter("localizedNames"))){
+                    request.getParameter("localizedNames"))) {
                 System.out.println("completed validation");
             } else {
                 System.out.println("%%% error somewhere %%%");
             }
+        } else {
+            RedirectManager.getInstance().redirectToErrorLog(response); //TODO error page
+            return;
         }
-        if(Integer.parseInt(request.getParameter("map"))==2 ){
+        //redirect to respective maps
+        if (Integer.parseInt(request.getParameter("map")) == 2) {
             RedirectManager.getInstance().redirectToMap2d(response, Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
             return;
-        } else if(Integer.parseInt(request.getParameter("map"))==3 ) {
-            RedirectManager.getInstance().redirectToMap3d(response,Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
+        } else if (Integer.parseInt(request.getParameter("map")) == 3) {
+            RedirectManager.getInstance().redirectToMap3d(response, Integer.parseInt(request.getParameter("campaign")), Job.WORKER.getId());
             return;
         } else {
             RedirectManager.getInstance().redirectToErrorLog(response);
