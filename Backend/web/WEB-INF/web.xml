@@ -341,5 +341,13 @@
         <url-pattern>/annotationsdetails</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>GeneralErrorPage</servlet-name>
+        <jsp-file>/generalErrorPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GeneralErrorPage</servlet-name>
+        <url-pattern>/generalerror</url-pattern>
+    </servlet-mapping>
 
 </web-app>

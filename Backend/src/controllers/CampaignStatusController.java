@@ -3,6 +3,7 @@ package controllers;
 import Entities.AuthCookie;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 
 import javax.servlet.ServletContext;
@@ -34,8 +35,7 @@ public class CampaignStatusController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("status") == null || request.getParameter("status").equalsIgnoreCase("")
                 || request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")){
-            //show error page
-            //TODO Error page
+            RedirectManager.getInstance().redirectGeneralError(response);
             return;
         }
         data = CookieHandler.getInstance().checkCookieUser(request);

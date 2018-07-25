@@ -35,7 +35,7 @@ public class UserDetailsService extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
         if(!checkParams(request)){
-            RedirectManager.getInstance().redirectToErrorLog(response); //todo change to the right page --> use redirect manager
+            RedirectManager.getInstance().redirectGeneralError(response);
             return;
         }
         try {
@@ -49,7 +49,7 @@ public class UserDetailsService extends HttpServlet {
                 userPsw = rs.getString("psswd");
             }
             if(userPsw == null){
-                RedirectManager.getInstance().redirectToErrorLog(response); //todo change to the right page --> use redirect manager
+                RedirectManager.getInstance().redirectGeneralError(response);
                 return;
             }
             String insertPswBase96 = Base64.getEncoder().encodeToString(insertPsw.getBytes());

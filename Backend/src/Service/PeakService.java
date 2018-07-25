@@ -50,7 +50,7 @@ public class PeakService extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
         if (request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")) {
-            RedirectManager.getInstance().redirectToErrorLog(response); //TODO create the right page
+            RedirectManager.getInstance().redirectGeneralError(response);
         }
         int campaign_id = Integer.parseInt(request.getParameter("campaign"));
         String res = null;
@@ -88,8 +88,6 @@ public class PeakService extends HttpServlet {
                     Gson gson = Tools.getGson();
                     res = gson.toJson(peaks);
                     Writer out = response.getWriter();
-                    //response.setContentType("application/json");
-                    //response.setCharacterEncoding("UTF-8");
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     System.out.println(res);
@@ -132,11 +130,8 @@ public class PeakService extends HttpServlet {
                     Gson gson = Tools.getGson();
                     res = gson.toJson(peaks);
                     Writer out = response.getWriter();
-                    //response.setContentType("application/json");
-                    //response.setCharacterEncoding("UTF-8");
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
-                    System.out.println(res);
                     out.write(res);
                 }
 
@@ -145,7 +140,7 @@ public class PeakService extends HttpServlet {
             }
 
         } else {
-            RedirectManager.getInstance().redirectToErrorLog(response); //TODO create the right page
+            RedirectManager.getInstance().redirectGeneralError(response);
             try {
                 connection.close();
             } catch (SQLException e) {

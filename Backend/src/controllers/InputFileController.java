@@ -42,7 +42,7 @@ public class InputFileController extends HttpServlet {
         if(request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")
                 || request.getParameter("fileStatus") == null
                 || request.getParameter("fileStatus").equalsIgnoreCase("")){
-            //TODO REDIRECT  error page
+            RedirectManager.getInstance().redirectGeneralError(response);
             System.out.println(">>>>>>ERROR");
         }
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">

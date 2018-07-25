@@ -75,8 +75,6 @@ public class CookieHandler {
         return false;
     }
 
-    //TODO checkThis
-
     public boolean createCookie(HttpServletResponse response, String cookieName,String cookieValue){
         try{
             String encodedValue = Base64.getEncoder().encodeToString(cookieValue.getBytes());

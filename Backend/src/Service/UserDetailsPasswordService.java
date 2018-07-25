@@ -36,7 +36,7 @@ public class UserDetailsPasswordService extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthCookie data = CookieHandler.getInstance().checkCookieUser(request);
         if(!checkParams(request)){
-            RedirectManager.getInstance().redirectToErrorLog(response);  //todo redirect to the right page
+            RedirectManager.getInstance().redirectGeneralError(response);
             return;
         }
         //todo need to review all the code
@@ -52,7 +52,7 @@ public class UserDetailsPasswordService extends HttpServlet {
                 userPsw = rs.getString("psswd");
             }
             if(userPsw == null){
-                RedirectManager.getInstance().redirectToErrorLog(response);  //todo redirect to the right page
+                RedirectManager.getInstance().redirectGeneralError(response);
                 return;
             }
             String insertPswBase64 = Base64.getEncoder().encodeToString(oldPsw.getBytes());

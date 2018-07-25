@@ -92,7 +92,7 @@ public class AnnotationController extends HttpServlet {
                 System.out.println("%%% error somewhere %%%");
             }
         } else {
-            RedirectManager.getInstance().redirectToErrorLog(response); //TODO error page
+            RedirectManager.getInstance().redirectGeneralError(response);
             return;
         }
         //redirect to respective maps

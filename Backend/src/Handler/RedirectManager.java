@@ -3,6 +3,7 @@ package Handler;
 import Util.Constants;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
@@ -70,6 +71,11 @@ public class RedirectManager {
     public void redirectHome(HttpServletResponse response) throws IOException {
         response.sendRedirect(Constants.PATH);
         System.out.println("-----> Home");
+    }
+
+    public void redirectGeneralError(HttpServletResponse response) throws IOException {
+        response.sendRedirect(Constants.PATH+ "/generalerror");
+        System.out.println("----> General ErrorPage");
     }
 
 }
