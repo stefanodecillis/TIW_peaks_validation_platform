@@ -155,18 +155,17 @@
             mymap.addLayer(markers);
             $.each(data, function (index, element) {
                 console.log("peaks");
+                var totAnn = element.num_negative_annotations + element.num_positive_annotations;
 
                 if (element.validation_status_id == 2) {
                     var marker = L.marker([element.latitude, element.longitude], {icon: greenIcon});
-                } else if (element.num_negative_annotations > 0) {
+                } else if (element.has_ref_ann==true) {
                     var marker = L.marker([element.latitude, element.longitude], {icon: redIcon});
-                } else if (element.num_positive_annotations > 0) {
+                } else if (totAnn > 0) {
                     var marker = L.marker([element.latitude, element.longitude], {icon: orangeIcon});
                 } else {
                     var marker = L.marker([element.latitude, element.longitude], {icon: yellowIcon});
                 }
-
-                var totAnn = element.num_negative_annotations + element.num_positive_annotations;
                 if (totAnn > 0) {
                     marker.bindPopup(
                         '<form method="POST" id="managerPopupForm" action= "' + annJspUrl + '">' +

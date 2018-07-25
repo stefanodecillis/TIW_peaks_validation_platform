@@ -5,7 +5,8 @@
 <%@ page import="Util.Constants" %>
 <%@ page import="Handler.CookieHandler" %>
 <%@ page import="Entities.AuthCookie" %>
-<%@ page import="Enum.Job" %><%--
+<%@ page import="Enum.Job" %>
+<%@ page import="Enum.AnnotationManagerStatus" %><%--
   Created by IntelliJ IDEA.
   User: Paolo De Santis
   Date: 22/07/2018
@@ -128,6 +129,7 @@
                             <th scope="col">Elevation</th>
                             <th scope="col">Name</th>
                             <th scope="col">Localized Names</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
@@ -150,6 +152,30 @@
                             </td>
                             <td><%=rs.getString("localized_names")%>
                             </td>
+                            <td>
+                                <%
+                                    if (rs.getInt("validation_status_id") == AnnotationManagerStatus.REFUSED.getId()) {
+                                %>
+                                Refused
+                                <%
+                                } else {
+                                %>
+                                <form id="deleteAnnForm" action="<%=Constants.PATH%>/rejectAnnotationService"
+                                      method="POST">
+                                    <input type="hidden" name="annotation_id" value="<%=rs.getInt("annotation_id")%>">
+                                    <input type="hidden" name="elevation"
+                                           value="<%=request.getParameter("elevation")%>">
+                                    <input type="hidden" name="localizedNames"
+                                           value="<%=request.getParameter("localizedNames")%>">
+                                    <input type="hidden" name="peakName" value="<%=request.getParameter("peakName")%>">
+                                    <input type="hidden" name="peakId" value="<%=request.getParameter("peakId")%>">
+                                    <input type="hidden" name="campaign" value="<%=request.getParameter("campaign")%>">
+                                    <input type="submit" class="btn btn-danger" name="rejectBtn" value="Reject">
+                                </form>
+                                <%
+                                    }
+                                %>
+                            </td>
                         </tr>
                         <%
                             }
@@ -167,13 +193,13 @@
     }
 
 %>
-                    <form name="to2dForm" method="POST"
+                    <form id="to2dForm" method="POST"
                           action="<%=Constants.PATH%>/map2d.jsp?campaign=<%=request.getParameter("campaign")%>&job=<%=Job.MANAGER.getId()%>">
-                        <input type="submit" value="Return to 2D map" name="to2dMap">
+                        <input type="submit" class="btn btn-info" value="Return to 2D map" name="to2dMap">
                     </form>
-                    <form name="to3dForm" method="POST"
+                    <form id="to3dForm" method="POST"
                           action="<%=Constants.PATH%>/map3d.jsp?campaign=<%=request.getParameter("campaign")%>&job=<%=Job.MANAGER.getId()%>">
-                        <input type="submit" value="Return to 3D map" name="to3dMap">
+                        <input type="submit" class="btn btn-info" value="Return to 3D map" name="to3dMap">
                     </form>
             </main>
         </div>

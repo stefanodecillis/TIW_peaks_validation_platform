@@ -44,12 +44,12 @@ public class Constants {
 
     public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak p left join (select  peak_id, count(*) as pos_annotations from annotation a where a.validation=1 group by peak_id )  as t on p.peak_id = t.peak_id\n" +
             "left join (select peak_id, count(*) as neg_annotations from annotation a where a.validation = 0 group by peak_id) as s on s.peak_id = p.peak_id where campaign_id=?";
-
+    public final static String CHECK_ANN_STATUS = "select validation_status_id from annotation where peak_id=? and campaign_id=?";
     public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ?, ts_date = CURRENT_TIMESTAMP where campaign_id = ?";
-
+    public final static String UPDATE_ANNOTATION_VALIDATION_STATUS_ID = "update annotation set validation_status_id=? where annotation_id=?";
     public final static String CHECK_STATUS_CAMPAIGN = "select campaign_status_id from campaign where campaign_id = ?";
     public final static String INSERT_PEAK = "insert into peak(provenance,elevation,longitude,latitude,peak_name,localized_names,campaign_id,validation_status_id) values(?,?,?,?,?,?,?,?)";
-    public final static String INSERT_ANNOTATION = "insert into annotation(validation, peak_id, peak_name,user_id, campaign_id,latitude,longitude,elevation,localized_names) values(?,?,?,?,?,?,?,?,?)";
+    public final static String INSERT_ANNOTATION = "insert into annotation(validation, peak_id, peak_name,user_id, campaign_id,latitude,longitude,elevation,localized_names,validation_status_id) values(?,?,?,?,?,?,?,?,?,1)";
     public final static String COUNT_PEAK_ANNOTATIONS = "select count(*) as num from annotation where campaign_id=? and validation=? and peak_id=?";
     public final static String WORKER_PEAK_STILL_VALIDABLE = "select * from peak where campaign_id =? and peak_id NOT IN(select DISTINCT p.peak_id from peak p inner join annotation a on p.peak_id = a.peak_id where a.user_id =? and a.campaign_id =?)";
 

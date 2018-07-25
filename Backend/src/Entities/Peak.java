@@ -24,6 +24,16 @@ public class Peak {
     private Integer num_positive_annotations = null;
     @SerializedName("num_negative_annotations")
     private Integer num_negative_annotations = null;
+    @SerializedName("has_ref_ann")
+    private Boolean has_ref_ann = false;
+
+    public Boolean getHas_ref_ann() {
+        return has_ref_ann;
+    }
+
+    public void setHas_ref_ann(Boolean has_ref_ann) {
+        this.has_ref_ann = has_ref_ann;
+    }
 
     private String localizedNames = null;
 

@@ -2,6 +2,7 @@ package Service;
 
 import Entities.AuthCookie;
 import Entities.Peak;
+import Enum.AnnotationManagerStatus;
 import Enum.Job;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
@@ -118,7 +119,23 @@ public class PeakService extends HttpServlet {
                     peak.setValidation_status_id(rs.getInt("validation_status_id"));
                     peak.setNum_negative_annotations(rs.getInt("neg_annotations"));
                     peak.setNum_positive_annotations(rs.getInt("pos_annotations"));
+
                     peak.setLocalizedNames(rs.getString("localized_names"));
+
+                    if (peak.getNum_negative_annotations() + peak.getNum_positive_annotations() > 0) {
+                        String query2 = Constants.CHECK_ANN_STATUS;
+                        PreparedStatement statement1 = connection.prepareStatement(query2);
+                        statement1.setInt(1,peak.getPeak_id());
+                        statement1.setInt(2, campaign_id);
+                        ResultSet resultSet = statement1.executeQuery();
+                        while (resultSet.next()){
+                            if(resultSet.getInt("validation_status_id")== AnnotationManagerStatus.REFUSED.getId()){
+                                peak.setHas_ref_ann(true);
+                                break;
+                            }
+                        }
+                    }
+
                     peaks.add(peak);
                 }
 

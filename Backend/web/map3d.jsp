@@ -145,7 +145,7 @@
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                         }
                     });
-                } else if (element.num_negative_annotations > 0) {
+                } else if (element.has_ref_ann==true) {
                     var redPin = viewer.entities.add({
 
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),
@@ -171,7 +171,7 @@
                             scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
                         }
                     });
-                } else if (element.num_positive_annotations > 0) {
+                } else if (element.num_positive_annotations + element.num_negative_annotations > 0) {
                     var orangePin = viewer.entities.add({
 
                         position: Cesium.Cartesian3.fromDegrees(element.longitude, element.latitude, element.elevation),

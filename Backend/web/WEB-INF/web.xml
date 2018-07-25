@@ -350,4 +350,13 @@
         <url-pattern>/generalerror</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>rejectAnnotationService</servlet-name>
+        <servlet-class>Service.RejectAnnotationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rejectAnnotationService</servlet-name>
+        <url-pattern>/rejectAnnotationService</url-pattern>
+    </servlet-mapping>
+
 </web-app>
