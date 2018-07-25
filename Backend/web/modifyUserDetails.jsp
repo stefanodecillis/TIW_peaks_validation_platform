@@ -32,7 +32,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+            <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
         </li>
     </ul>
 </nav>
@@ -82,8 +82,8 @@
                 </div>
             </div>
             <div>
-                <h1> Modify User Details</h1>
-                <h2>Modify Username/Email</h2>
+                <h1>Modify User Details</h1>
+                <h3>Modify Username/Email</h3>
                 <div class="form-beauty" align="center">
                     <form method="POST" action="/userDetailsService">
                         <label>New User Name:</label> <br>
@@ -98,7 +98,7 @@
 
                 <br>
 
-                <h2>Modify Password</h2>
+                <h3>Modify Password</h3>
                 <div class="form-beauty" align="center">
                     <form method="POST" action="/userDetailsPasswordService">
                         <label>Old Password:</label> <br>

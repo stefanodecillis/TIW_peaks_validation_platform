@@ -46,7 +46,7 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+            <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
         </li>
     </ul>
 </nav>

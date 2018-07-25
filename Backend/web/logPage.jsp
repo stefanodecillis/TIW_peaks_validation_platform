@@ -70,9 +70,9 @@
                     <input name="mail" class="form-control" id="email" type="email"> <br><br>
                     <label>Password:</label> <br>
                     <input name="psw" class="form-control" id="pwd" type="password"> <br><br>
-                    <button type="submit" class="btn btn-primary" id="loginBtn">Accedi</button>
+                    <button type="submit" class="btn btn-primary" id="loginBtn">Log In</button>
                 </form>
-                <button class="btn btn-warning" onclick="doRegister()" id="registerBtn">Registrati</button>
+                <button class="btn btn-warning" onclick="doRegister()" id="registerBtn">Register</button>
             </div>
         </main>
     </div>

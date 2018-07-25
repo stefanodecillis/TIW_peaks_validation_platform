@@ -53,7 +53,7 @@
         <span id="title" class="nav-link" href="#">Home</span>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -108,7 +108,7 @@
                 <div>
                     <h1>List of Annotations about:</h1>
                     <br>
-                    <h3>Peak_ID: <%=request.getParameter("peakId")%>
+                    <h3>Peak ID: <%=request.getParameter("peakId")%>
                     </h3><br>
                     <h3> Name: <%=request.getParameter("peakName")%>
                     </h3><br>
@@ -156,7 +156,7 @@
                                 <%
                                     if (rs.getInt("validation_status_id") == AnnotationManagerStatus.REFUSED.getId()) {
                                 %>
-                                Refused
+                                Rejected
                                 <%
                                 } else {
                                 %>

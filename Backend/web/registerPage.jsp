@@ -76,7 +76,7 @@
                     <label>Password:</label> <br>
                     <input name="psw" class="form-control" id="pwd" placeholder="insert password" type="password"
                            onkeyup="check()" required> <br>
-                    <label>Conferm Password:</label> <br>
+                    <label>Confirm Password:</label> <br>
                     <input name="psw-check" class="form-control" placeholder="Conferm password" id="pwd-check"
                            type="password" onchange="check()" onkeyup="check()" required>
                     <span id="message"></span>
@@ -88,7 +88,7 @@
                     <br>
                 </form>
                 <button type="submit" form="registerForm" onclick="sendReg()" class="btn btn-warning" id="registerBtn">
-                    Registrati
+                    Register
                 </button>
                 <%--<button class="btn btn-primary" onclick="doLogin()" id="loginBtn">Log In</button> --%>
                 <br>

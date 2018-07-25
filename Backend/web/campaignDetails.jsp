@@ -54,7 +54,7 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=user_id%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=user_id%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -114,7 +114,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"> ID</td>
+                            <td colspan="3">ID</td>
                             <td><%=rs.getString("campaign_id")%>
                             </td>
                         </tr>
@@ -125,11 +125,11 @@
                                     String statusTxt = null;
                                     int status = Integer.parseInt(rs.getString("campaign_status_id"));
                                     if (status == 1) {
-                                        statusTxt = "Creata";
+                                        statusTxt = "Created";
                                     } else if (status == 2) {
-                                        statusTxt = "Avviata";
+                                        statusTxt = "Started";
                                     } else if (status == 3) {
-                                        statusTxt = "Chiusa";
+                                        statusTxt = "Closed";
                                     }
                                 %>
                                 <%=statusTxt%>
@@ -140,7 +140,6 @@
                         if (status == 1) {
                     %>
                     <div class="formBtnClass">
-
                         <form id="firstForm" action="<%=Constants.PATH+"/campaignstatuscontroller"%>" method="post">
                             <input type="hidden" name="campaign" value="<%=campaign_id%>">
                             <input type="hidden" name="status" value="2">
@@ -148,8 +147,8 @@
                         <form action="<%=Constants.PATH+"/inputdataform"%>" id="secondForm" method="post">
                             <input type="hidden" name="campaign" value="<%=campaign_id%>">
                         </form>
-                        <button type="submit" class="btn btn-primary" id="firstBtn" form="firstForm">Avvia</button>
-                        <button type="submit" class="btn btn-info" id="secondBtn" form="secondForm">Carica Picchi
+                        <button type="submit" class="btn btn-primary" id="firstBtn" form="firstForm">Start</button>
+                        <button type="submit" class="btn btn-info" id="secondBtn" form="secondForm">Upload Peaks
                         </button>
                     </div>
                     <%
@@ -167,16 +166,16 @@
                         <form action="<%=Constants.PATH+"/stats"%>" method="post" id="statsForm">
                             <input type="hidden" name="campaign" value="<%=campaign_id%>">
                         </form>
-                        <button type="submit" class="btn btn-info" id="firstBtn2" form="mapForm">Mostra Mappa</button>
-                        <button type="submit" class="btn btn-success" id="thirdBtn3" form="statsForm">Visualizza Statistiche</button>
-                        <button type="submit" class="btn btn-danger" id="secondBtn2" form="closeForm">Chiudi</button>
+                        <button type="submit" class="btn btn-info" id="firstBtn2" form="mapForm">Show Maps</button>
+                        <button type="submit" class="btn btn-success" id="thirdBtn3" form="statsForm">Show Statistics</button>
+                        <button type="submit" class="btn btn-danger" id="secondBtn2" form="closeForm">Close Campaign</button>
                     </div>
                     <%
                     } else if (status == 3) {
                     %>
                     <form action="<%=Constants.PATH+"/stats"%>" method="post">
                         <input type="hidden" name="campaign" value="<%=campaign_id%>">
-                        <input type="submit" class="btn btn-success" value="Visualizza Dettagli"/>
+                        <input type="submit" class="btn btn-success" value="Show Statistics"/>
                     </form>
                     <%
                         }

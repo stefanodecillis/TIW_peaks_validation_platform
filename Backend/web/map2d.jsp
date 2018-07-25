@@ -206,7 +206,7 @@
 </script>
 <form name="to3dForm" align="right" method="POST"
       action="<%=Constants.PATH%>/map3d.jsp?campaign=<%=request.getParameter("campaign")%>&job=<%=request.getParameter("job")%>">
-    <input type="submit" value="3D map" name="to3dMap">
+    <input type="submit" class="btn btn-info" value="3D map" name="to3dMap">
 </form>
 </body>
 </html>

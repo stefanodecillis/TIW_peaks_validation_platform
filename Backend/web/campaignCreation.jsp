@@ -39,7 +39,7 @@
         <span id="title" class="nav-link" href="#">Home</span>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
 
-                <H1>Create Your Campaign</H1>
+                <H1>Create your Campaign</H1>
 
                 <div class="form-reg-beauty" align="center">
                     <form method="POST" id="campaignCreationForm" action="/campaignCreationService">

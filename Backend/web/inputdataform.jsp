@@ -43,7 +43,7 @@
         <span id="title" class="nav-link" href="#">Home</span>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -102,8 +102,8 @@
                         <input name="campaign" type="hidden" value="<%=request.getParameter("campaign")%>">
                         <input id="input-folder-1" name="file" type="file" webkitdirectory>
                         <select name="fileStatus" form="dataForm">
-                            <option value="1" name="fileStatus">Da annotare</option>
-                            <option value="2" name="fileStatus">Da non annotare</option>
+                            <option value="1" name="fileStatus">Annotations allowed</option>
+                            <option value="2" name="fileStatus">Annotations not allowed</option>
                         </select><br><br><br>
                         <input type="submit" value="Upload file">
                     </form>

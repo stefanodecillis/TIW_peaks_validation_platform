@@ -50,7 +50,7 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -107,10 +107,10 @@
                     <table class="table" border>
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Stato</th>
-                            <th scope="col">Data Creazione</th>
-                            <th scope="col">Ultimo aggiornamento</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col">Last Update</th>
                         </tr>
                         </thead>
 
@@ -127,11 +127,11 @@
 
                             <%
                                 if (resultSet.getInt("campaign_status_id") == 1){
-                                    %> <td> <span style="background-color:#e362f7">Creata</span></td> <%
+                                    %> <td> <span style="background-color:#e362f7">Created</span></td> <%
                                 } else if ( resultSet.getInt("campaign_status_id") == 2){
-                                    %> <td> <span style="background-color:#42b3f4">Avviata</span> </td> <%
+                                    %> <td> <span style="background-color:#42b3f4">Started</span> </td> <%
                                 } else if (resultSet.getInt("campaign_status_id") == 3){
-                                    %> <td> <span style="background-color:#96f28c">Conclusa</span> </td> <%
+                                    %> <td> <span style="background-color:#96f28c">Closed</span> </td> <%
                                 }
                             %>
 

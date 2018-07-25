@@ -89,7 +89,6 @@
                     '<label>Longitudine:' + element.longitude.toFixed(2) + '</label><br>' +
                     '<label>Latitudine:' + element.latitude .toFixed(2)+ '</label><br>' +
                     '<label>Localized Names:' + element.localizedNames + '</label><br>' +
-                    '<input type="hidden" name="peak_id" value="' + element.peak_id + '">' +
                     '<input type="hidden" name="peakId" value="' + element.peak_id + '">' +
                     '<input type="hidden" name="campaign" value="' + campaign + '">' +
                     '<input type="hidden" name="peakName" value="' + element.name + '"> ' +
@@ -99,8 +98,8 @@
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                     '<input type="hidden" name="map" value="3"> ' +
                     '</form>' +
-                    '<button type="submit" form="peakForm" name="validation" value="1" >Valida</button>' +
-                    '<button type="submit" form="peakForm" name="validation" value="0">Invalida</button>',
+                    '<button type="submit" form="peakForm" name="validation" value="1" >Valid</button>' +
+                    '<button type="submit" form="peakForm" name="validation" value="0">Invalid</button>',
                     billboard: {
                         image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
                         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,

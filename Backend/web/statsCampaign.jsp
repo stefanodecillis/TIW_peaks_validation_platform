@@ -42,7 +42,7 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PeakPlatform</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Sign out</a>
+                <a class="nav-link" href="#" onclick="doLogout(<%=data.getUser_id()%>)">Log out</a>
             </li>
         </ul>
     </nav>
@@ -96,25 +96,25 @@
                 <div>
                     <div class="external">
                         <div class="internal">
-                            <h3> Numero di picchi non ancora annotati (0 annotazioni) </h3>
+                            <h3> Number of Peaks with 0 Annotations </h3>
                             <br>
                             <br>
                             <p class="result" id="counter1"></p>
                         </div>
                         <div class="internal">
-                            <h3> Numero di picchi con 1 o più annotazioni </h3>
+                            <h3> Number of Peaks with 1 or more Annotations</h3>
                             <br>
                             <br>
                             <p class="result" id="counter2"></p>
                         </div>
                         <div class="internal">
-                            <h3> Numero di picchi con almeno 1 annotazione rifiutata </h3>
+                            <h3> Number of Peaks with at least 1 Annotation Rejected </h3>
                             <br>
                             <br>
                             <p class="result" id="counter3"></p>
                         </div>
                         <div class="internal">
-                            <h3> Numero di conflitti </h3>
+                            <h3> Number of Conflicts</h3>
                             <br>
                             <br>
                             <p class="result" id="counter4"></p>
@@ -122,18 +122,17 @@
                     </div>
                     <div class="external">
                         <div class="internal">
-                            <button id="btn1" type="button" class="btn btn-primary">Elenco con annotazioni</button>
+                            <button id="btn1" type="button" class="btn btn-primary">Peaks with Annotations List</button>
                             <div id="box1"></div>
                             <div id="boxResult1"></div>
                         </div>
                         <div class="internal">
-                            <button id="btn2" type="button" class="btn btn-primary">Elenco dei picchi <br/>
-                                con almeno una annotazioni rifiutate
+                            <button id="btn2" type="button" class="btn btn-primary">Peaks with at least 1 Annotation Rejected List
                             </button>
                             <div id="box2"></div>
                         </div>
                         <div id="btn3" class="internal">
-                            <button type="button" class="btn btn-primary">Elenco dei conflitti della campagna</button>
+                            <button type="button" class="btn btn-primary">Peaks with discordant Annotations List </button>
                             <div id="box3"></div>
                         </div>
                     </div>
