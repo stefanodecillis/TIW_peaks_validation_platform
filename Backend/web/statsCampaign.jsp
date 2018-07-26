@@ -131,8 +131,8 @@
                             </button>
                             <div id="box2"></div>
                         </div>
-                        <div id="btn3" class="internal">
-                            <button type="button" class="btn btn-primary">Peaks with discordant Annotations List </button>
+                        <div  class="internal">
+                            <button id="btn3" type="button" class="btn btn-primary">Peaks with Conflict Annotations List </button>
                             <div id="box3"></div>
                         </div>
                     </div>
