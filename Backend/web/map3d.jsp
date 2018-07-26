@@ -64,6 +64,7 @@
     });
 
     var campaign = <%=campaign%>;
+    var server = "<%=Constants.PATH%>";
     var servletUrl = "<%=Constants.PATH +"/annotationcontroller"%>";
     var annJspUrl = "<%=Constants.PATH +"/annotationsdetails"%>";
     var name = null;
