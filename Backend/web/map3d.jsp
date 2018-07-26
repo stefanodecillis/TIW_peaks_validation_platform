@@ -98,8 +98,8 @@
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                     '<input type="hidden" name="map" value="3"> ' +
                     '</form>' +
-                    '<button type="submit" form="peakForm" name="validation" value="1" >Valid</button>' +
-                    '<button type="submit" form="peakForm" name="validation" value="0">Invalid</button>',
+                    '<button type="submit"  name="validation" value="1" onclick="parent.validPeak('+element.peak_id+','+campaign+','+element.name+','+element.localizedNames+','+element.elevation+','+element.latitude+','+element.longitude+','+1+','+3+')" >Valida</button>' +
+                    '<button type="submit"  name="validation" value="0" onclick="parent.invalidPeak('+element.peak_id+','+campaign+','+element.name+','+element.localizedNames+','+element.elevation+','+element.latitude+','+element.longitude+','+0+','+3+')">Invalida</button>',
                     billboard: {
                         image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
                         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -228,6 +228,31 @@
         location.href = "/annotationsdetails?peakId="+peakId+"&campaign="+campaign+"&peakName="+peakName+"&localizedNames="+localizedNames+"&elevation="+elevation;
     };
 
+    function invalidPeak(peakId, campaign,peakName,localizedNames,elevation,latitude,longitude,validation,map){
+        console.log('invalid func called');
+        url = server+"/annotationcontroller?peakId="+peakId+
+            "&campaign="+campaign+
+            "&peakName="+peakName+
+            "&localizedNames="+localizedNames+
+            "&elevation="+elevation +
+            "&latitude=" +latitude +
+            "&longitude=" + longitude +
+            "&validation=" + validation +
+            "&map="+ map;
+
+        $.ajax({
+            type: 'post',
+            url: url,
+            success: function () {
+                location.reload(true);
+            }
+        })
+
+    };
+
+    function validPeak(peakId, campaign,peakName,localizedNames,elevation,latitude,longitude,validation,map){
+        location.href = server+"/annotation?campaign=" + campaign + "&peakId=" + peakId + "&map=" + map + "&elevation=" + elevation + "&latitude=" + latitude + "&longitude=" + longitude;
+    };
 
 </script>
 </body>
