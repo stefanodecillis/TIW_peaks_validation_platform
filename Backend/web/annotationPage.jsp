@@ -92,6 +92,7 @@
                     </div>
                 </div>
 
+                <h2>Create your Annotation</h2><br>
                 <form action="<%=Constants.PATH +"/annotationcontroller"%>" method="post">
                     New Name:
                     <input type="text" name="peakName" value="<%=request.getParameter("peakName")%>"><br><br>

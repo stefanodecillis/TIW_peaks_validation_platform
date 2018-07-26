@@ -319,7 +319,7 @@
                                 thtr.appendChild(longitudeth);
                                 tbody.appendChild(thtr);
                                 $.each(data, function (index, element) {
-                                    if (element.validation == 1) {
+                                    if (element.validation == 2) {
                                         createRowForTable(tbody, element.username, "Valid", element.elevation, element.latitude.toFixed(2), element.longitude.toFixed(2), element.localized_names, element.peak_name, index + 1);
                                         createRowForTable(tbody, null);
                                     } else {

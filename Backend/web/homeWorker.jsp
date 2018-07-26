@@ -102,10 +102,14 @@
                     </div>
                 </div>
                 <div>
+                    <h2>Campaigns joined</h2>
                     <table class="table" border>
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="row">Campaigns joined</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col">Last Update</th>
                         </tr>
                         </thead>
                         <%
@@ -139,10 +143,14 @@
                         statement1.setInt(1, data.getUser_id());
                         campaignNotJoined = statement1.executeQuery();
                     %>
+                    <h2>Campaigns not joined</h2>
                     <table border class="table">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="row">Campaigns not joined</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col">Last Update</th>
                         </tr>
                         </thead>
 

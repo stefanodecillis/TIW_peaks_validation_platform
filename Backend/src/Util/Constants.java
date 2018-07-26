@@ -42,7 +42,7 @@ public class Constants {
     public final static String INSERT_SUBSCRIBE = "INSERT INTO subscribe(worker_id, campaign_id) VALUES(?,?)";
     public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ? ";
 
-    public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak p left join (select  peak_id, count(*) as pos_annotations from annotation a where a.validation=1 group by peak_id )  as t on p.peak_id = t.peak_id\n" +
+    public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak p left join (select  peak_id, count(*) as pos_annotations from annotation a where a.validation=2 group by peak_id )  as t on p.peak_id = t.peak_id\n" +
             "left join (select peak_id, count(*) as neg_annotations from annotation a where a.validation = 0 group by peak_id) as s on s.peak_id = p.peak_id where campaign_id=?";
     public final static String CHECK_ANN_STATUS = "select validation_status_id from annotation where peak_id=? and campaign_id=?";
     public final static String UPDATE_STATUS_CAMPAIGN = "update campaign set campaign_status_id = ?, ts_date = CURRENT_TIMESTAMP where campaign_id = ?";
@@ -55,13 +55,13 @@ public class Constants {
 
     /*statistic queries*/
     public final static String TOBEANNOTATEDCOUNT = "select count(*) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is null";
-    public final static String PEAKANNOTATEDCOUNT = "select count(*) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is not null";
-    public final static String PEAKINVALIDANNOTATIONCOUNT = "select count(*) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is not null and a.validation = 0";
-    public final static String CONFLICTCOUNT = "select sum(case when t1.num>t2.num then t2.num else t1.num end) as res from (select peak_id, count(*) as num from annotation where validation = 1 and campaign_id = ? group by peak_id) as t1 inner join (select peak_id, count(*) as num from annotation where validation = 0 and campaign_id = ? group by peak_id) as t2 on t1.peak_id = t2.peak_id group by t1.peak_id";
+    public final static String PEAKANNOTATEDCOUNT = "select count(DISTINCT p.peak_id) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is not null";
+    public final static String PEAKINVALIDANNOTATIONCOUNT = "select count(DISTINCT p.peak_id) as num from peak p left join annotation a on a.peak_id = p.peak_id where p.campaign_id = ? and a.peak_id is not null and a.validation_status_id = 0";
+    public final static String CONFLICTCOUNT = "select sum(case when t1.num>t2.num then t2.num else t1.num end) as res from (select peak_id, count(*) as num from annotation where validation = 2 and campaign_id = ? group by peak_id) as t1 inner join (select peak_id, count(*) as num from annotation where validation = 0 and campaign_id = ? group by peak_id) as t2 on t1.peak_id = t2.peak_id group by t1.peak_id";
     public final static String ANNOTATIONLIST = "select * from annotation a inner join user_app ua on ua.user_id = a.user_id where campaign_id = ? and peak_id = ?";
     public final static String ANNOTATIONPEAKNAME = "select DISTINCT peak_id, peak_name from annotation where campaign_id = ?";
-    public final static String PEAKINVALIDLIST = "select distinct peak_name, peak_id from annotation where campaign_id = ? and validation = 0";
-    public final static String INVALIDANNOTATIONLIST = "select * from annotation a inner join user_app ua on ua.user_id = a.user_id where campaign_id = ? and peak_id = ? and validation = 0";
+    public final static String PEAKINVALIDLIST = "select distinct peak_name, peak_id from annotation where campaign_id = ? and validation_status_id = 0";
+    public final static String INVALIDANNOTATIONLIST = "select * from annotation a inner join user_app ua on ua.user_id = a.user_id where campaign_id = ? and peak_id = ? and validation_status_id = 0";
     public final static String CONFLICTLIST = "select t1.peak_name, t1.num as valid, t2.num as invalid from (select peak_id, peak_name,count(*) as num from annotation where validation = 1 and campaign_id = ? group by peak_id) as t1 inner join (select peak_id, count(*) as num from annotation where validation = 0 and campaign_id = ? group by peak_id) as t2 on t1.peak_id = t2.peak_id group by t1.peak_id";
 
 

@@ -68,7 +68,7 @@ public class StatService extends HttpServlet {
             String rs = gson.toJson(count);
             writer.write(rs);
         } else if (stat == 3){
-            int count = invalidAnnotationCount(campaign);
+            int count = rejecteddAnnotationCount(campaign);
             String rs = gson.toJson(count);
             writer.write(rs);
         } else if (stat == 4){
@@ -91,12 +91,12 @@ public class StatService extends HttpServlet {
         } else if (stat == 6){
             int depth = Integer.parseInt(request.getParameter("depth"));
             if (depth == 1){
-                List<Annotation> list = getInvalidationList(campaign);
+                List<Annotation> list = getRejectionList(campaign);
                 String rs = gson.toJson(list);
                 writer.write(rs);
             } else if (depth == 2){
                 Double peak = Double.parseDouble(request.getParameter("peak"));
-                List<Annotation> list = getInvalidAnnotationList(campaign,peak);
+                List<Annotation> list = getRejectedAnnotationList(campaign,peak);
                 String rs = gson.toJson(list);
                 System.out.println(rs);
                 writer.write(rs);
@@ -155,7 +155,7 @@ public class StatService extends HttpServlet {
         }
     }
 
-    private int invalidAnnotationCount(int campaign) {
+    private int rejecteddAnnotationCount(int campaign) {
         try {
             PreparedStatement statement = connection.prepareStatement(Constants.PEAKINVALIDANNOTATIONCOUNT);
             statement.setInt(1,campaign);
@@ -232,7 +232,7 @@ public class StatService extends HttpServlet {
         }
     }
 
-    private List<Annotation> getInvalidationList(int campaign) {
+    private List<Annotation> getRejectionList(int campaign) {
         try {
             PreparedStatement statement = connection.prepareStatement(Constants.PEAKINVALIDLIST);
             statement.setInt(1,campaign);
@@ -253,7 +253,7 @@ public class StatService extends HttpServlet {
         }
     }
 
-    private List<Annotation> getInvalidAnnotationList(int campaign, Double peak){
+    private List<Annotation> getRejectedAnnotationList(int campaign, Double peak){
         try {
             PreparedStatement statement = connection.prepareStatement(Constants.INVALIDANNOTATIONLIST);
             statement.setInt(1,campaign);
