@@ -80,27 +80,27 @@
             $.each(data, function (index, element) {
                 console.log("peaks");
                 name=element.name;
-                if(peakName == undefined){
+                if(element.peakName == undefined){
                     var peakName = null;
                 } else {
                     var peakName = element.name;
                 }
-                if(localizedNames == undefined){
+                if(element.localizedNames == undefined){
                     var localizedNames = null;
                 }  else {
                     var localizedNames = element.localizedNames;
                 }
-                if(elevation == undefined){
+                if(element.elevation == undefined){
                     var elevation = null;
                 } else {
                     var elevation = element.elevation;
                 }
-                if(latitude == undefined){
+                if(element.latitude == undefined){
                    var latitude = null;
                 } else {
                     var latitude = element.latitude;
                 }
-                if(longitude == undefined){
+                if(element.longitude == undefined){
                     var longitude = null;
                 } else {
                     var longitude = element.longitude;
@@ -124,8 +124,8 @@
                     '<input type="hidden" name="elevation" value="' + element.elevation + '"> ' +
                     '<input type="hidden" name="map" value="3"> ' +
                     '</form>' +
-                    '<button type="button"  name="validation" value="1" onclick="parent.validPeak('+element.peak_id+','+campaign+','+peakName+','+localizedNames+','+elevation+','+latitude+','+longitude+','+1+','+3+')" >Valida</button>' +
-                    '<button type="button"  name="validation" value="0" onclick="parent.invalidPeak('+element.peak_id+','+campaign+','+peakName+','+localizedNames+','+elevation+','+latitude+','+longitude+','+0+','+3+')">Invalida</button>',
+                    '<button type="button" name="validation" value="1" onclick="parent.validPeak('+element.peak_id+','+campaign+','+peakName+','+localizedNames+','+elevation+','+latitude+','+longitude+','+1+','+3+')" >Valid</button>' +
+                    '<button type="button" name="validation" value="0" onclick="parent.invalidPeak('+element.peak_id+','+campaign+','+peakName+','+localizedNames+','+elevation+','+latitude+','+longitude+','+0+','+3+')">Invalid</button>',
                     billboard: {
                         image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
                         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
@@ -258,31 +258,33 @@
         console.log('invalid func called');
         url = server+"/annotationcontroller?peakId="+peakId+
             "&campaign="+campaign;
-        if(peakName != undefined){
+        if(peakName != null){
             url+="&peakName="+peakName;
         }
-        if(localizedNames != undefined){
+        if(localizedNames != null){
             url+= "&localizedNames="+localizedNames;
         }
-         if(elevation != undefined){
+         if(elevation != null){
             url+= "&elevation="+elevation;
          }
-         if(latitude != undefined){
+         if(latitude != null){
             url+= "&latitude=" +latitude;
          }
-         if(longitude != undefined){
+         if(longitude != null){
             url+= "&longitude=" + longitude;
          }
         url += "&validation=" + validation +
         "&map="+ map;
 
-        $.ajax({
+        location.href = url;
+
+        /*$.ajax({
             type: 'post',
             url: url,
             success: function () {
                 location.reload(true);
             }
-        })
+        })*/
 
     };
 

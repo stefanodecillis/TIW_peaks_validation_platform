@@ -49,7 +49,7 @@ public class AnnotationController extends HttpServlet {
                     Double.parseDouble(request.getParameter("latitude")),
                     Double.parseDouble(request.getParameter("longitude")),
                     Double.parseDouble(request.getParameter("elevation")),
-                    request.getParameter("localizaedNames")
+                    request.getParameter("localizedNames")
             )) {
                 System.out.println("---- inserted annotation ----");
             } else {
