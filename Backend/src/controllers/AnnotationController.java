@@ -110,7 +110,7 @@ public class AnnotationController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //nothing to do here
+        this.doPost(request,response);
     }
 
     @Override
