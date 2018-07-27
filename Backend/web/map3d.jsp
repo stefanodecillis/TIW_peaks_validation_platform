@@ -129,8 +129,8 @@
                     billboard: {
                         image: pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(),
                         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                        translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001),
-                        scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 1.8e6, 0.001)
+                        translucencyByDistance: new Cesium.NearFarScalar(0, 1.0, 3.0e6, 0.001),
+                        scaleByDistance: new Cesium.NearFarScalar(0, 1.0, 3.0e6, 0.001)
                     }
                 });
 
