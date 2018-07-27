@@ -1,0 +1,8 @@
+.formBtnClass {
+    text-align: center;
+}
+
+#firstBtn,#secondBtn,#firstBtn2,#secondBtn2 {
+    display: inline-block;
+}
+

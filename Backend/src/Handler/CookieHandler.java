@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Base64;
 
 public class CookieHandler {
@@ -74,8 +75,6 @@ public class CookieHandler {
         return false;
     }
 
-    //TODO checkThis
-
     public boolean createCookie(HttpServletResponse response, String cookieName,String cookieValue){
         try{
             String encodedValue = Base64.getEncoder().encodeToString(cookieValue.getBytes());
@@ -88,6 +87,41 @@ public class CookieHandler {
         } catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void attachCookieUser(HttpServletResponse response,Integer user_id, String user, String psw){
+        System.out.println("...generating cookie...");
+        AuthCookie authCookie = new AuthCookie(user_id, user,psw);
+
+        //json data
+        Gson gson = new Gson();
+        String ret = gson.toJson(authCookie,AuthCookie.class);
+
+        //encode cookie value
+        String cryptRet = Base64.getEncoder().encodeToString(ret.getBytes());
+
+        Cookie ck = new Cookie(Constants.COOKIE_USER,cryptRet);//creating cookie object
+        ck.setMaxAge(60*60*24); //one day --> age should be expressed in seconds
+        response.addCookie(ck);//adding cookie in the response
+        System.out.println("cookie attached to response");
+    }
+
+
+    /**
+     * scattered around --> Denied unauthorized clients
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public boolean isSafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(checkCookieUser(request) == null){
+            RedirectManager.getInstance().redirectHome(response);
+            return false;
+        } else {
+            return true;
         }
     }
 

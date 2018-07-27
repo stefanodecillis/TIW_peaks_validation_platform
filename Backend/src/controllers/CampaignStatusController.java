@@ -3,7 +3,9 @@ package controllers;
 import Entities.AuthCookie;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
+import Util.Tools;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -34,8 +36,7 @@ public class CampaignStatusController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("status") == null || request.getParameter("status").equalsIgnoreCase("")
                 || request.getParameter("campaign") == null || request.getParameter("campaign").equalsIgnoreCase("")){
-            //show error page
-            //TODO Error page
+            RedirectManager.getInstance().redirectGeneralError(response);
             return;
         }
         data = CookieHandler.getInstance().checkCookieUser(request);
@@ -84,6 +85,7 @@ public class CampaignStatusController extends HttpServlet {
             statement.setInt(1, 2);
             statement.setInt(2,campaign_id);
             statement.executeUpdate();
+            Tools.updateDateCampaign(campaign_id);
             System.out.println(">>CAMPAIGN STARTED SUCCESSFULLY<<");
             this.redirectToDetails(response,campaign_id);
         } catch (SQLException e) {
@@ -119,6 +121,8 @@ public class CampaignStatusController extends HttpServlet {
             statement.setInt(1,3);
             statement.setInt(2,campaign_id);
             statement.executeUpdate();
+            Tools.updateDateCampaign(campaign_id);
+            Tools.updateDateCampaignClose(campaign_id);
             System.out.println(">>CAMPAIGN CLOSED SUCCESSFULLY<<");
             this.redirectToDetails(response,campaign_id);
         } catch (SQLException e) {
@@ -137,6 +141,7 @@ public class CampaignStatusController extends HttpServlet {
         response.sendRedirect(Constants.PATH +"/errorEmptyForm");
         System.out.println("---> ErrorPage");
     }
+
 
     @Override
     public void destroy() {

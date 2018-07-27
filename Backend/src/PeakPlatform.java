@@ -1,18 +1,13 @@
 import Entities.AuthCookie;
 import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
-import Handler.GsonSingleton;
 import Util.Constants;
-import com.google.gson.Gson;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.UnavailableException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Base64;
 
 
 public class PeakPlatform extends javax.servlet.http.HttpServlet {
@@ -37,7 +32,7 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
             this.redirectLogPage(response);
             return;
         }
-        String query = Constants.CHECK_COOKIE;    //TODO we can do better with this query --> don't retrieve all data from db
+        String query = Constants.CHECK_COOKIE;
         ResultSet rs = null;
         PreparedStatement statement = null;
         try {
@@ -48,12 +43,14 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
             String user = null;
             String psw = null;
             String job_des = null;
+            int userId = -1;
             while(rs.next()){
                 user = rs.getString("username");
                 psw = rs.getString("psw");
                 job_des = rs.getString("job");
+                userId = rs.getInt("userId");
             }
-            if(!user.equalsIgnoreCase(data.getUsername()) || !psw.equalsIgnoreCase(data.getPassword())){
+            if(userId != data.getUser_id()){
                 System.out.println("wrong auth!");
                 this.redirectLogPage(response);
                 return;  //redirect to login

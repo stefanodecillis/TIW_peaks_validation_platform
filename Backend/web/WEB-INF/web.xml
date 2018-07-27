@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>LogService</servlet-name>
-        <servlet-class>controllers.LogService</servlet-class>
+        <servlet-class>Service.LogService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogService</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>RegisterService</servlet-name>
-        <servlet-class>controllers.RegisterService</servlet-class>
+        <servlet-class>Service.RegisterService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterService</servlet-name>
@@ -109,7 +109,7 @@
 
     <servlet>
         <servlet-name>UserDetailsService</servlet-name>
-        <servlet-class>controllers.UserDetailsService</servlet-class>
+        <servlet-class>Service.UserDetailsService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserDetailsService</servlet-name>
@@ -118,7 +118,7 @@
 
     <servlet>
         <servlet-name>UserDetailsPasswordService</servlet-name>
-        <servlet-class>controllers.UserDetailsPasswordService</servlet-class>
+        <servlet-class>Service.UserDetailsPasswordService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserDetailsPasswordService</servlet-name>
@@ -145,12 +145,13 @@
 
     <servlet>
         <servlet-name>modifyUserDetails</servlet-name>
-        <jsp-file>/modifyUserDetails.html</jsp-file>
+        <jsp-file>/modifyUserDetails.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>modifyUserDetails</servlet-name>
         <url-pattern>/modifyUserDetails</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>errorPswConfirm</servlet-name>
@@ -164,7 +165,7 @@
 
     <servlet>
         <servlet-name>campaignCreationService</servlet-name>
-        <servlet-class>controllers.CampaignCreationService</servlet-class>
+        <servlet-class>Service.CampaignCreationService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>campaignCreationService</servlet-name>
@@ -226,4 +227,145 @@
         <servlet-name>CampaignStatusController</servlet-name>
         <url-pattern>/campaignstatuscontroller</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InputFileController</servlet-name>
+        <servlet-class>controllers.InputFileController</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InputFileController</servlet-name>
+        <url-pattern>/loading</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DragInputFile</servlet-name>
+        <jsp-file>/inputdataform.jsp</jsp-file>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DragInputFile</servlet-name>
+        <url-pattern>/inputdataform</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Map2D</servlet-name>
+        <jsp-file>/map2d.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map2D</servlet-name>
+        <url-pattern>/map2d</url-pattern>
+    </servlet-mapping>
+
+    <!--  start here the test -->
+
+    <servlet>
+        <servlet-name>MapTest</servlet-name>
+        <jsp-file>/mapTest.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MapTest</servlet-name>
+        <url-pattern>/maptest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Map3DTest</servlet-name>
+        <jsp-file>/map3dtest.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map3DTest</servlet-name>
+        <url-pattern>/maptest3</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Map3D</servlet-name>
+        <jsp-file>/map3d.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Map3D</servlet-name>
+        <url-pattern>/map3d</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TestJs</servlet-name>
+        <jsp-file>/testJs.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestJs</servlet-name>
+        <url-pattern>/testjs</url-pattern>
+    </servlet-mapping>
+
+    <!--  finish here the test -->
+    <servlet>
+        <servlet-name>PeakService</servlet-name>
+        <servlet-class>Service.PeakService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PeakService</servlet-name>
+        <url-pattern>/campaign/getpeaks</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationController</servlet-name>
+        <servlet-class>controllers.AnnotationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationController</servlet-name>
+        <url-pattern>/annotationcontroller</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationPage</servlet-name>
+        <jsp-file>/annotationPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationPage</servlet-name>
+        <url-pattern>/annotation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Stats</servlet-name>
+        <jsp-file>/statsCampaign.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Stats</servlet-name>
+        <url-pattern>/stats</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StatService</servlet-name>
+        <servlet-class>Service.StatService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatService</servlet-name>
+        <url-pattern>/stats-api</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AnnotationsDetails</servlet-name>
+        <jsp-file>/annotationsDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AnnotationsDetails</servlet-name>
+        <url-pattern>/annotationsdetails</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GeneralErrorPage</servlet-name>
+        <jsp-file>/generalErrorPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GeneralErrorPage</servlet-name>
+        <url-pattern>/generalerror</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>rejectAnnotationService</servlet-name>
+        <servlet-class>Service.RejectAnnotationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rejectAnnotationService</servlet-name>
+        <url-pattern>/rejectAnnotationService</url-pattern>
+    </servlet-mapping>
+
 </web-app>

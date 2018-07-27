@@ -1,6 +1,7 @@
 package controllers;
 
 import Handler.DBConnectionHandler;
+import Handler.RedirectManager;
 import Util.Constants;
 
 import javax.servlet.ServletContext;
@@ -38,7 +39,7 @@ public class RegisterCampaignController extends HttpServlet {
             while(rs.next()){
                 //there is data. Aborting
                 System.out.println("!!there is some data here. Aborting!!");
-                //TODO redirect to errorPage. There is a subscription yet
+                RedirectManager.getInstance().redirectGeneralError(response);
                 return;
             }
             //it's ok to continue
@@ -55,8 +56,7 @@ public class RegisterCampaignController extends HttpServlet {
             return;
         } catch (SQLException e) {
             e.printStackTrace();
-
-            //TODO Redirect to errorPage (internal error)
+            RedirectManager.getInstance().redirectGeneralError(response);
         }
     }
 
@@ -75,7 +75,6 @@ public class RegisterCampaignController extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
         super.destroy();
     }
 
