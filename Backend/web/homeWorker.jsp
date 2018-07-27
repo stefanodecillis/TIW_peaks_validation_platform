@@ -166,9 +166,8 @@
                         %>
                         <tr>
                             <td>
-                                <a href="campaign.jsp?campaign_id=<%=campaignNotJoined.getInt("campaign_id")  %>">
                                     <%=campaignNotJoined.getString("campaign_name")%>
-                                </a></td>
+                            </td>
                             <td><%=campaignNotJoined.getDate("ts_begin")%>
                             </td>
                             <td><%=campaignNotJoined.getDate("ts_date")%>

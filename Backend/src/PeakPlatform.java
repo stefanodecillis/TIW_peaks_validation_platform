@@ -32,7 +32,7 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
             this.redirectLogPage(response);
             return;
         }
-        String query = Constants.CHECK_COOKIE;    //TODO we can do better with this query --> don't retrieve all data from db
+        String query = Constants.CHECK_COOKIE;
         ResultSet rs = null;
         PreparedStatement statement = null;
         try {
@@ -43,12 +43,14 @@ public class PeakPlatform extends javax.servlet.http.HttpServlet {
             String user = null;
             String psw = null;
             String job_des = null;
+            int userId = -1;
             while(rs.next()){
                 user = rs.getString("username");
                 psw = rs.getString("psw");
                 job_des = rs.getString("job");
+                userId = rs.getInt("userId");
             }
-            if(!user.equalsIgnoreCase(data.getUsername()) || !psw.equalsIgnoreCase(data.getPassword())){
+            if(userId != data.getUser_id()){
                 System.out.println("wrong auth!");
                 this.redirectLogPage(response);
                 return;  //redirect to login
