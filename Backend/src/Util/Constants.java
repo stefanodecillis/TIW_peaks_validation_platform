@@ -41,7 +41,7 @@ public class Constants {
     public final static String CHECK_SUBSCRIPTION = "SELECT * FROM subscribe where worker_id = ? and campaign_id = ?";
     public final static String INSERT_SUBSCRIBE = "INSERT INTO subscribe(worker_id, campaign_id) VALUES(?,?)";
     public final static String SELECT_CAMPAIGN_BY_ID_CAMPAIGN_OWNER = "select * from campaign where campaign_id = ? and owner_id = ? ";
-
+    public final static String UPDATE_DATE_CAMPAIGN = "update campaign set ts_date = CURRENT_DATE where campaign_id = ?";
     public final static String CHECK_PEAKS_BY_CAMPAIGN = "select * from peak p left join (select  peak_id, count(*) as pos_annotations from annotation a where a.validation=2 group by peak_id )  as t on p.peak_id = t.peak_id\n" +
             "left join (select peak_id, count(*) as neg_annotations from annotation a where a.validation = 0 group by peak_id) as s on s.peak_id = p.peak_id where campaign_id=?";
     public final static String CHECK_ANN_STATUS = "select validation_status_id from annotation where peak_id=? and campaign_id=?";
