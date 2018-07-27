@@ -5,6 +5,7 @@ import Handler.CookieHandler;
 import Handler.DBConnectionHandler;
 import Handler.RedirectManager;
 import Util.Constants;
+import Util.Tools;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -84,7 +85,7 @@ public class CampaignStatusController extends HttpServlet {
             statement.setInt(1, 2);
             statement.setInt(2,campaign_id);
             statement.executeUpdate();
-            updateDate(campaign_id);
+            Tools.updateDateCampaign(campaign_id);
             System.out.println(">>CAMPAIGN STARTED SUCCESSFULLY<<");
             this.redirectToDetails(response,campaign_id);
         } catch (SQLException e) {
@@ -120,7 +121,8 @@ public class CampaignStatusController extends HttpServlet {
             statement.setInt(1,3);
             statement.setInt(2,campaign_id);
             statement.executeUpdate();
-            updateDate(campaign_id);
+            Tools.updateDateCampaign(campaign_id);
+            Tools.updateDateCampaignClose(campaign_id);
             System.out.println(">>CAMPAIGN CLOSED SUCCESSFULLY<<");
             this.redirectToDetails(response,campaign_id);
         } catch (SQLException e) {
@@ -138,21 +140,6 @@ public class CampaignStatusController extends HttpServlet {
     private void redirectToErrorPage(HttpServletResponse response) throws IOException {
         response.sendRedirect(Constants.PATH +"/errorEmptyForm");
         System.out.println("---> ErrorPage");
-    }
-
-    private void updateDate(int campaign) {
-        try {
-            Connection connection = DBConnectionHandler.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(Constants.UPDATE_DATE_CAMPAIGN);
-            statement.setInt(1,campaign);
-            //update
-            statement.execute();
-
-            statement.close();
-            connection.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
     }
 
 

@@ -3,6 +3,7 @@ package Service;
 import Enum.AnnotationManagerStatus;
 import Handler.DBConnectionHandler;
 import Util.Constants;
+import Util.Tools;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -39,6 +40,8 @@ public class RejectAnnotationService extends HttpServlet {
             statement.setInt(2, Integer.parseInt(request.getParameter("annotation_id")));
             statement.executeUpdate();
             System.out.println("annotation " + request.getParameter("annotation_id") + " refused");
+            int campaign = Integer.parseInt(request.getParameter("campaign"));
+            Tools.updateDateCampaign(campaign);
 
         } catch (SQLException e) {
             e.printStackTrace();

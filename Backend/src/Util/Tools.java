@@ -78,6 +78,7 @@ public  class Tools {
                     statement.setString(9,localizedNames);
                 }
                 statement.execute();
+                updateDateCampaign(campaignId);
                 statement.close();
                 connection.close();
                 System.out.println("----------- inserted validation ----------");
@@ -86,6 +87,37 @@ public  class Tools {
             }
         });
         return true;
+    }
+
+
+    public static void updateDateCampaign(int campaign) {
+        try {
+            Connection connection = DBConnectionHandler.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(Constants.UPDATE_DATE_CAMPAIGN);
+            statement.setInt(1,campaign);
+            //update
+            statement.execute();
+
+            statement.close();
+            connection.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateDateCampaignClose(int campaign) {
+        try {
+            Connection connection = DBConnectionHandler.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(Constants.UPDATE_DATE_CAMPAIGN_CLOSE);
+            statement.setInt(1,campaign);
+            //update
+            statement.execute();
+
+            statement.close();
+            connection.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     private static boolean checkData(Integer peakId, Integer userId, Integer campaignId){
