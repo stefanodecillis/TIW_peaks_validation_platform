@@ -5,6 +5,7 @@
 <%@ page import="Util.Constants" %>
 <%@ page import="Entities.AuthCookie" %>
 <%@ page import="Handler.CookieHandler" %>
+<%@ page import="Enum.Job" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -107,9 +108,9 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Creation Date</th>
                             <th scope="col">Last Update</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <%
@@ -117,14 +118,20 @@
                         %>
                         <tr>
                             <td>
-                                <a href="map2d.jsp?campaign=<%=campaignJoined.getInt("campaign_id")%>&job=1">
-                                    <%=campaignJoined.getString("campaign_name")%>
-                                </a></td>
-                            <td><%=campaignJoined.getInt("campaign_status_id")%>
+                                <%=campaignJoined.getString("campaign_name")%>
                             </td>
                             <td><%=campaignJoined.getDate("ts_begin")%>
                             </td>
                             <td><%=campaignJoined.getDate("ts_date")%>
+                            </td>
+                            <td>
+                                <form action="<%=Constants.PATH%>/map2d"
+                                      method="post">
+                                    <input type="hidden" name="campaign"
+                                           value="<%=campaignJoined.getInt("campaign_id")%>">
+                                    <input type="hidden" name="job" value="<%=Job.WORKER.getId()%>">
+                                    <button type="submit" class="btn btn-secondary">Enter</button>
+                                </form>
                             </td>
                             <%-- redirect bottone enter sbagliato
                             <td><form id="enterForm" action="<%=Constants.PATH+"/map2d"%>" method="post">
@@ -148,9 +155,9 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Creation Date</th>
                             <th scope="col">Last Update</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
@@ -162,8 +169,6 @@
                                 <a href="campaign.jsp?campaign_id=<%=campaignNotJoined.getInt("campaign_id")  %>">
                                     <%=campaignNotJoined.getString("campaign_name")%>
                                 </a></td>
-                            <td><%=campaignNotJoined.getInt("campaign_status_id")%>
-                            </td>
                             <td><%=campaignNotJoined.getDate("ts_begin")%>
                             </td>
                             <td><%=campaignNotJoined.getDate("ts_date")%>

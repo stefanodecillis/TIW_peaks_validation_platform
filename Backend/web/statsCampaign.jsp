@@ -96,25 +96,25 @@
                 <div>
                     <div class="external">
                         <div class="internal">
-                            <h3> Number of Peaks with 0 Annotations </h3>
+                            <h3> Number of Peaks with 0 Annotations: </h3>
                             <br>
                             <br>
                             <p class="result" id="counter1"></p>
                         </div>
                         <div class="internal">
-                            <h3> Number of Peaks with 1 or more Annotations</h3>
+                            <h3> Number of Peaks with 1 or more Annotations:</h3>
                             <br>
                             <br>
                             <p class="result" id="counter2"></p>
                         </div>
                         <div class="internal">
-                            <h3> Number of Peaks with at least 1 Annotation Rejected </h3>
+                            <h3> Number of Peaks with at least 1 Annotation Rejected: </h3>
                             <br>
                             <br>
                             <p class="result" id="counter3"></p>
                         </div>
                         <div class="internal">
-                            <h3> Number of Conflicts</h3>
+                            <h3> Number of Conflicts:</h3>
                             <br>
                             <br>
                             <p class="result" id="counter4"></p>
