@@ -274,6 +274,7 @@ public class StatService extends HttpServlet {
 
     private Annotation fillAnnotation(ResultSet rs) throws SQLException{
         Annotation annotation = new Annotation();
+        annotation.setPeakId(rs.getDouble("peak_id"));
         annotation.setAnnotationId(rs.getInt("annotation_id"));
         annotation.setElevation(rs.getDouble("elevation"));
         annotation.setValidation(rs.getInt("validation"));
@@ -295,6 +296,7 @@ public class StatService extends HttpServlet {
             List<Peak> peaks = new ArrayList<>();
             while (rs.next()) {
                 Peak peak = new Peak();
+                peak.setPeak_id(rs.getInt("peak_id"));
                 peak.setName(rs.getString("peak_name"));
                 peak.setNum_positive_annotations(rs.getInt("valid"));
                 peak.setNum_negative_annotations(rs.getInt("invalid"));

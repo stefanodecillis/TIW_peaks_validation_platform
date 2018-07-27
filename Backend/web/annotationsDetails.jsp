@@ -108,16 +108,16 @@
                 <div>
                     <h1>List of Annotations about:</h1>
                     <br>
-                    <h3>Peak ID: <%=request.getParameter("peakId")%>
-                    </h3><br>
-                    <h3> Name: <%=request.getParameter("peakName")%>
-                    </h3><br>
-                    <h3>Elevation: <%=request.getParameter("elevation")%>
-                    </h3><br>
-                    <h3>Localized Names: <%=request.getParameter("localizedNames")%>
-                    </h3><br>
-                    <h3>Campaign ID: <%=request.getParameter("campaign")%>
-                    </h3><br>
+                    <h4>Peak ID: <%=request.getParameter("peakId")%>
+                    </h4>
+                    <h4> Name: <%=request.getParameter("peakName")%>
+                    </h4>
+                    <h4>Elevation: <%=request.getParameter("elevation")%>
+                    </h4>
+                    <h4>Localized Names: <%=request.getParameter("localizedNames")%>
+                    </h4>
+                    <h4>Campaign ID: <%=request.getParameter("campaign")%>
+                    </h4><br>
 
                     <table class="table" border>
                         <thead class="thead-dark">
@@ -182,6 +182,8 @@
                         %>
 
                     </table>
+                    <p>Validation = 0 : Invalid Annotation</p>
+                    <p>Validation = 1 : Valid Annotation </p>
 
 
                         <%

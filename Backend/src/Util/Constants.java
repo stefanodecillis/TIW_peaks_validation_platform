@@ -62,7 +62,7 @@ public class Constants {
     public final static String ANNOTATIONPEAKNAME = "select DISTINCT peak_id, peak_name from annotation where campaign_id = ?";
     public final static String PEAKINVALIDLIST = "select distinct peak_name, peak_id from annotation where campaign_id = ? and validation_status_id = 0";
     public final static String INVALIDANNOTATIONLIST = "select * from annotation a inner join user_app ua on ua.user_id = a.user_id where campaign_id = ? and peak_id = ? and validation_status_id = 0";
-    public final static String CONFLICTLIST = "select t1.peak_name, t1.num as valid, t2.num as invalid from (select peak_id, peak_name,count(*) as num from annotation where validation = 2 and campaign_id = ? group by peak_id) as t1 inner join (select peak_id, count(*) as num from annotation where validation = 0 and campaign_id = ? group by peak_id) as t2 on t1.peak_id = t2.peak_id group by t1.peak_id";
+    public final static String CONFLICTLIST = "select t1.peak_id, t1.peak_name, t1.num as valid, t2.num as invalid from (select peak_id, peak_name,count(*) as num from annotation where validation = 2 and campaign_id = ? group by peak_id) as t1 inner join (select peak_id, count(*) as num from annotation where validation = 0 and campaign_id = ? group by peak_id) as t2 on t1.peak_id = t2.peak_id group by t1.peak_id";
 
 
     /* test */

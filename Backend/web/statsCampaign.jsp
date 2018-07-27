@@ -166,7 +166,7 @@
                                     var tr = document.createElement('tr');
                                     var td = document.createElement('td');
                                     var btn = document.createElement('button');
-                                    var text = document.createTextNode(element.peak_name);
+                                    var text = document.createTextNode(element.peak_id);
                                     btn.appendChild(text);
                                     btn.onclick = function () {
                                         getAnnotation(element.peak_id, 1);
@@ -197,7 +197,7 @@
                                     var tr = document.createElement('tr');
                                     var td = document.createElement('td');
                                     var btn = document.createElement('button');
-                                    var text = document.createTextNode(element.peak_name);
+                                    var text = document.createTextNode(element.peak_id);
                                     btn.appendChild(text);
                                     btn.onclick = function () {
                                         getAnnotation(element.peak_id, 2);
@@ -235,7 +235,7 @@
                                     tr.appendChild(fieldCell);
 
                                     var td = document.createElement('td');
-                                    td.appendChild(document.createTextNode(element.name));
+                                    td.appendChild(document.createTextNode(element.peak_id));
                                     tr.appendChild(td);
                                     td = document.createElement('td');
 
